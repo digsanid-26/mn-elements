@@ -564,6 +564,14 @@ if ( ! class_exists( 'MN_Elements_Assets' ) ) {
 			array(),
 			mn_elements()->get_version()
 		);
+
+		// Enqueue mn-button styles in editor for live preview
+		wp_enqueue_style(
+			'mn-button-editor',
+			mn_elements()->plugin_url( 'assets/css/mn-button.css' ),
+			array(),
+			mn_elements()->get_version()
+		);
 	}
 
 	/**

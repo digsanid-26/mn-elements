@@ -79,6 +79,32 @@
     order: 1;
 }
 
+/* Push Left - Icon at absolute left edge */
+.mn-align-icon-push-left {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Push Right - Icon at absolute right edge */
+.mn-align-icon-push-right {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Button with push icon needs relative positioning and full width content */
+.mn-button.mn-has-push-icon {
+    position: relative;
+}
+
+.mn-button.mn-has-push-icon .mn-button-content-wrapper {
+    width: 100%;
+    justify-content: center;
+}
+
 /* Loop Animations */
 @keyframes mn-pulse {
     0%, 100% { transform: scale(1); }

@@ -177,10 +177,13 @@ class MN_Button extends Widget_Base {
 				'options' => [
 					'left' => esc_html__( 'Before', 'mn-elements' ),
 					'right' => esc_html__( 'After', 'mn-elements' ),
+					'push-left' => esc_html__( 'Push Left', 'mn-elements' ),
+					'push-right' => esc_html__( 'Push Right', 'mn-elements' ),
 				],
 				'condition' => [
 					'selected_icon[value]!' => '',
 				],
+				'render_type' => 'template',
 			]
 		);
 
@@ -197,6 +200,8 @@ class MN_Button extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .mn-button .mn-align-icon-right' => 'margin-left: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .mn-button .mn-align-icon-left' => 'margin-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-button .mn-align-icon-push-left' => 'margin-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-button .mn-align-icon-push-right' => 'margin-left: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
 					'selected_icon[value]!' => '',
@@ -411,6 +416,7 @@ class MN_Button extends Widget_Base {
 				],
 				'prefix_class' => 'elementor%s-align-',
 				'default' => '',
+				'render_type' => 'template',
 			]
 		);
 
@@ -447,6 +453,7 @@ class MN_Button extends Widget_Base {
 				'condition' => [
 					'button_position' => 'justify',
 				],
+				'render_type' => 'ui',
 			]
 		);
 
@@ -749,6 +756,11 @@ class MN_Button extends Widget_Base {
 		}
 		if ( ! empty( $settings['icon_hover_animation'] ) ) {
 			$icon_classes[] = 'mn-icon-hover-' . $settings['icon_hover_animation'];
+		}
+
+		// Add push icon class to button for CSS targeting
+		if ( ! empty( $settings['icon_align'] ) && in_array( $settings['icon_align'], [ 'push-left', 'push-right' ] ) ) {
+			$this->add_render_attribute( 'button', 'class', 'mn-has-push-icon' );
 		}
 
 		?>
