@@ -4,15 +4,68 @@ Plugin Elementor kustom yang menyediakan kumpulan widget dan efek untuk memperka
 
 ## Deskripsi
 
-MN Elements adalah plugin WordPress yang dirancang khusus untuk Elementor (versi free maupun pro). Plugin ini menambahkan widget-widget serta efek/style baru yang dibuat secara tertata rapi dan dapat bertambah di tiap versinya tanpa adanya konflik atau masalah satu sama lain.
+MN Elements adalah plugin WordPress yang dirancang khusus untuk Elementor (versi free maupun pro). Plugin ini menambahkan 29 widget kustom serta efek/style baru yang dibuat secara tertata rapi dan dapat bertambah di tiap versinya tanpa adanya konflik atau masalah satu sama lain.
+
+## Versi Terbaru
+
+**Version 2.0.8**
 
 ## Fitur Utama
 
+### Widget Collection (29 Widgets)
+
+#### Basic Widgets
+- **MN Button**: Enhanced button dengan background animation, icon animation, position & alignment controls
+- **MN Heading**: Dynamic heading dengan custom field support (ACF, JetEngine, WordPress Meta)
+- **MN Image or Icon**: Flexible image/icon display widget
+
+#### Content Widgets
+- **MN Posts**: Advanced posts grid dengan pagination, quick view, archive query support
+- **MN Infolist**: Manual list management dengan image, description, dan read more
+- **MN Counter**: Animated counter dengan grid/list layout
+- **MN Running Post**: Scrolling news ticker
+- **MN Download**: File download manager dengan dynamic source
+- **MN View**: File viewer popup untuk PDF, images, videos
+- **MN Dynamic Tabs**: Tabs widget dengan static/dynamic content
+- **MN Accordion**: Collapsible content sections
+- **MN Office Hours**: Business hours display
+
+#### Media Widgets
+- **MN Video Playlist**: YouTube playlist dengan dynamic source support
+- **MN SlideSwipe**: Template-based slider dengan Swiper.js
+- **MN Image Comparison**: Before/after image comparison slider
+- **MN Gallery**: Advanced image gallery dengan JetEngine support
+- **MN Logolist**: Logo carousel/grid dengan dynamic source
+- **MN Instafeed**: Instagram feed (manual/API)
+- **MN Hero Slider**: Full-width hero slider
+- **MN Dual Slider**: Synchronized dual slider
+
+#### Social & Reviews
+- **MN Gootesti**: Google reviews display
+- **MN Social Reviews**: Multi-platform social reviews
+- **MN Testimony**: Testimonial slider/grid
+
+#### Navigation & UI
+- **MN Sidepanel**: Off-canvas sidepanel dengan multiple triggers
+- **MN Postnav**: Post navigation (prev/next)
+
+#### WooCommerce
+- **MN WooCart**: Mini cart dengan AJAX support
+- **MN Woo Product Gallery**: Product image gallery
+
+#### Communication
+- **MN Wachat**: WhatsApp chat widget dengan working hours
+- **MN Author**: Author box widget
+
 ### MNTriks Control
-- **Entrance Animation**: Kontrol animasi masuk yang dapat diterapkan pada Container dan Section
-- **Zoom Out**: Animasi zoom keluar saat elemen muncul
-- **Multiple Animation Types**: Zoom In, Fade In, Slide Up/Down/Left/Right
-- **Customizable Settings**: Delay, Duration, dan Easing yang dapat disesuaikan
+- **Entrance Animation**: Kontrol animasi masuk untuk Container dan Section
+- **Animation Types**: Zoom Out, Zoom In, Fade In, Slide Up/Down/Left/Right
+- **Customizable Settings**: Delay, Duration, dan Easing
+
+### Element Manager
+- **Widget Management**: Enable/disable individual widgets
+- **Performance Optimization**: Only load active widgets
+- **Admin Interface**: Modern UI dengan toggle switches
 
 ## Persyaratan
 
@@ -25,126 +78,74 @@ MN Elements adalah plugin WordPress yang dirancang khusus untuk Elementor (versi
 1. Upload folder `mn-elements` ke direktori `/wp-content/plugins/`
 2. Aktifkan plugin melalui menu 'Plugins' di WordPress admin
 3. Pastikan Elementor sudah terinstal dan aktif
-
-## Cara Penggunaan
-
-### Menggunakan MNTriks Entrance Animation
-
-1. Buka Elementor Editor
-2. Pilih Container atau Section yang ingin diberi animasi
-3. Buka tab **Advanced**
-4. Scroll ke bagian **MNTriks**
-5. Aktifkan **Entrance Animation**
-6. Pilih **Animation Type** (default: Zoom Out)
-7. Atur **Animation Delay** (ms) - waktu tunda sebelum animasi dimulai
-8. Atur **Animation Duration** (ms) - durasi animasi
-9. Pilih **Animation Easing** - jenis easing animasi
-10. Simpan dan lihat hasilnya di frontend
-
-### Jenis Animasi yang Tersedia
-
-- **Zoom Out**: Elemen mulai dari ukuran besar kemudian mengecil ke ukuran normal
-- **Zoom In**: Elemen mulai dari ukuran kecil kemudian membesar ke ukuran normal
-- **Fade In**: Elemen muncul dengan efek fade
-- **Slide Up**: Elemen masuk dari bawah
-- **Slide Down**: Elemen masuk dari atas
-- **Slide Left**: Elemen masuk dari kanan
-- **Slide Right**: Elemen masuk dari kiri
+4. Akses **Elementor > MN Elements** untuk mengelola widget aktif
 
 ## Struktur File
 
 ```
 mn-elements/
-├── mn-elements.php          # File utama plugin
+├── mn-elements.php              # File utama plugin
 ├── includes/
-│   ├── container-extension.php  # Ekstensi untuk Container/Section
-│   └── assets.php              # Manajemen asset
+│   ├── admin/
+│   │   ├── element-manager.php  # Widget manager admin
+│   │   └── settings.php         # Plugin settings
+│   ├── widgets/                 # 29 widget files
+│   ├── widgets-manager.php      # Widget registration
+│   ├── container-extension.php  # MNTriks extension
+│   └── assets.php               # Asset management
 ├── assets/
-│   ├── css/
-│   │   ├── mn-elements-frontend.css  # Style frontend
-│   │   └── mn-elements-editor.css    # Style editor
-│   └── js/
-│       ├── mn-elements-frontend.js   # JavaScript frontend
-│       ├── mn-elements-editor.js     # JavaScript editor
-│       └── lib/
-│           ├── anime.min.js          # Library animasi
-│           └── intersection-observer.js  # Polyfill observer
-└── languages/                # File terjemahan
+│   ├── css/                     # Widget stylesheets
+│   └── js/                      # Widget scripts
+├── docs/                        # Documentation
+└── languages/                   # Translation files
 ```
-
-## Pengembangan
-
-Plugin ini dibangun dengan arsitektur yang dapat diperluas. Untuk menambahkan fitur baru:
-
-1. Buat file ekstensi baru di folder `includes/`
-2. Daftarkan ekstensi di `mn-elements.php`
-3. Tambahkan asset yang diperlukan
-4. Update dokumentasi
 
 ## Teknologi yang Digunakan
 
-- **Anime.js**: Library animasi JavaScript yang ringan dan powerful
-- **Intersection Observer API**: Untuk deteksi elemen yang masuk viewport
-- **Elementor Hooks**: Untuk integrasi yang seamless dengan Elementor
+- **Anime.js**: Library animasi JavaScript
+- **Swiper.js**: Modern slider library
+- **Intersection Observer API**: Viewport detection
+- **Elementor Hooks**: Seamless integration
+- **WordPress REST API**: Dynamic content
 
 ## Kompatibilitas
 
 - ✅ Elementor Free
 - ✅ Elementor Pro
 - ✅ WordPress Multisite
+- ✅ WooCommerce
+- ✅ JetEngine
+- ✅ ACF (Advanced Custom Fields)
 - ✅ Responsive Design
+- ✅ RTL Support
 - ✅ Modern Browsers (Chrome, Firefox, Safari, Edge)
 
 ## Changelog
 
-### Version 1.4.8
-- **MN Dynamic Tabs Widget - Major Enhancement**
-  - ✅ **Content Slider Feature**: Tambahan fitur slider horizontal seperti MN SlideSwipe
-  - ✅ **Slides Controls**: 
-    - Slides to Show (1-6 slides)
-    - Slides to Scroll (1-4 slides)
-    - Gap control untuk jarak antar slides
-  - ✅ **Navigation Controls**:
-    - Show Navigation toggle (prev/next buttons)
-    - Show Dots toggle (dot indicators)
-    - Navigation buttons dengan disable states
-    - Clickable dots dengan active states
-  - ✅ **Layout Enhancement**:
-    - Otomatis berubah ke layout horizontal saat slider aktif
-    - Transform animation dengan translateX() untuk smooth sliding
-    - CSS custom properties untuk dynamic styling
-  - ✅ **Direction & Alignment Controls - FIXED**:
-    - Direction control (Horizontal/Vertical) sekarang bekerja dengan !important CSS
-    - Alignment control (Start/Center/End/Stretch) sekarang bekerja dengan !important CSS
-    - Proper visual feedback untuk semua kombinasi direction/alignment
-  - ✅ **Mobile Accordion Enhancement**:
-    - Mobile accordion mendukung content slider
-    - Auto-reset slider transforms untuk mobile layout
-    - Desktop restore functionality saat kembali ke desktop
-    - Touch-friendly accordion headers
-  - ✅ **JavaScript Improvements**:
-    - Enhanced slider functionality dengan nextSlide(), prevSlide(), goToSlide()
-    - updateSliderControls() untuk button states dan active dots
-    - Mobile responsive detection dan auto-switch
-    - Autoplay dengan pause on hover functionality
-  - ✅ **CSS Enhancements**:
-    - Responsive slider layout dengan flexbox
-    - Dynamic width calculation berdasarkan slides to show
-    - Mobile-first responsive design
-    - Smooth transitions dan animations
+### Version 2.0.8
+- **MN Button**: Added Position (left, center, right, stretch) and Alignment controls
+- **Element Manager**: Complete widget management system
+- **Performance**: Conditional widget loading
+
+### Version 2.0.0
+- **Major Release**: 29 widgets available
+- **MN Instafeed**: Instagram feed widget
+- **MN WooCart**: WooCommerce cart widget
+- **MN Wachat**: WhatsApp chat with working hours
+- **MN View**: File viewer popup
+- **MN Download**: File download manager
+- **Dynamic Source**: Support for ACF, JetEngine, WordPress Meta
 
 ### Version 1.0.0
 - Initial release
 - MNTriks Entrance Animation control
-- Support untuk Container dan Section
-- 7 jenis animasi entrance
-- Kontrol delay, duration, dan easing
+- Basic widget collection
 
 ## Dukungan
 
 Untuk dukungan dan pertanyaan, silakan hubungi:
-- Website: [https://manakreatif.com](https://manakreatif.com)
-- Email: support@manakreatif.com
+- Website: [https://digsan.id](https://digsan.id)
+- GitHub: [https://github.com/digsanid-26/mn-elements](https://github.com/digsanid-26/mn-elements)
 
 ## Lisensi
 
@@ -156,4 +157,4 @@ Kontribusi sangat diterima! Silakan buat pull request atau laporkan issue di rep
 
 ---
 
-**Dibuat dengan ❤️ oleh Manakreatif**
+**Dibuat dengan ❤️ oleh DigsanID**
