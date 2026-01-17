@@ -1,0 +1,730 @@
+/* MN Sidepanel Widget Styles */
+
+/* Base Styles */
+.mn-sidepanel {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.mn-sidepanel * {
+    pointer-events: auto;
+}
+
+/* Position Variants */
+.mn-sidepanel--left {
+    left: 0;
+}
+
+.mn-sidepanel--right {
+    right: 0;
+}
+
+/* Trigger Container */
+.mn-sidepanel__trigger {
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    background: inherit;
+    width: auto;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left center;
+}
+
+.mn-sidepanel--left .mn-sidepanel__trigger {
+    left: 0;
+    transform-origin: left center;
+}
+
+.mn-sidepanel--right .mn-sidepanel__trigger {
+    right: 0;
+    transform-origin: right center;
+}
+
+/* Trigger Items */
+.mn-sidepanel__trigger-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    transition: background-color 0.3s ease, width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    min-height: 60px;
+    height: auto;
+    width: 100%;
+}
+
+.mn-sidepanel__trigger-item.active {
+    z-index: 11;
+}
+
+.mn-sidepanel__trigger-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 15px 12px;
+    width: 100%;
+    min-height: inherit;
+    position: relative;
+    transition: justify-content 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Icon Position using prefix class */
+
+/* Icon Before (Default) - Icon centered when title hidden */
+.mn-sidepanel-icon-before .mn-sidepanel__trigger-wrapper {
+    flex-direction: row !important;
+    justify-content: center;
+}
+
+/* Icon Before - Align left when title visible (hover/active) */
+.mn-sidepanel-icon-before .mn-sidepanel__trigger-item:hover .mn-sidepanel__trigger-wrapper,
+.mn-sidepanel-icon-before .mn-sidepanel__trigger-item.active .mn-sidepanel__trigger-wrapper {
+    justify-content: flex-start;
+}
+
+.mn-sidepanel-icon-before .mn-sidepanel__trigger-icon {
+    position: relative;
+    margin-right: 0;
+    order: 1;
+}
+
+.mn-sidepanel-icon-before .mn-sidepanel__trigger-title {
+    text-align: left;
+    padding-left: 0;
+    margin-left: 12px;
+    order: 2;
+}
+
+/* Icon After - Icon centered when title hidden */
+.mn-sidepanel-icon-after .mn-sidepanel__trigger-wrapper {
+    flex-direction: row !important;
+    justify-content: center;
+}
+
+/* Icon After - Space between when title visible (hover/active) */
+.mn-sidepanel-icon-after .mn-sidepanel__trigger-item:hover .mn-sidepanel__trigger-wrapper,
+.mn-sidepanel-icon-after .mn-sidepanel__trigger-item.active .mn-sidepanel__trigger-wrapper {
+    justify-content: space-between;
+}
+
+.mn-sidepanel-icon-after .mn-sidepanel__trigger-icon {
+    position: relative;
+    margin-left: 0;
+    order: 2;
+}
+
+.mn-sidepanel-icon-after .mn-sidepanel__trigger-title {
+    text-align: right;
+    padding-right: 0;
+    margin-right: 12px;
+    order: 1;
+    flex: 1;
+}
+
+.mn-sidepanel__trigger-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.mn-sidepanel__trigger-title {
+    font-size: 14px;
+    text-align: left;
+    line-height: 1.4;
+    word-break: break-word;
+    white-space: nowrap;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1), margin 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Show title on hover - Icon Before */
+.mn-sidepanel-icon-before .mn-sidepanel__trigger-item:hover .mn-sidepanel__trigger-title {
+    opacity: 1;
+    width: auto;
+}
+
+/* Show title on hover - Icon After */
+.mn-sidepanel-icon-after .mn-sidepanel__trigger-item:hover .mn-sidepanel__trigger-title {
+    opacity: 1;
+    width: auto;
+}
+
+/* Show title for active trigger item - Icon Before */
+.mn-sidepanel-icon-before .mn-sidepanel__trigger-item.active .mn-sidepanel__trigger-title {
+    opacity: 1;
+    width: auto;
+}
+
+/* Show title for active trigger item - Icon After */
+.mn-sidepanel-icon-after .mn-sidepanel__trigger-item.active .mn-sidepanel__trigger-title {
+    opacity: 1;
+    width: auto;
+}
+
+/* Keep title visible when panel is open - Icon Before */
+.mn-sidepanel.open.mn-sidepanel-icon-before .mn-sidepanel__trigger-title {
+    opacity: 1;
+    width: auto;
+}
+
+/* Keep title visible when panel is open - Icon After */
+.mn-sidepanel.open.mn-sidepanel-icon-after .mn-sidepanel__trigger-title {
+    opacity: 1;
+    width: auto;
+}
+
+/* Keep trigger expanded when panel is open */
+.mn-sidepanel.open .mn-sidepanel__trigger {
+    width: var(--trigger-hover-width, 180px) !important;
+}
+
+/* Keep trigger expanded when item is active */
+.mn-sidepanel__trigger:has(.mn-sidepanel__trigger-item.active) {
+    width: var(--trigger-hover-width, 180px) !important;
+}
+
+/* Content Panel */
+.mn-sidepanel__content {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    transform: translateX(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+}
+
+.mn-sidepanel--left .mn-sidepanel__content {
+    left: 0;
+    transform: translateX(-100%);
+}
+
+.mn-sidepanel--right .mn-sidepanel__content {
+    right: 0;
+    transform: translateX(100%);
+}
+
+.mn-sidepanel.open .mn-sidepanel__content {
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* Close Button */
+.mn-sidepanel__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333333;
+    z-index: 10;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.mn-sidepanel__close:hover {
+    color: #000000;
+    transform: rotate(90deg);
+}
+
+/* Content Inner */
+.mn-sidepanel__content-inner {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 30px;
+    padding-top: 60px;
+}
+
+/* Add padding to prevent content being hidden by trigger on desktop */
+.mn-sidepanel--left .mn-sidepanel__content-inner {
+    padding-left: 80px; /* Default trigger width (60px) + extra space (20px) */
+}
+
+.mn-sidepanel--right .mn-sidepanel__content-inner {
+    padding-right: 80px; /* Default trigger width (60px) + extra space (20px) */
+}
+
+.mn-sidepanel__content-inner::-webkit-scrollbar {
+    width: 8px;
+}
+
+.mn-sidepanel__content-inner::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.mn-sidepanel__content-inner::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.mn-sidepanel__content-inner::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Panel Content */
+.mn-sidepanel__panel-content {
+    animation: fadeIn 0.3s ease;
+}
+
+.mn-sidepanel__panel-content.active {
+    display: block !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Overlay */
+.mn-sidepanel__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 8;
+}
+
+.mn-sidepanel.open .mn-sidepanel__overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Push Body Mode - Hide overlay and adjust layout */
+body.mn-sidepanel-push-mode .mn-sidepanel__overlay {
+    display: none;
+}
+
+/* Smooth transition for body padding changes */
+body.mn-sidepanel-push-mode {
+    transition: padding 0.3s ease;
+}
+
+/* Responsive - Tablet (Bottom Layout) */
+@media (max-width: 1024px) {
+    .mn-sidepanel {
+        bottom: 0;
+        top: auto;
+        height: auto;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+    }
+    
+    .mn-sidepanel__trigger {
+        flex-direction: row;
+        width: 100vw !important;
+        height: auto;
+        bottom: 0;
+        top: auto;
+        left: 0 !important;
+        right: 0 !important;
+    }
+    
+    .mn-sidepanel__trigger-item {
+        flex: 1;
+        border-bottom: none;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .mn-sidepanel__trigger-item:last-child {
+        border-right: none;
+    }
+    
+    .mn-sidepanel__trigger-wrapper {
+        flex-direction: column;
+        padding: 12px 8px;
+        gap: 6px;
+    }
+    
+    /* Override icon position on tablet - always use column layout */
+    .mn-sidepanel-icon-before .mn-sidepanel__trigger-wrapper,
+    .mn-sidepanel-icon-after .mn-sidepanel__trigger-wrapper {
+        flex-direction: column !important;
+        justify-content: center;
+    }
+    
+    .mn-sidepanel-icon-after .mn-sidepanel__trigger-wrapper {
+        flex-direction: column-reverse !important;
+    }
+    
+    .mn-sidepanel__trigger-icon {
+        font-size: 20px;
+    }
+    
+    .mn-sidepanel__trigger-title {
+        font-size: 11px;
+        text-align: center;
+        opacity: 1 !important;
+        width: auto !important;
+        max-width: none !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    /* Disable trigger width animation on tablet */
+    .mn-sidepanel__trigger {
+        width: 100% !important;
+        transition: none !important;
+    }
+    
+    .mn-sidepanel__content {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0;
+        top: auto;
+        height: 60vh;
+        max-height: 60vh;
+    }
+    
+    .mn-sidepanel__content-inner {
+        padding: 20px !important;
+        padding-top: 60px !important;
+        padding-bottom: 80px !important; /* Extra space for trigger at bottom */
+    }
+    
+    /* Reset side padding on tablet - trigger is at bottom */
+    .mn-sidepanel--left .mn-sidepanel__content-inner,
+    .mn-sidepanel--right .mn-sidepanel__content-inner {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+    
+    /* Disable desktop hover effects on tablet */
+    .mn-sidepanel__trigger-item:hover .mn-sidepanel__trigger-wrapper {
+        justify-content: center !important;
+    }
+    
+    .mn-sidepanel__trigger-item:hover .mn-sidepanel__trigger-title {
+        opacity: 1 !important;
+        width: auto !important;
+    }
+    
+    /* Disable trigger width expansion on tablet */
+    .mn-sidepanel.open .mn-sidepanel__trigger,
+    .mn-sidepanel__trigger:has(.mn-sidepanel__trigger-item.active) {
+        width: 100vw !important;
+    }
+    
+    /* Change slide animation from side to bottom */
+    .mn-sidepanel--left .mn-sidepanel__content,
+    .mn-sidepanel--right .mn-sidepanel__content {
+        transform: translateY(100%) !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+    
+    .mn-sidepanel.open .mn-sidepanel__content {
+        transform: translateY(0) !important;
+    }
+}
+
+/* Push Body Mode - Body already has padding applied via JS */
+/* No additional styles needed for push mode as padding is handled by JavaScript */
+
+/* Disable push body on tablet and mobile - remove padding and show overlay */
+@media (max-width: 1024px) {
+    body.mn-sidepanel-push-mode {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    body.mn-sidepanel-push-mode .mn-sidepanel__overlay {
+        display: block;
+    }
+}
+
+/* Hide on Mobile Control */
+@media (max-width: 768px) {
+    .mn-sidepanel__trigger-item.mn-hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Always show title on mobile */
+@media (max-width: 768px) {
+    .mn-sidepanel__trigger-title {
+        opacity: 1 !important;
+        max-width: none !important;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .mn-sidepanel {
+        bottom: 0;
+        top: auto;
+        height: auto;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+    }
+    
+    .mn-sidepanel__trigger {
+        flex-direction: row;
+        width: 100vw !important;
+        height: auto;
+        bottom: 0;
+        top: auto;
+        left: 0 !important;
+        right: 0 !important;
+    }
+    
+    .mn-sidepanel__trigger-item {
+        flex: 1;
+        border-bottom: none;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .mn-sidepanel__trigger-item:last-child {
+        border-right: none;
+    }
+    
+    .mn-sidepanel__trigger-wrapper {
+        flex-direction: column;
+        padding: 10px 5px;
+        gap: 5px;
+    }
+    
+    /* Override icon position on mobile - always use column layout */
+    .mn-sidepanel-icon-before .mn-sidepanel__trigger-wrapper,
+    .mn-sidepanel-icon-after .mn-sidepanel__trigger-wrapper {
+        flex-direction: column !important;
+        justify-content: center;
+    }
+    
+    .mn-sidepanel-icon-after .mn-sidepanel__trigger-wrapper {
+        flex-direction: column-reverse !important;
+    }
+    
+    .mn-sidepanel__trigger-icon {
+        font-size: 18px;
+    }
+    
+    .mn-sidepanel__trigger-title {
+        font-size: 10px;
+        text-align: center;
+        /* Always visible on mobile - no animation */
+        opacity: 1 !important;
+        width: auto !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .mn-sidepanel-icon-after .mn-sidepanel__trigger-title {
+        text-align: center;
+    }
+    
+    /* Disable trigger width animation on mobile */
+    .mn-sidepanel__trigger {
+        width: 100% !important;
+        transition: none !important;
+    }
+    
+    .mn-sidepanel__trigger-wrapper {
+        transition: none !important;
+        justify-content: center !important;
+    }
+    
+    /* Override Elementor trigger width settings on mobile */
+    .mn-sidepanel__trigger-item {
+        width: auto !important;
+        flex: 1 !important;
+        transition: none !important;
+    }
+    
+    /* Disable hover width expansion on mobile */
+    .mn-sidepanel__trigger:hover,
+    .mn-sidepanel.open .mn-sidepanel__trigger {
+        width: 100% !important;
+    }
+    
+    .mn-sidepanel__trigger-item:hover,
+    .mn-sidepanel__trigger-item.active {
+        width: auto !important;
+        /* background-color: Allow hover color from Elementor settings */
+    }
+    
+    /* Disable hover effects on mobile */
+    .mn-sidepanel__trigger-item:hover .mn-sidepanel__trigger-title,
+    .mn-sidepanel__trigger-item.active .mn-sidepanel__trigger-title {
+        opacity: 1 !important;
+        width: auto !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    /* Disable hover justify-content changes */
+    .mn-sidepanel-icon-before .mn-sidepanel__trigger-item:hover .mn-sidepanel__trigger-wrapper,
+    .mn-sidepanel-icon-before .mn-sidepanel__trigger-item.active .mn-sidepanel__trigger-wrapper,
+    .mn-sidepanel-icon-after .mn-sidepanel__trigger-item:hover .mn-sidepanel__trigger-wrapper,
+    .mn-sidepanel-icon-after .mn-sidepanel__trigger-item.active .mn-sidepanel__trigger-wrapper {
+        justify-content: center !important;
+    }
+    
+    /* Disable ALL hover state changes on mobile */
+    .mn-sidepanel-icon-before .mn-sidepanel__trigger-item:hover .mn-sidepanel__trigger-title,
+    .mn-sidepanel-icon-after .mn-sidepanel__trigger-item:hover .mn-sidepanel__trigger-title {
+        opacity: 1 !important;
+        width: auto !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    /* Disable trigger hover expansion - force 100% width always */
+    .mn-sidepanel__trigger,
+    .mn-sidepanel__trigger:hover,
+    .mn-sidepanel__trigger:has(.mn-sidepanel__trigger-item:hover),
+    .mn-sidepanel__trigger:has(.mn-sidepanel__trigger-item.active) {
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Force trigger items to stay auto width */
+    .mn-sidepanel__trigger-item,
+    .mn-sidepanel__trigger-item:hover,
+    .mn-sidepanel__trigger-item.active {
+        width: auto !important;
+        min-width: auto !important;
+        max-width: none !important;
+    }
+    
+    /* Touch devices: Allow background color hover from Elementor settings */
+    /* No override needed - background-color will work naturally on touch devices */
+    
+    .mn-sidepanel__content {
+        width: 100vw !important;
+        height: 70vh !important;
+        max-height: 70vh !important;
+        top: auto;
+        bottom: 0;
+        left: 0 !important;
+        right: 0 !important;
+    }
+    
+    .mn-sidepanel--left .mn-sidepanel__content,
+    .mn-sidepanel--right .mn-sidepanel__content {
+        left: 0 !important;
+        right: 0 !important;
+        transform: translateY(100%) !important;
+    }
+    
+    .mn-sidepanel.open .mn-sidepanel__content {
+        transform: translateY(0) !important;
+    }
+    
+    .mn-sidepanel__content-inner {
+        padding: 20px !important;
+        padding-top: 60px !important;
+        padding-bottom: 90px !important; /* Extra space for trigger at bottom */
+    }
+    
+    /* Reset side padding on mobile - trigger is at bottom */
+    .mn-sidepanel--left .mn-sidepanel__content-inner,
+    .mn-sidepanel--right .mn-sidepanel__content-inner {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+    
+    .mn-sidepanel__close {
+        display: block;
+    }
+}
+
+/* Mobile Small */
+@media (max-width: 480px) {
+    .mn-sidepanel__content-inner {
+        padding: 15px;
+        padding-top: 50px;
+    }
+    
+    .mn-sidepanel__trigger-wrapper {
+        gap: 5px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .mn-sidepanel {
+        display: none;
+    }
+}
+
+/* Accessibility */
+.mn-sidepanel__trigger-item:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: -2px;
+}
+
+.mn-sidepanel__close:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .mn-sidepanel__trigger-item {
+        border-color: currentColor;
+    }
+    
+    .mn-sidepanel__overlay {
+        background: rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .mn-sidepanel__content,
+    .mn-sidepanel__overlay,
+    .mn-sidepanel__close {
+        transition: none;
+    }
+    
+    .mn-sidepanel__trigger-item {
+        transition: none;
+    }
+    
+    .mn-sidepanel__panel-content {
+        animation: none;
+    }
+}

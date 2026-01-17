@@ -1,0 +1,257 @@
+/* MN Counter Widget Styles */
+
+/* Base Counter Styles */
+.mn-counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+/* Number Wrapper */
+.mn-counter-number-wrapper {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.mn-counter-number {
+    display: inline-block;
+}
+
+.mn-counter-number-prefix,
+.mn-counter-number-suffix {
+    font-size: 0.8em;
+    opacity: 0.8;
+}
+
+/* Title Styles */
+.mn-counter-title {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* Description Styles */
+.mn-counter-description {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+/* Icon Styles */
+.mn-counter-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    line-height: 1;
+    margin-bottom: 15px;
+}
+
+.mn-counter-icon i,
+.mn-counter-icon svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+}
+
+/* Grid Layout (Default) */
+.mn-counter-layout-grid .mn-counter {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.mn-counter-layout-grid .mn-counter-number-wrapper {
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.mn-counter-layout-grid .mn-counter-title {
+    text-align: inherit;
+    margin-bottom: 10px;
+}
+
+.mn-counter-layout-grid .mn-counter-description {
+    text-align: inherit;
+}
+
+/* Icon Position - Top (Default for Grid) */
+.mn-counter-layout-grid.mn-counter-icon-position-top .mn-counter {
+    flex-direction: column;
+}
+
+.mn-counter-layout-grid.mn-counter-icon-position-top .mn-counter-icon {
+    margin-bottom: 15px;
+}
+
+/* Icon Position - Left (Grid) */
+.mn-counter-layout-grid.mn-counter-icon-position-left .mn-counter {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.mn-counter-layout-grid.mn-counter-icon-position-left .mn-counter-icon {
+    margin-right: 15px;
+    margin-bottom: 0;
+}
+
+/* Icon Position - Right (Grid) */
+.mn-counter-layout-grid.mn-counter-icon-position-right .mn-counter {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+}
+
+.mn-counter-layout-grid.mn-counter-icon-position-right .mn-counter-icon {
+    margin-left: 15px;
+    margin-bottom: 0;
+}
+
+/* List Layout */
+.mn-counter-layout-list .mn-counter {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+}
+
+.mn-counter-layout-list .mn-counter-number-column {
+    flex: 0 0 30%; /* Default 30% width, overridden by controls */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Default center alignment, overridden by controls */
+    gap: 10px;
+}
+
+.mn-counter-layout-list .mn-counter-content-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Default center alignment, overridden by controls */
+}
+
+.mn-counter-layout-list .mn-counter-number-wrapper {
+    margin-bottom: 0;
+    justify-content: center; /* Default center, overridden by controls */
+}
+
+.mn-counter-layout-list .mn-counter-title {
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.mn-counter-layout-list .mn-counter-description {
+    text-align: left;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Icon Position Responsive */
+    .mn-counter-layout-grid.mn-counter-icon-position-left .mn-counter,
+    .mn-counter-layout-grid.mn-counter-icon-position-right .mn-counter {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .mn-counter-layout-grid.mn-counter-icon-position-left .mn-counter-icon,
+    .mn-counter-layout-grid.mn-counter-icon-position-right .mn-counter-icon {
+        margin: 0 0 15px 0;
+    }
+    
+    .mn-counter-layout-list .mn-counter {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .mn-counter-layout-list .mn-counter-number-column {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .mn-counter-layout-list .mn-counter-content-column {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .mn-counter-layout-list .mn-counter-number-wrapper {
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    
+    .mn-counter-layout-list .mn-counter-title {
+        text-align: center;
+    }
+    
+    .mn-counter-layout-list .mn-counter-description {
+        text-align: center;
+    }
+    
+    .mn-counter-number-wrapper {
+        font-size: 36px;
+    }
+    
+    .mn-counter-icon {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mn-counter-number-wrapper {
+        font-size: 28px;
+    }
+    
+    .mn-counter-title {
+        font-size: 16px;
+    }
+    
+    .mn-counter-description {
+        font-size: 13px;
+    }
+    
+    .mn-counter-icon {
+        font-size: 32px;
+    }
+}
+
+/* Animation Support */
+.mn-counter-number {
+    transition: all 0.3s ease;
+}
+
+/* Hover Effects */
+.mn-counter:hover .mn-counter-number-wrapper {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.mn-counter:hover .mn-counter-title {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+/* Print Styles */
+@media print {
+    .mn-counter {
+        break-inside: avoid;
+        margin-bottom: 20px;
+    }
+    
+    .mn-counter:hover .mn-counter-number-wrapper {
+        transform: none;
+    }
+    
+    .mn-counter:hover .mn-counter-title {
+        opacity: 1;
+    }
+}

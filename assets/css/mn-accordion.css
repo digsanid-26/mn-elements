@@ -1,0 +1,251 @@
+/**
+ * MN Accordion Widget Styles
+ *
+ * @package mn-elements
+ */
+
+/* Accordion Container */
+.mn-accordion {
+    width: 100%;
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.mn-accordion *,
+.mn-accordion *::before,
+.mn-accordion *::after {
+    box-sizing: border-box;
+}
+
+/* Accordion Item */
+.mn-accordion-item {
+    border: 1px solid #d5d8dc;
+    overflow: hidden;
+    width: 100%;
+    min-width: 100%;
+}
+
+.mn-accordion-item + .mn-accordion-item {
+    border-top: none;
+}
+
+/* Accordion Title */
+.mn-accordion-title {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0;
+    padding: 15px 20px;
+    outline: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    user-select: none;
+    width: 100%;
+}
+
+.mn-accordion-title:hover {
+    opacity: 0.9;
+}
+
+.mn-accordion-title:focus {
+    outline: none;
+}
+
+/* Title Text */
+.mn-accordion-title-text {
+    flex: 1;
+}
+
+/* Icon Alignment */
+.mn-accordion-icon-left .mn-accordion-icon {
+    order: -1;
+}
+
+.mn-accordion-icon-right .mn-accordion-icon {
+    order: 1;
+    margin-left: auto;
+}
+
+.mn-accordion-icon-right .mn-accordion-title-text {
+    flex: 1;
+}
+
+/* Accordion Icon */
+.mn-accordion-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5em;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.mn-accordion-icon svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+.mn-accordion-icon i {
+    transition: transform 0.3s ease;
+}
+
+/* Icon States */
+.mn-accordion-icon-closed {
+    display: block;
+}
+
+.mn-accordion-icon-opened {
+    display: none;
+}
+
+.mn-accordion-item.mn-active .mn-accordion-icon-closed {
+    display: none;
+}
+
+.mn-accordion-item.mn-active .mn-accordion-icon-opened {
+    display: block;
+}
+
+/* Numbering */
+.mn-accordion-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Accordion Content */
+.mn-accordion-content {
+    display: none;
+    padding: 15px 20px;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Content Separator (border between title and content) */
+.mn-accordion-content.mn-has-separator {
+    border-top: 1px solid #d5d8dc;
+}
+
+.mn-accordion-item.mn-active .mn-accordion-content {
+    display: block;
+}
+
+.mn-accordion-content-inner {
+    line-height: 1.6;
+    width: 100%;
+}
+
+.mn-accordion-content-inner p:last-child {
+    margin-bottom: 0;
+}
+
+/* Animation */
+.mn-accordion-content.mn-animating {
+    display: block;
+    overflow: hidden;
+    width: 100% !important;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .mn-accordion-title {
+        padding: 12px 15px;
+    }
+
+    .mn-accordion-icon {
+        width: 1.2em;
+    }
+
+    .mn-accordion-content {
+        padding: 10px 15px;
+    }
+
+    .mn-accordion-number {
+        font-size: 0.9em;
+    }
+}
+
+/* RTL Support */
+[dir="rtl"] .mn-accordion-icon-left .mn-accordion-icon {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+[dir="rtl"] .mn-accordion-icon-right .mn-accordion-icon {
+    margin-left: 0;
+    margin-right: 15px;
+}
+
+[dir="rtl"] .mn-accordion-number {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+/* Accessibility */
+.mn-accordion-title[aria-expanded="true"] {
+    position: relative;
+}
+
+.mn-accordion-content[hidden] {
+    display: none;
+}
+
+/* Focus Visible */
+.mn-accordion-title:focus-visible {
+    outline: none;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .mn-accordion-item {
+        border-width: 2px;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .mn-accordion-title,
+    .mn-accordion-icon,
+    .mn-accordion-icon i,
+    .mn-accordion-number,
+    .mn-accordion-content {
+        transition: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .mn-accordion-item {
+        break-inside: avoid;
+    }
+
+    .mn-accordion-content {
+        display: block !important;
+    }
+
+    .mn-accordion-icon {
+        display: none;
+    }
+}
+
+/* Container Width Support */
+.e-con-inner > .elementor-widget-mn-accordion,
+.e-con > .elementor-widget-mn-accordion {
+    width: var(--container-widget-width, 100%);
+    min-width: 0;
+    --flex-grow: var(--container-widget-flex-grow);
+}
+
+/* Ensure widget wrapper maintains full width */
+.elementor-widget-mn-accordion {
+    width: 100%;
+}
+
+.elementor-widget-mn-accordion .elementor-widget-container {
+    width: 100%;
+}

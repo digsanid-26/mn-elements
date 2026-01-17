@@ -1,0 +1,517 @@
+/**
+ * MN View Widget Styles
+ * 
+ * Styles for file viewer widget with popup/modal functionality
+ * @since 1.4.1
+ */
+
+/* Widget Container */
+.mn-view-widget {
+    position: relative;
+}
+
+/* Files List */
+.mn-view-files-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* File Item */
+.mn-view-file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.mn-view-file-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* File Info */
+.mn-view-file-info {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.mn-view-file-title {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.3;
+}
+
+.mn-view-file-description {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* View Button */
+.mn-view-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #0073aa;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.mn-view-button:hover {
+    background: #005a87;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 115, 170, 0.3);
+}
+
+.mn-view-button:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+.mn-view-button-icon {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.mn-view-button-text {
+    font-size: inherit;
+}
+
+/* File Type Indicators */
+.mn-view-file-item[data-file-type="pdf"] .mn-view-file-title::before {
+    content: "📄 ";
+    margin-right: 5px;
+}
+
+.mn-view-file-item[data-file-type="image"] .mn-view-file-title::before {
+    content: "🖼️ ";
+    margin-right: 5px;
+}
+
+.mn-view-file-item[data-file-type="video"] .mn-view-file-title::before {
+    content: "🎥 ";
+    margin-right: 5px;
+}
+
+/* Popup Modal */
+.mn-view-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mn-view-popup.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mn-view-popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+}
+
+.mn-view-popup-content {
+    position: relative;
+    width: 90%;
+    height: 80vh;
+    max-width: 1200px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.mn-view-popup.active .mn-view-popup-content {
+    transform: scale(1);
+}
+
+/* Popup Header */
+.mn-view-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+}
+
+.mn-view-popup-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    flex: 1;
+}
+
+.mn-view-popup-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mn-view-zoom-out,
+.mn-view-zoom-in,
+.mn-view-popup-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    color: #666;
+}
+
+.mn-view-zoom-out:hover,
+.mn-view-zoom-in:hover {
+    background: #0073aa;
+    color: #fff;
+    border-color: #0073aa;
+}
+
+.mn-view-popup-close {
+    background: #dc3545;
+    color: #fff;
+    border-color: #dc3545;
+}
+
+.mn-view-popup-close:hover {
+    background: #c82333;
+    border-color: #c82333;
+}
+
+.mn-view-zoom-level {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* Popup Body */
+.mn-view-popup-body {
+    flex: 1;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.mn-view-file-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    position: relative;
+}
+
+/* File Viewers */
+.mn-view-pdf-viewer {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 4px;
+}
+
+.mn-view-image-viewer {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+    cursor: grab;
+}
+
+.mn-view-image-viewer:active {
+    cursor: grabbing;
+}
+
+.mn-view-image-viewer.zoomed {
+    cursor: move;
+}
+
+.mn-view-video-viewer {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 4px;
+}
+
+/* Loading State */
+.mn-view-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 200px;
+    color: #666;
+}
+
+.mn-view-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #0073aa;
+    border-radius: 50%;
+    animation: mn-view-spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes mn-view-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.mn-view-loading-text {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Error State */
+.mn-view-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 200px;
+    color: #dc3545;
+}
+
+.mn-view-error-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.mn-view-error-text {
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Zoom Controls */
+.mn-view-zoom-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 8px 12px;
+    border-radius: 20px;
+    z-index: 10;
+}
+
+.mn-view-zoom-controls button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 2px;
+    transition: background 0.2s ease;
+}
+
+.mn-view-zoom-controls button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mn-view-zoom-controls .mn-view-zoom-level {
+    color: #fff;
+    font-size: 12px;
+    min-width: 35px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mn-view-file-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .mn-view-file-info {
+        margin-right: 0;
+        width: 100%;
+    }
+    
+    .mn-view-button {
+        align-self: flex-start;
+    }
+    
+    .mn-view-popup-content {
+        width: 95%;
+        height: 90vh;
+        margin: 20px;
+    }
+    
+    .mn-view-popup-header {
+        padding: 15px;
+    }
+    
+    .mn-view-popup-title {
+        font-size: 16px;
+    }
+    
+    .mn-view-popup-body {
+        padding: 15px;
+    }
+    
+    .mn-view-zoom-controls {
+        bottom: 15px;
+        right: 15px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mn-view-file-item {
+        padding: 15px;
+    }
+    
+    .mn-view-file-title {
+        font-size: 16px;
+    }
+    
+    .mn-view-file-description {
+        font-size: 13px;
+    }
+    
+    .mn-view-button {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+    
+    .mn-view-popup-content {
+        width: 98%;
+        height: 95vh;
+        margin: 10px;
+        border-radius: 4px;
+    }
+    
+    .mn-view-popup-header {
+        padding: 12px;
+    }
+    
+    .mn-view-popup-controls {
+        gap: 8px;
+    }
+    
+    .mn-view-zoom-out,
+    .mn-view-zoom-in,
+    .mn-view-popup-close {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+}
+
+/* Dark Theme Support */
+@media (prefers-color-scheme: dark) {
+    .mn-view-file-item {
+        background: #2d2d2d;
+        border-color: #444;
+        color: #fff;
+    }
+    
+    .mn-view-file-title {
+        color: #fff;
+    }
+    
+    .mn-view-file-description {
+        color: #ccc;
+    }
+    
+    .mn-view-popup-content {
+        background: #2d2d2d;
+        color: #fff;
+    }
+    
+    .mn-view-popup-header {
+        background: #333;
+        border-color: #444;
+    }
+    
+    .mn-view-popup-title {
+        color: #fff;
+    }
+    
+    .mn-view-zoom-out,
+    .mn-view-zoom-in {
+        background: #444;
+        border-color: #555;
+        color: #fff;
+    }
+    
+    .mn-view-zoom-level {
+        color: #ccc;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .mn-view-file-item,
+    .mn-view-button,
+    .mn-view-popup,
+    .mn-view-popup-content,
+    .mn-view-image-viewer {
+        transition: none;
+    }
+    
+    .mn-view-loading-spinner {
+        animation: none;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .mn-view-file-item {
+        border-width: 2px;
+    }
+    
+    .mn-view-button {
+        border: 2px solid currentColor;
+    }
+    
+    .mn-view-popup-overlay {
+        background: rgba(0, 0, 0, 0.9);
+    }
+}

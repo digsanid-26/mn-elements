@@ -1,0 +1,786 @@
+/* MN Button Widget Styles */
+.mn-button-wrapper {
+    display: inline-block;
+}
+
+/* Button Position - Stretch/Justify */
+.elementor-align-justify .mn-button-wrapper {
+    display: block;
+    width: 100%;
+}
+
+.elementor-align-justify .mn-button {
+    width: 100%;
+}
+
+/* Responsive Position */
+@media (max-width: 1024px) {
+    .elementor-tablet-align-justify .mn-button-wrapper {
+        display: block;
+        width: 100%;
+    }
+    
+    .elementor-tablet-align-justify .mn-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .elementor-mobile-align-justify .mn-button-wrapper {
+        display: block;
+        width: 100%;
+    }
+    
+    .elementor-mobile-align-justify .mn-button {
+        width: 100%;
+    }
+}
+
+.mn-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.mn-button-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.mn-button-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.mn-button-text {
+    display: inline-block;
+}
+
+/* Icon alignment */
+.mn-align-icon-left {
+    order: -1;
+}
+
+.mn-align-icon-right {
+    order: 1;
+}
+
+/* Loop Animations */
+@keyframes mn-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes mn-bounce {
+    0%, 20%, 53%, 80%, 100% { transform: translateY(0); }
+    40%, 43% { transform: translateY(-8px); }
+    70% { transform: translateY(-4px); }
+    90% { transform: translateY(-2px); }
+}
+
+@keyframes mn-shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+    20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+@keyframes mn-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes mn-swing {
+    20% { transform: rotate(15deg); }
+    40% { transform: rotate(-10deg); }
+    60% { transform: rotate(5deg); }
+    80% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes mn-flash {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.5; }
+}
+
+@keyframes mn-push {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+}
+
+/* Loop Animation Classes */
+.mn-icon-loop-pulse {
+    animation: mn-pulse 2s infinite;
+}
+
+.mn-icon-loop-bounce {
+    animation: mn-bounce 2s infinite;
+}
+
+.mn-icon-loop-shake {
+    animation: mn-shake 1s infinite;
+}
+
+.mn-icon-loop-rotate {
+    animation: mn-rotate 2s linear infinite;
+}
+
+.mn-icon-loop-swing {
+    animation: mn-swing 1s ease-in-out infinite;
+}
+
+.mn-icon-loop-flash {
+    animation: mn-flash 2s infinite;
+}
+
+.mn-icon-loop-push {
+    animation: mn-push 1.5s infinite;
+}
+
+/* Hover Animations */
+.mn-icon-hover-grow {
+    transition: transform 0.3s ease;
+}
+
+.mn-button:hover .mn-icon-hover-grow {
+    transform: scale(1.2);
+}
+
+.mn-icon-hover-shrink {
+    transition: transform 0.3s ease;
+}
+
+.mn-button:hover .mn-icon-hover-shrink {
+    transform: scale(0.8);
+}
+
+.mn-icon-hover-rotate-90 {
+    transition: transform 0.3s ease;
+}
+
+.mn-button:hover .mn-icon-hover-rotate-90 {
+    transform: rotate(90deg);
+}
+
+.mn-icon-hover-rotate-180 {
+    transition: transform 0.3s ease;
+}
+
+.mn-button:hover .mn-icon-hover-rotate-180 {
+    transform: rotate(180deg);
+}
+
+.mn-icon-hover-rotate-360 {
+    transition: transform 0.3s ease;
+}
+
+.mn-button:hover .mn-icon-hover-rotate-360 {
+    transform: rotate(360deg);
+}
+
+.mn-icon-hover-wobble {
+    transition: transform 0.3s ease;
+}
+
+.mn-button:hover .mn-icon-hover-wobble {
+    animation: mn-wobble 0.6s ease-in-out;
+}
+
+@keyframes mn-wobble {
+    0% { transform: translateX(0%); }
+    15% { transform: translateX(-25%) rotate(-5deg); }
+    30% { transform: translateX(20%) rotate(3deg); }
+    45% { transform: translateX(-15%) rotate(-3deg); }
+    60% { transform: translateX(10%) rotate(2deg); }
+    75% { transform: translateX(-5%) rotate(-1deg); }
+    100% { transform: translateX(0%); }
+}
+
+.mn-icon-hover-buzz {
+    transition: transform 0.3s ease;
+}
+
+.mn-button:hover .mn-icon-hover-buzz {
+    animation: mn-buzz 0.15s linear infinite;
+}
+
+@keyframes mn-buzz {
+    50% { transform: translateX(1px) rotate(1deg); }
+    100% { transform: translateX(-1px) rotate(-1deg); }
+}
+
+/* Button Sizes */
+.mn-button.elementor-size-xs {
+    font-size: 12px;
+    padding: 10px 20px;
+}
+
+.mn-button.elementor-size-sm {
+    font-size: 13px;
+    padding: 12px 24px;
+}
+
+.mn-button.elementor-size-md {
+    font-size: 16px;
+    padding: 15px 30px;
+}
+
+.mn-button.elementor-size-lg {
+    font-size: 18px;
+    padding: 18px 36px;
+}
+
+.mn-button.elementor-size-xl {
+    font-size: 20px;
+    padding: 20px 40px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .mn-button {
+        font-size: 14px;
+        padding: 12px 24px;
+    }
+    
+    .mn-button.elementor-size-lg,
+    .mn-button.elementor-size-xl {
+        font-size: 16px;
+        padding: 15px 30px;
+    }
+}
+
+/* Focus states for accessibility */
+.mn-button:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+.mn-button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .mn-button {
+        border: 2px solid;
+    }
+}
+
+/* ========================================
+   BACKGROUND ANIMATIONS
+   ======================================== */
+
+/* Rotate Gradient Loop Animation (Conic Gradient) */
+.mn-button.mn-bg-gradient-loop {
+    position: relative;
+    overflow: hidden !important;
+}
+
+.mn-button.mn-bg-gradient-loop::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(
+        from 0deg at 50% 50%,
+        var(--mn-gradient-1) 0deg,
+        var(--mn-gradient-2) 120deg,
+        var(--mn-gradient-3) 240deg,
+        var(--mn-gradient-1) 360deg
+    );
+    z-index: 0;
+    border-radius: inherit;
+}
+
+.mn-button.mn-bg-gradient-loop .mn-button-content-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+/* Rotate Gradient Loop - Right Direction (default) */
+.mn-button.mn-bg-gradient-loop.mn-gradient-right::before {
+    animation: mn-gradient-loop-right 6s linear infinite;
+}
+
+@keyframes mn-gradient-loop-right {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Rotate Gradient Loop - Left Direction */
+.mn-button.mn-bg-gradient-loop.mn-gradient-left::before {
+    animation: mn-gradient-loop-left 6s linear infinite;
+}
+
+@keyframes mn-gradient-loop-left {
+    0% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Linear Gradient Loop Animation */
+.mn-button.mn-bg-linear-gradient-loop {
+    position: relative;
+    overflow: hidden;
+}
+
+.mn-button.mn-bg-linear-gradient-loop::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        45deg,
+        var(--mn-gradient-1) 0%,
+        var(--mn-gradient-2) 16.66%,
+        var(--mn-gradient-3) 33.33%,
+        var(--mn-gradient-1) 50%,
+        var(--mn-gradient-2) 66.66%,
+        var(--mn-gradient-3) 83.33%,
+        var(--mn-gradient-1) 100%
+    );
+    background-size: 200% 200%;
+    z-index: 0;
+    border-radius: inherit;
+}
+
+.mn-button.mn-bg-linear-gradient-loop .mn-button-content-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+/* Linear Gradient Loop - Right Direction (default) */
+.mn-button.mn-bg-linear-gradient-loop.mn-gradient-right::before {
+    animation: 
+        mn-linear-gradient-loop-right 8s linear infinite,
+        mn-linear-gradient-fade 8s linear infinite;
+}
+
+@keyframes mn-linear-gradient-loop-right {
+    0% {
+        background-position: 0% 50%;
+    }
+    75% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes mn-linear-gradient-fade {
+    0% {
+        opacity: 0;
+    }
+    12.5% {
+        opacity: 1;
+    }
+    62.5% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Linear Gradient Loop - Left Direction */
+.mn-button.mn-bg-linear-gradient-loop.mn-gradient-left::before {
+    animation: 
+        mn-linear-gradient-loop-left 8s linear infinite,
+        mn-linear-gradient-fade 8s linear infinite;
+}
+
+@keyframes mn-linear-gradient-loop-left {
+    0% {
+        background-position: 100% 50%;
+    }
+    75% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Gradient Wave Animation */
+.mn-button.mn-bg-gradient-wave {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+        90deg,
+        var(--mn-gradient-1) 0%,
+        var(--mn-gradient-2) 25%,
+        var(--mn-gradient-3) 50%,
+        var(--mn-gradient-2) 75%,
+        var(--mn-gradient-1) 100%
+    );
+    background-size: 200% 100%;
+}
+
+.mn-button.mn-bg-gradient-wave .mn-button-content-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+/* Gradient Wave - Right Direction (default) */
+.mn-button.mn-bg-gradient-wave.mn-gradient-right {
+    animation: mn-gradient-wave-right 4s linear infinite;
+}
+
+@keyframes mn-gradient-wave-right {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+/* Gradient Wave - Left Direction */
+.mn-button.mn-bg-gradient-wave.mn-gradient-left {
+    animation: mn-gradient-wave-left 4s linear infinite;
+}
+
+@keyframes mn-gradient-wave-left {
+    0% {
+        background-position: 200% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Shimmer Effect */
+.mn-button.mn-bg-shimmer {
+    position: relative;
+    overflow: hidden !important;
+}
+
+.mn-button.mn-bg-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    );
+    animation: mn-shimmer 3s infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes mn-shimmer {
+    0% {
+        left: -100%;
+        transform: translateX(0);
+    }
+    100% {
+        left: 100%;
+        transform: translateX(0);
+    }
+}
+
+/* Pulse Glow Effect */
+.mn-button.mn-bg-pulse-glow {
+    animation: mn-pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes mn-pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 10px var(--mn-glow-color, #667eea),
+                    0 0 20px var(--mn-glow-color, #667eea),
+                    0 0 30px var(--mn-glow-color, #667eea);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--mn-glow-color, #667eea),
+                    0 0 40px var(--mn-glow-color, #667eea),
+                    0 0 60px var(--mn-glow-color, #667eea);
+    }
+}
+
+/* Border Flow Effect */
+.mn-button.mn-bg-border-flow {
+    position: relative;
+    background: transparent;
+    border: 2px solid transparent;
+    overflow: hidden !important;
+}
+
+.mn-button.mn-bg-border-flow::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+        45deg,
+        #667eea,
+        #764ba2,
+        #f093fb,
+        #667eea
+    );
+    background-size: 400% 400%;
+    border-radius: inherit;
+    z-index: -1;
+    animation: mn-border-flow 4s ease infinite;
+}
+
+@keyframes mn-border-flow {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Ripple Effect */
+.mn-button.mn-bg-ripple {
+    position: relative;
+    overflow: hidden !important;
+}
+
+.mn-button.mn-bg-ripple::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    animation: mn-ripple 3s ease-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes mn-ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        width: 300%;
+        height: 300%;
+        opacity: 0;
+    }
+}
+
+/* Slide Shine Effect */
+.mn-button.mn-bg-slide-shine {
+    position: relative;
+    overflow: hidden !important;
+}
+
+.mn-button.mn-bg-slide-shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(25deg);
+    animation: mn-slide-shine 3s infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes mn-slide-shine {
+    0% {
+        left: -60%;
+    }
+    100% {
+        left: 160%;
+    }
+}
+
+/* ========================================
+   ANIMATION SPEED VARIATIONS
+   ======================================== */
+
+/* Slow Speed */
+.mn-button.mn-speed-slow.mn-bg-gradient-loop.mn-gradient-right::before,
+.mn-button.mn-speed-slow.mn-bg-gradient-loop.mn-gradient-left::before {
+    animation-duration: 10s;
+}
+
+.mn-button.mn-speed-slow.mn-bg-linear-gradient-loop.mn-gradient-right::before,
+.mn-button.mn-speed-slow.mn-bg-linear-gradient-loop.mn-gradient-left::before {
+    animation-duration: 12s, 12s;
+}
+
+.mn-button.mn-speed-slow.mn-bg-gradient-wave.mn-gradient-right,
+.mn-button.mn-speed-slow.mn-bg-gradient-wave.mn-gradient-left {
+    animation-duration: 8s;
+}
+
+.mn-button.mn-speed-slow.mn-bg-shimmer::before {
+    animation-duration: 5s;
+}
+
+.mn-button.mn-speed-slow.mn-bg-pulse-glow {
+    animation-duration: 4s;
+}
+
+.mn-button.mn-speed-slow.mn-bg-border-flow::before {
+    animation-duration: 8s;
+}
+
+.mn-button.mn-speed-slow.mn-bg-ripple::before {
+    animation-duration: 5s;
+}
+
+.mn-button.mn-speed-slow.mn-bg-slide-shine::after {
+    animation-duration: 5s;
+}
+
+/* Fast Speed */
+.mn-button.mn-speed-fast.mn-bg-gradient-loop.mn-gradient-right::before,
+.mn-button.mn-speed-fast.mn-bg-gradient-loop.mn-gradient-left::before {
+    animation-duration: 3s;
+}
+
+.mn-button.mn-speed-fast.mn-bg-linear-gradient-loop.mn-gradient-right::before,
+.mn-button.mn-speed-fast.mn-bg-linear-gradient-loop.mn-gradient-left::before {
+    animation-duration: 5s, 5s;
+}
+
+.mn-button.mn-speed-fast.mn-bg-gradient-wave.mn-gradient-right,
+.mn-button.mn-speed-fast.mn-bg-gradient-wave.mn-gradient-left {
+    animation-duration: 2s;
+}
+
+.mn-button.mn-speed-fast.mn-bg-shimmer::before {
+    animation-duration: 1.5s;
+}
+
+.mn-button.mn-speed-fast.mn-bg-pulse-glow {
+    animation-duration: 1s;
+}
+
+.mn-button.mn-speed-fast.mn-bg-border-flow::before {
+    animation-duration: 2s;
+}
+
+.mn-button.mn-speed-fast.mn-bg-ripple::before {
+    animation-duration: 1.5s;
+}
+
+.mn-button.mn-speed-fast.mn-bg-slide-shine::after {
+    animation-duration: 1.5s;
+}
+
+/* ========================================
+   HOVER ENHANCEMENTS FOR ANIMATIONS
+   ======================================== */
+
+/* Disable gradient animations on hover and show default hover style */
+.mn-button.mn-bg-gradient-loop:hover::before,
+.mn-button.mn-bg-linear-gradient-loop:hover::before {
+    animation: none !important;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mn-button.mn-bg-gradient-wave:hover {
+    animation: none !important;
+}
+
+.mn-button.mn-bg-pulse-glow:hover {
+    box-shadow: 0 0 30px var(--mn-glow-color, #667eea),
+                0 0 60px var(--mn-glow-color, #667eea),
+                0 0 90px var(--mn-glow-color, #667eea) !important;
+}
+
+.mn-button.mn-bg-shimmer:hover::before {
+    animation-play-state: paused;
+}
+
+.mn-button.mn-bg-border-flow:hover::before {
+    animation-play-state: paused;
+}
+
+/* ========================================
+   ACCESSIBILITY & PERFORMANCE
+   ======================================== */
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .mn-button.mn-bg-gradient-loop,
+    .mn-button.mn-bg-gradient-wave,
+    .mn-button.mn-bg-shimmer::before,
+    .mn-button.mn-bg-pulse-glow,
+    .mn-button.mn-bg-border-flow::before,
+    .mn-button.mn-bg-ripple::before,
+    .mn-button.mn-bg-slide-shine::after {
+        animation: none !important;
+    }
+}
+
+/* Hardware acceleration for smooth animations */
+.mn-button.mn-bg-gradient-loop,
+.mn-button.mn-bg-gradient-wave,
+.mn-button.mn-bg-shimmer,
+.mn-button.mn-bg-pulse-glow,
+.mn-button.mn-bg-border-flow,
+.mn-button.mn-bg-ripple,
+.mn-button.mn-bg-slide-shine {
+    will-change: transform, background-position, box-shadow;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Ensure pseudo-elements are GPU accelerated */
+.mn-button.mn-bg-shimmer::before,
+.mn-button.mn-bg-border-flow::before,
+.mn-button.mn-bg-ripple::before,
+.mn-button.mn-bg-slide-shine::after {
+    will-change: transform, left, width, height, opacity;
+    backface-visibility: hidden;
+}
+
+/* Print styles - disable animations */
+@media print {
+    .mn-button.mn-bg-gradient-loop,
+    .mn-button.mn-bg-gradient-wave,
+    .mn-button.mn-bg-shimmer::before,
+    .mn-button.mn-bg-pulse-glow,
+    .mn-button.mn-bg-border-flow::before,
+    .mn-button.mn-bg-ripple::before,
+    .mn-button.mn-bg-slide-shine::after {
+        animation: none !important;
+    }
+}

@@ -1,0 +1,30 @@
+/**
+ * MN Elements Editor Styles
+ * 
+ * @package mn-elements
+ * @version 1.0.0
+ */
+
+/* MNTriks Section Icon */
+.elementor-control-section_mn_triks .elementor-panel-heading-title:before {
+    content: "\e925";
+    font-family: eicons;
+    margin-right: 5px;
+}
+
+/* Control styling */
+.elementor-control-mn_entrance_animation_type .elementor-control-input-wrapper select {
+    background-color: #f1f3f4;
+    border: 1px solid #d5dadf;
+}
+
+.elementor-control-mn_entrance_delay .elementor-control-input-wrapper input,
+.elementor-control-mn_entrance_duration .elementor-control-input-wrapper input {
+    text-align: center;
+}
+
+/* Help text styling */
+.elementor-control-mn_entrance_animation .elementor-control-field-description {
+    color: #6d7882;
+    font-style: italic;
+}

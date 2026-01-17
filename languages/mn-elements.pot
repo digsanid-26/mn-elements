@@ -1,0 +1,134 @@
+# Copyright (C) 2025 MANAKreatif
+# This file is distributed under the same license as the MN Elements package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MN Elements 1.0.0\n"
+"Report-Msgid-Bugs-To: https://manakkreatif.com\n"
+"POT-Creation-Date: 2025-09-15 03:03+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: mn-elements.php:125
+msgid "MN Elements memerlukan Elementor untuk diaktifkan."
+msgstr ""
+
+#: mn-elements.php:126
+msgid "Aktifkan Elementor Sekarang"
+msgstr ""
+
+#: mn-elements.php:134
+msgid "MN Elements memerlukan Elementor untuk diinstal."
+msgstr ""
+
+#: mn-elements.php:135
+msgid "Instal Elementor Sekarang"
+msgstr ""
+
+#: includes/container-extension.php:56
+msgid "MNTriks"
+msgstr ""
+
+#: includes/container-extension.php:70
+msgid "Entrance Animation"
+msgstr ""
+
+#: includes/container-extension.php:73
+msgid "Yes"
+msgstr ""
+
+#: includes/container-extension.php:74
+msgid "No"
+msgstr ""
+
+#: includes/container-extension.php:76
+msgid "Enable entrance animation effects"
+msgstr ""
+
+#: includes/container-extension.php:83
+msgid "Animation Type"
+msgstr ""
+
+#: includes/container-extension.php:87
+msgid "Zoom Out"
+msgstr ""
+
+#: includes/container-extension.php:88
+msgid "Zoom In"
+msgstr ""
+
+#: includes/container-extension.php:89
+msgid "Fade In"
+msgstr ""
+
+#: includes/container-extension.php:90
+msgid "Slide Up"
+msgstr ""
+
+#: includes/container-extension.php:91
+msgid "Slide Down"
+msgstr ""
+
+#: includes/container-extension.php:92
+msgid "Slide Left"
+msgstr ""
+
+#: includes/container-extension.php:93
+msgid "Slide Right"
+msgstr ""
+
+#: includes/container-extension.php:101
+msgid "Animation Delay (ms)"
+msgstr ""
+
+#: includes/container-extension.php:112
+msgid "Animation Duration (ms)"
+msgstr ""
+
+#: includes/container-extension.php:123
+msgid "Animation Easing"
+msgstr ""
+
+#: includes/container-extension.php:127
+msgid "Linear"
+msgstr ""
+
+#: includes/container-extension.php:128
+msgid "Ease In Quad"
+msgstr ""
+
+#: includes/container-extension.php:129
+msgid "Ease Out Quad"
+msgstr ""
+
+#: includes/container-extension.php:130
+msgid "Ease In Out Quad"
+msgstr ""
+
+#: includes/container-extension.php:131
+msgid "Ease In Cubic"
+msgstr ""
+
+#: includes/container-extension.php:132
+msgid "Ease Out Cubic"
+msgstr ""
+
+#: includes/container-extension.php:133
+msgid "Ease In Out Cubic"
+msgstr ""
+
+#: includes/container-extension.php:134
+msgid "Ease In Quart"
+msgstr ""
+
+#: includes/container-extension.php:135
+msgid "Ease Out Quart"
+msgstr ""
+
+#: includes/container-extension.php:136
+msgid "Ease In Out Quart"
+msgstr ""

@@ -1,0 +1,769 @@
+/* MN Infolist Widget Styles */
+
+/* Base Grid Layout */
+.mn-infolist-wrapper {
+    width: 100%;
+}
+
+/* Section Title */
+.mn-infolist-section-title {
+    margin: 0 0 30px 0;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: left;
+}
+
+.mn-infolist-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* Info Item Base */
+.mn-info-item {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s ease, background-color 0.3s ease;
+    position: relative;
+}
+
+/* Icon Position Layouts */
+/* Top Center (Default) */
+.mn-icon-position-top-center .mn-info-item {
+    flex-direction: column;
+}
+
+.mn-icon-position-top-center .mn-info-media {
+    order: 1;
+    align-self: center;
+}
+
+.mn-icon-position-top-center .mn-info-content {
+    order: 2;
+    text-align: center;
+}
+
+/* Left Top */
+.mn-icon-position-left-top .mn-info-item {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.mn-icon-position-left-top .mn-info-media {
+    order: 1;
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+/* Gap for left position - controlled by Elementor icon_gap control */
+.mn-icon-position-left-top .mn-info-icon {
+    margin-right: 15px;
+    margin-bottom: 0;
+}
+
+.mn-icon-position-left-top .mn-info-content {
+    order: 2;
+    flex: 1;
+    text-align: left;
+}
+
+/* Right Top */
+.mn-icon-position-right-top .mn-info-item {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.mn-icon-position-right-top .mn-info-media {
+    order: 2;
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+/* Gap for right position - controlled by Elementor icon_gap control */
+.mn-icon-position-right-top .mn-info-icon {
+    margin-left: 15px;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+.mn-icon-position-right-top .mn-info-content {
+    order: 1;
+    flex: 1;
+    text-align: left;
+}
+
+/* Icon/Numbering Container */
+.mn-infolist-icon-numbering {
+    position: absolute;
+    top: 10px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+/* Left Alignment */
+.mn-info-item.mn-align-left .mn-infolist-icon-numbering {
+    left: 10px;
+}
+
+/* Right Alignment */
+.mn-info-item.mn-align-right .mn-infolist-icon-numbering {
+    right: 10px;
+}
+
+/* General Icon */
+.mn-infolist-wrapper .mn-infolist-general-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #007cba;
+    line-height: 1;
+}
+
+.mn-infolist-wrapper .mn-infolist-general-icon i {
+    font-size: inherit;
+    line-height: 1;
+}
+
+.mn-infolist-wrapper .mn-infolist-general-icon svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+/* Numbering */
+.mn-infolist-numbering {
+    font-size: 14px;
+    font-weight: 700;
+    color: #007cba;
+    line-height: 1;
+}
+
+/* Alpha Character */
+.mn-infolist-alpha {
+    font-size: 16px;
+    font-weight: 700;
+    color: #007cba;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+/* Media Container (Image or Icon) */
+.mn-info-media {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+/* Image Styles */
+.mn-info-image {
+    position: relative;
+    overflow: hidden;
+    display: block;
+}
+
+.mn-info-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+/* Icon Wrapper Styles */
+.mn-info-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+/* Icon Styles */
+.mn-infolist-wrapper .mn-info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto !important;
+    height: auto !important;
+    margin-bottom: 15px;
+    font-size: 48px;
+    /* color and background controlled by Elementor */
+    padding: 15px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    /* Z-index to ensure icon stays above other elements when using negative margins */
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.mn-infolist-wrapper .mn-info-icon i {
+    font-size: inherit;
+    line-height: 1;
+}
+
+.mn-infolist-wrapper .mn-info-icon svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+/* Image Filter Effects */
+/* Grayscale to Color */
+.mn-info-image.mn-filter-grayscale img {
+    filter: grayscale(100%);
+    transition: all 0.4s ease;
+}
+
+.mn-info-image.mn-filter-grayscale:hover img {
+    filter: grayscale(0%);
+}
+
+/* Blur to Sharp */
+.mn-info-image.mn-filter-blur img {
+    filter: blur(3px);
+    transition: all 0.4s ease;
+}
+
+.mn-info-image.mn-filter-blur:hover img {
+    filter: blur(0px);
+}
+
+/* Sepia to Color */
+.mn-info-image.mn-filter-sepia img {
+    filter: sepia(100%);
+    transition: all 0.4s ease;
+}
+
+.mn-info-image.mn-filter-sepia:hover img {
+    filter: sepia(0%);
+}
+
+/* Desaturated to Saturated */
+.mn-info-image.mn-filter-saturate img {
+    filter: saturate(0.3);
+    transition: all 0.4s ease;
+}
+
+.mn-info-image.mn-filter-saturate:hover img {
+    filter: saturate(1.2);
+}
+
+/* Dark to Bright */
+.mn-info-image.mn-filter-brightness img {
+    filter: brightness(0.6);
+    transition: all 0.4s ease;
+}
+
+.mn-info-image.mn-filter-brightness:hover img {
+    filter: brightness(1.1);
+}
+
+/* Low to High Contrast */
+.mn-info-image.mn-filter-contrast img {
+    filter: contrast(0.7);
+    transition: all 0.4s ease;
+}
+
+.mn-info-image.mn-filter-contrast:hover img {
+    filter: contrast(1.3);
+}
+
+.mn-info-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.mn-info-title {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.mn-info-title a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.mn-info-description {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    flex: 1;
+}
+
+.mn-info-readmore {
+    margin-top: auto;
+}
+
+/* Read More Button */
+.mn-readmore-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #007cba;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mn-readmore-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-left: 8px;
+}
+
+.mn-readmore-icon i {
+    font-size: inherit;
+    line-height: 1;
+}
+
+.mn-readmore-icon svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+.mn-readmore-text {
+    transition: all 0.3s ease;
+}
+
+/* Light Theme Styles */
+.mn-theme-light .mn-infolist-section-title {
+    color: #333333;
+}
+
+.mn-theme-light .mn-info-item {
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+}
+
+.mn-theme-light .mn-info-title {
+    color: #333333;
+}
+
+.mn-theme-light .mn-info-title a {
+    color: #333333;
+}
+
+.mn-theme-light .mn-info-title a:hover {
+    color: #007cba;
+}
+
+.mn-theme-light .mn-info-description {
+    color: #555555;
+}
+
+.mn-theme-light .mn-readmore-button {
+    background-color: #f8f9fa;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+}
+
+.mn-theme-light .mn-readmore-button:hover {
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #333333;
+}
+
+.mn-theme-light .mn-infolist-icon-numbering {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.mn-theme-light .mn-infolist-general-icon,
+.mn-theme-light .mn-infolist-numbering,
+.mn-theme-light .mn-infolist-alpha {
+    color: #007cba;
+}
+
+/* Light Theme Hover Animation - Transform to Dark */
+.mn-theme-light .mn-info-item:hover {
+    background-color: #2c3e50;
+    color: #ffffff;
+    border-color: #34495e;
+    transform: translateY(-5px);
+}
+
+.mn-theme-light .mn-info-item:hover .mn-info-title {
+    color: #ffffff;
+}
+
+.mn-theme-light .mn-info-item:hover .mn-info-title a {
+    color: #ffffff;
+}
+
+.mn-theme-light .mn-info-item:hover .mn-info-description {
+    color: #ecf0f1;
+}
+
+.mn-theme-light .mn-info-item:hover .mn-readmore-button {
+    background-color: #3498db;
+    color: #ffffff;
+    border-color: #3498db;
+}
+
+.mn-theme-light .mn-info-item:hover .mn-infolist-icon-numbering {
+    background: rgba(44, 62, 80, 0.9);
+}
+
+.mn-theme-light .mn-info-item:hover .mn-infolist-general-icon,
+.mn-theme-light .mn-info-item:hover .mn-infolist-numbering,
+.mn-theme-light .mn-info-item:hover .mn-infolist-alpha {
+    color: #3498db;
+}
+
+/* Dark Theme Styles */
+.mn-theme-dark .mn-infolist-section-title {
+    color: #ffffff;
+}
+
+.mn-theme-dark .mn-info-item {
+    background-color: #2c3e50;
+    color: #ffffff;
+    border: 1px solid #34495e;
+}
+
+.mn-theme-dark .mn-info-title {
+    color: #ffffff;
+}
+
+.mn-theme-dark .mn-info-title a {
+    color: #ffffff;
+}
+
+.mn-theme-dark .mn-info-title a:hover {
+    color: #3498db;
+}
+
+.mn-theme-dark .mn-info-description {
+    color: #ecf0f1;
+}
+
+.mn-theme-dark .mn-readmore-button {
+    background-color: #34495e;
+    color: #ffffff;
+    border: 1px solid #4a5f7a;
+}
+
+.mn-theme-dark .mn-readmore-button:hover {
+    background-color: #ffffff;
+    color: #333333;
+    border-color: #ffffff;
+}
+
+.mn-theme-dark .mn-infolist-icon-numbering {
+    background: rgba(52, 73, 94, 0.9);
+}
+
+.mn-theme-dark .mn-infolist-general-icon,
+.mn-theme-dark .mn-infolist-numbering,
+.mn-theme-dark .mn-infolist-alpha {
+    color: #3498db;
+}
+
+/* Dark Theme Hover Animation - Transform to Light */
+.mn-theme-dark .mn-info-item:hover {
+    background-color: #ffffff;
+    color: #333333;
+    border-color: #e0e0e0;
+    transform: translateY(-5px);
+}
+
+.mn-theme-dark .mn-info-item:hover .mn-info-title {
+    color: #333333;
+}
+
+.mn-theme-dark .mn-info-item:hover .mn-info-title a {
+    color: #333333;
+}
+
+.mn-theme-dark .mn-info-item:hover .mn-info-description {
+    color: #555555;
+}
+
+.mn-theme-dark .mn-info-item:hover .mn-readmore-button {
+    background-color: #007cba;
+    color: #ffffff;
+    border-color: #007cba;
+}
+
+.mn-theme-dark .mn-info-item:hover .mn-infolist-icon-numbering {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.mn-theme-dark .mn-info-item:hover .mn-infolist-general-icon,
+.mn-theme-dark .mn-info-item:hover .mn-infolist-numbering,
+.mn-theme-dark .mn-info-item:hover .mn-infolist-alpha {
+    color: #007cba;
+}
+
+/* Center Last Row Items Feature */
+/* Uses flexbox to center remaining items in the last row */
+.mn-infolist-center-odd-yes .mn-infolist-grid {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Default: 3 columns - use CSS custom property for gap */
+.mn-infolist-center-odd-yes .mn-info-item {
+    --infolist-columns: 3;
+    flex: 0 0 calc((100% - (var(--infolist-columns) - 1) * 30px) / var(--infolist-columns));
+    max-width: calc((100% - (var(--infolist-columns) - 1) * 30px) / var(--infolist-columns));
+}
+
+/* 1 column */
+.mn-infolist-center-odd-yes .mn-infolist-grid[style*="repeat(1"] .mn-info-item {
+    --infolist-columns: 1;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+/* 2 columns */
+.mn-infolist-center-odd-yes .mn-infolist-grid[style*="repeat(2"] .mn-info-item {
+    --infolist-columns: 2;
+    flex: 0 0 calc((100% - 30px) / 2);
+    max-width: calc((100% - 30px) / 2);
+}
+
+/* 3 columns */
+.mn-infolist-center-odd-yes .mn-infolist-grid[style*="repeat(3"] .mn-info-item {
+    --infolist-columns: 3;
+    flex: 0 0 calc((100% - 60px) / 3);
+    max-width: calc((100% - 60px) / 3);
+}
+
+/* 4 columns */
+.mn-infolist-center-odd-yes .mn-infolist-grid[style*="repeat(4"] .mn-info-item {
+    --infolist-columns: 4;
+    flex: 0 0 calc((100% - 90px) / 4);
+    max-width: calc((100% - 90px) / 4);
+}
+
+/* 5 columns */
+.mn-infolist-center-odd-yes .mn-infolist-grid[style*="repeat(5"] .mn-info-item {
+    --infolist-columns: 5;
+    flex: 0 0 calc((100% - 120px) / 5);
+    max-width: calc((100% - 120px) / 5);
+}
+
+/* 6 columns */
+.mn-infolist-center-odd-yes .mn-infolist-grid[style*="repeat(6"] .mn-info-item {
+    --infolist-columns: 6;
+    flex: 0 0 calc((100% - 150px) / 6);
+    max-width: calc((100% - 150px) / 6);
+}
+
+/* Responsive Design - Only essential responsive fixes */
+@media (max-width: 768px) {
+    /* Only override grid if no custom responsive columns are set */
+    .mn-infolist-grid:not([style*="grid-template-columns"]) {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Only override gap if no custom gap is set */
+    .mn-infolist-grid:not([style*="gap"]) {
+        gap: 20px;
+    }
+    
+    /* Essential text wrapping - no hardcoded sizes */
+    .mn-info-title {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    .mn-info-description {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    /* Essential image responsiveness */
+    .mn-info-image {
+        width: 100%;
+    }
+    
+    .mn-info-image img {
+        width: 100%;
+        height: auto;
+    }
+    
+    /* Mobile Icon Position Adjustments - Default behavior (switch to top-center) */
+    /* Only apply when preserve_icon_position_mobile is NOT enabled */
+    .mn-icon-position-left-top:not(.mn-preserve-icon-mobile-yes) .mn-info-item,
+    .mn-icon-position-right-top:not(.mn-preserve-icon-mobile-yes) .mn-info-item {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .mn-icon-position-left-top:not(.mn-preserve-icon-mobile-yes) .mn-info-media,
+    .mn-icon-position-right-top:not(.mn-preserve-icon-mobile-yes) .mn-info-media {
+        order: 1;
+        margin: 0 0 15px 0;
+        align-self: center;
+    }
+    
+    .mn-icon-position-left-top:not(.mn-preserve-icon-mobile-yes) .mn-info-content,
+    .mn-icon-position-right-top:not(.mn-preserve-icon-mobile-yes) .mn-info-content {
+        order: 2;
+        text-align: center;
+    }
+    
+    /* Preserve icon position on mobile when enabled */
+    .mn-preserve-icon-mobile-yes.mn-icon-position-left-top .mn-info-item {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .mn-preserve-icon-mobile-yes.mn-icon-position-left-top .mn-info-media {
+        order: 1;
+        flex-shrink: 0;
+        margin-bottom: 0;
+        align-self: flex-start;
+    }
+    
+    .mn-preserve-icon-mobile-yes.mn-icon-position-left-top .mn-info-content {
+        order: 2;
+        flex: 1;
+        text-align: left;
+    }
+    
+    .mn-preserve-icon-mobile-yes.mn-icon-position-right-top .mn-info-item {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .mn-preserve-icon-mobile-yes.mn-icon-position-right-top .mn-info-media {
+        order: 2;
+        flex-shrink: 0;
+        margin-bottom: 0;
+        align-self: flex-start;
+    }
+    
+    .mn-preserve-icon-mobile-yes.mn-icon-position-right-top .mn-info-content {
+        order: 1;
+        flex: 1;
+        text-align: left;
+    }
+    
+    /* Center mode - full width on mobile single column */
+    .mn-infolist-center-odd-yes .mn-info-item {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Essential text wrapping */
+    .mn-readmore-text {
+        word-wrap: break-word;
+    }
+    
+    /* Essential button responsiveness */
+    .mn-readmore-button {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* Icon View Styles */
+/* Uses Elementor prefix_class on widget wrapper */
+
+/* Default View - No border, no background */
+.mn-icon-view-default .mn-info-icon {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+/* Framed View - Border only, uses border color from Elementor control */
+.mn-icon-view-framed .mn-info-icon {
+    background: transparent;
+    border-width: 2px;
+    border-style: solid;
+    /* border-color controlled by Elementor */
+    padding: 0.3em;
+    box-shadow: none;
+}
+
+/* Stacked View - Background filled, uses background color from Elementor control */
+.mn-icon-view-stacked .mn-info-icon {
+    /* background-color controlled by Elementor */
+    border: none !important;
+    border-width: 0 !important;
+    border-style: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0.3em;
+}
+
+/* Icon Shape Styles */
+/* Uses Elementor prefix_class on widget wrapper */
+
+/* Circle Shape (Default) */
+.mn-icon-shape-circle .mn-info-icon {
+    border-radius: 50% !important;
+}
+
+/* Square Shape */
+.mn-icon-shape-square .mn-info-icon {
+    border-radius: 0 !important;
+}
+
+/* Rounded Shape */
+.mn-icon-shape-rounded .mn-info-icon {
+    border-radius: 0.3em !important;
+}
+
+/* Hover Effects for Different Views */
+/* Stacked view hover - ensure no border appears, only background changes */
+.mn-icon-view-stacked .mn-info-item:hover .mn-info-icon {
+    border: none !important;
+    border-width: 0 !important;
+    border-style: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    /* background-color controlled by Elementor hover control */
+}
+
+/* Icon Alignment Support */
+/* Horizontal alignment is handled by justify-content via Elementor control */
+/* Vertical alignment is handled by align-self via Elementor control */
+/* Gap is handled by margin via Elementor icon_gap control based on icon_position */
+
+/* Print Styles */
+@media print {
+    .mn-info-item {
+        break-inside: avoid;
+        margin-bottom: 20px;
+    }
+    
+    .mn-info-item:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .mn-readmore-button {
+        display: none;
+    }
+}

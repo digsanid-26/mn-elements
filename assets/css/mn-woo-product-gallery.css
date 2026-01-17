@@ -1,0 +1,286 @@
+/**
+ * MN WooCommerce Product Gallery Widget Styles
+ */
+
+/* Editor Notice */
+.mn-woo-gallery-editor-notice {
+    padding: 20px;
+    background: #f0f0f0;
+    border: 1px dashed #ccc;
+    text-align: center;
+    color: #666;
+    border-radius: 4px;
+}
+
+/* Gallery Wrapper */
+.mn-woo-gallery-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* Sale Badge */
+.mn-woo-gallery-sale-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Gallery Container */
+.mn-woo-gallery-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+/* Thumbnails Wrapper */
+.mn-woo-gallery-thumbnails-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* Thumbnails Container */
+.mn-woo-gallery-thumbnails {
+    overflow: hidden;
+    position: relative;
+}
+
+.mn-woo-gallery-thumbnails-inner {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+/* Thumbnail Item */
+.mn-woo-gallery-thumb {
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.mn-woo-gallery-thumb:last-child {
+    margin-bottom: 0 !important;
+}
+
+.mn-woo-gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mn-woo-gallery-thumb.active {
+    opacity: 1 !important;
+    border-style: solid;
+}
+
+.mn-woo-gallery-thumb:hover {
+    opacity: 1 !important;
+}
+
+/* Navigation Arrows */
+.mn-woo-gallery-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    flex-shrink: 0;
+    margin: 5px 0;
+}
+
+.mn-woo-gallery-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.mn-woo-gallery-nav svg {
+    width: 50%;
+    height: 50%;
+}
+
+/* Main Image Container */
+.mn-woo-gallery-main {
+    position: relative;
+    overflow: hidden;
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+.mn-woo-gallery-main-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.mn-woo-gallery-main-image.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+}
+
+.mn-woo-gallery-main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Lightbox Styles */
+.mn-woo-gallery-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+}
+
+.mn-woo-gallery-lightbox-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.mn-woo-gallery-lightbox-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mn-woo-gallery-lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+}
+
+.mn-woo-gallery-lightbox-close:hover {
+    opacity: 0.7;
+}
+
+.mn-woo-gallery-lightbox-prev,
+.mn-woo-gallery-lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 10;
+}
+
+.mn-woo-gallery-lightbox-prev:hover,
+.mn-woo-gallery-lightbox-next:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mn-woo-gallery-lightbox-prev {
+    left: 20px;
+}
+
+.mn-woo-gallery-lightbox-next {
+    right: 20px;
+}
+
+.mn-woo-gallery-lightbox-image {
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mn-woo-gallery-lightbox-image img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .mn-woo-gallery-container {
+        flex-direction: column-reverse;
+    }
+    
+    .mn-woo-gallery-thumbnails-wrapper {
+        flex-direction: row;
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .mn-woo-gallery-thumbnails {
+        width: 100% !important;
+    }
+    
+    .mn-woo-gallery-thumbnails-inner {
+        flex-direction: row;
+        gap: 10px;
+    }
+    
+    .mn-woo-gallery-thumb {
+        margin-bottom: 0 !important;
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    .mn-woo-gallery-nav {
+        transform: rotate(-90deg);
+    }
+    
+    .mn-woo-gallery-main {
+        width: 100% !important;
+        height: 300px !important;
+    }
+    
+    .mn-woo-gallery-lightbox-prev,
+    .mn-woo-gallery-lightbox-next {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .mn-woo-gallery-lightbox-prev {
+        left: 10px;
+    }
+    
+    .mn-woo-gallery-lightbox-next {
+        right: 10px;
+    }
+}

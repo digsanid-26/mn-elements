@@ -1,0 +1,422 @@
+/**
+ * MN WooCart CSS
+ * WooCommerce cart widget styling
+ */
+
+/* Main Wrapper */
+.mn-woocart-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Trigger Button */
+.mn-woocart-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.mn-woocart-trigger:hover {
+    background-color: #555555;
+    transform: translateY(-2px);
+}
+
+.mn-woocart-trigger i,
+.mn-woocart-trigger svg {
+    font-size: 24px;
+}
+
+/* Cart Count Badge */
+.mn-woocart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #e74c3c;
+    color: #ffffff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.mn-woocart-total {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Dropdown Container (Menu Type) */
+.mn-woocart-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 400px;
+    max-height: 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9999;
+}
+
+.mn-woocart-wrapper.active .mn-woocart-dropdown {
+    max-height: 600px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    padding: 20px;
+}
+
+/* Direct Display Container */
+.mn-woocart-direct {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* Cart Items Container */
+.mn-woocart-items {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.mn-woocart-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.mn-woocart-items::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.mn-woocart-items::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.mn-woocart-items::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Cart Item */
+.mn-woocart-item {
+    margin-bottom: 15px;
+    padding: 12px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.mn-woocart-item:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.mn-woocart-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Item Row Layout */
+.mn-woocart-item-row {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+/* Thumbnail */
+.mn-woocart-item-thumbnail {
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+}
+
+.mn-woocart-item-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Item Details */
+.mn-woocart-item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.mn-woocart-item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.mn-woocart-item-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e74c3c;
+}
+
+.mn-woocart-item-custom {
+    font-size: 12px;
+    color: #666666;
+    font-style: italic;
+}
+
+/* Quantity Controls */
+.mn-woocart-item-quantity {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 2px;
+    margin-top: 8px;
+}
+
+.mn-woocart-qty-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+    transition: all 0.2s ease;
+}
+
+.mn-woocart-qty-btn:hover {
+    background-color: #e0e0e0;
+    color: #000000;
+}
+
+.mn-woocart-qty-btn:active {
+    transform: scale(0.95);
+}
+
+.mn-woocart-qty-input {
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.mn-woocart-qty-input::-webkit-outer-spin-button,
+.mn-woocart-qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove Button */
+.mn-woocart-remove {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #e74c3c;
+    font-size: 18px;
+    transition: all 0.2s ease;
+}
+
+.mn-woocart-remove:hover {
+    background-color: #ffe5e5;
+    color: #c0392b;
+    transform: scale(1.1);
+}
+
+/* Cart Footer */
+.mn-woocart-footer {
+    border-top: 2px solid #e0e0e0;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.mn-woocart-subtotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.mn-woocart-subtotal-amount {
+    color: #e74c3c;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.mn-woocart-view-cart,
+.mn-woocart-checkout {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-bottom: 8px;
+    cursor: pointer;
+    pointer-events: auto;
+    position: relative;
+    z-index: 10;
+}
+
+.mn-woocart-view-cart {
+    background-color: #f5f5f5;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+}
+
+.mn-woocart-view-cart:hover {
+    background-color: #e0e0e0;
+    color: #000000;
+}
+
+.mn-woocart-checkout {
+    background-color: #27ae60;
+    color: #ffffff;
+    border: none;
+    margin-bottom: 0;
+}
+
+.mn-woocart-checkout:hover {
+    background-color: #229954;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+
+/* Empty Cart */
+.mn-woocart-empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: #999999;
+    font-size: 14px;
+}
+
+/* Notice */
+.mn-woocart-notice {
+    padding: 15px;
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    color: #856404;
+    font-size: 14px;
+}
+
+/* Loading State */
+.mn-woocart-item.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.mn-woocart-item.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #e0e0e0;
+    border-top-color: #333333;
+    border-radius: 50%;
+    animation: mn-woocart-spin 0.6s linear infinite;
+}
+
+@keyframes mn-woocart-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mn-woocart-dropdown {
+        width: 320px;
+        right: -10px;
+    }
+
+    .mn-woocart-item-row {
+        grid-template-columns: 50px 1fr auto;
+        gap: 8px;
+    }
+
+    .mn-woocart-item-thumbnail {
+        width: 50px;
+        height: 50px;
+    }
+
+    .mn-woocart-item-name {
+        font-size: 13px;
+    }
+
+    .mn-woocart-item-price {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mn-woocart-dropdown {
+        width: calc(100vw - 40px);
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    .mn-woocart-wrapper.active .mn-woocart-dropdown {
+        transform: translateX(-50%) translateY(0);
+    }
+}

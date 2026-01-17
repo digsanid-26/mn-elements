@@ -1,0 +1,188 @@
+/**
+ * MN Image or Icon Widget Styles
+ * 
+ * @package MN_Elements
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   Wrapper
+   ========================================================================== */
+.mn-image-or-icon-wrapper {
+	display: inline-block;
+	position: relative;
+}
+
+/* ==========================================================================
+   Image Styles
+   ========================================================================== */
+.mn-image-or-icon-image {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+
+.mn-image-or-icon-image img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	transition: all 0.3s ease;
+}
+
+.mn-image-or-icon-image a {
+	display: block;
+}
+
+/* Image Filter Effects - From MN Posts */
+/* Grayscale to Color */
+.mn-filter-grayscale img {
+	filter: grayscale(100%);
+}
+
+.mn-filter-grayscale:hover img {
+	filter: grayscale(0%);
+}
+
+/* Blur to Sharp */
+.mn-filter-blur img {
+	filter: blur(3px);
+}
+
+.mn-filter-blur:hover img {
+	filter: blur(0);
+}
+
+/* Sepia to Color */
+.mn-filter-sepia img {
+	filter: sepia(100%);
+}
+
+.mn-filter-sepia:hover img {
+	filter: sepia(0%);
+}
+
+/* Desaturated to Saturated */
+.mn-filter-saturate img {
+	filter: saturate(0%);
+}
+
+.mn-filter-saturate:hover img {
+	filter: saturate(100%);
+}
+
+/* Dark to Bright */
+.mn-filter-brightness img {
+	filter: brightness(50%);
+}
+
+.mn-filter-brightness:hover img {
+	filter: brightness(100%);
+}
+
+/* Low to High Contrast */
+.mn-filter-contrast img {
+	filter: contrast(50%);
+}
+
+.mn-filter-contrast:hover img {
+	filter: contrast(100%);
+}
+
+/* ==========================================================================
+   Icon Styles
+   ========================================================================== */
+.mn-image-or-icon-icon-wrapper {
+	display: inline-block;
+}
+
+.mn-image-or-icon-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	transition: all 0.3s ease;
+}
+
+.mn-image-or-icon-icon i {
+	display: inline-block;
+	transition: transform 0.3s ease;
+}
+
+.mn-image-or-icon-icon svg {
+	display: inline-block;
+	transition: transform 0.3s ease;
+}
+
+/* Icon View - Default */
+.mn-view-default .mn-image-or-icon-icon {
+	color: #6ec1e4;
+}
+
+/* Icon View - Stacked */
+.mn-view-stacked .mn-image-or-icon-icon {
+	background-color: #6ec1e4;
+	color: #fff;
+	border-radius: 50%;
+}
+
+.mn-shape-square.mn-view-stacked .mn-image-or-icon-icon {
+	border-radius: 0;
+}
+
+/* Icon View - Framed */
+.mn-view-framed .mn-image-or-icon-icon {
+	color: #6ec1e4;
+	border: 3px solid #6ec1e4;
+	background-color: transparent;
+	border-radius: 50%;
+}
+
+.mn-shape-square.mn-view-framed .mn-image-or-icon-icon {
+	border-radius: 0;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+@media (max-width: 768px) {
+	.mn-image-or-icon-image img {
+		max-width: 100%;
+	}
+}
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+	.mn-image-or-icon-image img,
+	.mn-image-or-icon-icon,
+	.mn-image-or-icon-icon i,
+	.mn-image-or-icon-icon svg {
+		transition: none;
+	}
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+	.mn-image-or-icon-icon {
+		border-width: 2px;
+	}
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+@media print {
+	.mn-image-or-icon-wrapper {
+		break-inside: avoid;
+	}
+	
+	.mn-filter-grayscale img,
+	.mn-filter-blur img,
+	.mn-filter-sepia img,
+	.mn-filter-saturate img,
+	.mn-filter-brightness img,
+	.mn-filter-contrast img {
+		filter: none;
+	}
+}

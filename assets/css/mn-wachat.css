@@ -1,0 +1,542 @@
+/**
+ * MN Wachat Widget Styles
+ * WhatsApp chat widget with CS profile, textarea and send button
+ */
+
+/* Wrapper */
+.mn-wachat-wrapper {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* CS Profile */
+.mn-wachat-cs-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+.mn-wachat-cs-photo-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.mn-wachat-cs-photo {
+    display: block;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mn-wachat-status-badge {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mn-wachat-status-badge.online {
+    background-color: #25D366;
+    animation: pulse-online 2s ease-in-out infinite;
+}
+
+.mn-wachat-status-badge.offline {
+    background-color: #999999;
+}
+
+@keyframes pulse-online {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(37, 211, 102, 0);
+    }
+}
+
+.mn-wachat-cs-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.mn-wachat-cs-name {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 4px 0;
+}
+
+.mn-wachat-cs-title {
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 0 0 6px 0;
+    opacity: 0.8;
+}
+
+.mn-wachat-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.mn-wachat-status-dot {
+    display: inline-block;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.mn-wachat-status.online .mn-wachat-status-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+.mn-wachat-status-text {
+    font-weight: 500;
+}
+
+/* Textarea */
+.mn-wachat-textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.mn-wachat-textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+}
+
+/* Button Wrapper */
+.mn-wachat-button-wrapper {
+    display: block;
+}
+
+/* Button */
+.mn-wachat-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.mn-wachat-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mn-wachat-button:active {
+    transform: translateY(0);
+}
+
+/* Button Icon */
+.mn-wachat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.mn-wachat-icon svg {
+    fill: currentColor;
+}
+
+/* Button Text */
+.mn-wachat-button-text {
+    line-height: 1;
+}
+
+/* Error Message */
+.mn-wachat-error {
+    padding: 15px;
+    background-color: #fee;
+    border: 1px solid #fcc;
+    border-radius: 4px;
+    color: #c33;
+    font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mn-wachat-cs-profile {
+        gap: 12px;
+    }
+
+    .mn-wachat-cs-name {
+        font-size: 14px;
+    }
+
+    .mn-wachat-cs-title {
+        font-size: 12px;
+    }
+
+    .mn-wachat-status {
+        font-size: 11px;
+    }
+
+    .mn-wachat-status-badge {
+        width: 12px;
+        height: 12px;
+    }
+
+    .mn-wachat-textarea {
+        font-size: 14px;
+        min-height: 100px;
+    }
+    
+    .mn-wachat-button {
+        font-size: 14px;
+        width: 100%;
+    }
+    
+    .mn-wachat-button-wrapper {
+        text-align: center;
+    }
+}
+
+/* Accessibility */
+.mn-wachat-button:focus {
+    outline: 2px solid #25D366;
+    outline-offset: 2px;
+}
+
+.mn-wachat-textarea:focus {
+    border-color: #25D366;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .mn-wachat-button {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .mn-wachat-button,
+    .mn-wachat-textarea {
+        transition: none;
+    }
+}
+
+/* ========================================
+   FLOATING MODE STYLES
+   ======================================== */
+
+/* Floating Button */
+.mn-wachat-floating-button {
+    position: fixed;
+    z-index: 9999;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+}
+
+.mn-wachat-floating-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+}
+
+.mn-wachat-floating-button svg {
+    width: 32px;
+    height: 32px;
+    color: #ffffff;
+}
+
+/* Position Classes */
+.mn-wachat-floating-button.position-bottom-right {
+    bottom: 30px;
+    right: 30px;
+}
+
+.mn-wachat-floating-button.position-bottom-left {
+    bottom: 30px;
+    left: 30px;
+}
+
+/* Floating Badge */
+.mn-wachat-floating-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid #25D366;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.mn-wachat-floating-badge.online {
+    background-color: #ffffff;
+    animation: pulse-online 2s ease-in-out infinite;
+}
+
+.mn-wachat-floating-badge.offline {
+    background-color: #999999;
+}
+
+/* Popup Dialog */
+.mn-wachat-popup {
+    position: fixed;
+    z-index: 9998;
+    width: 360px;
+    max-width: calc(100vw - 40px);
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+}
+
+.mn-wachat-popup.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Popup Position */
+.mn-wachat-popup.position-bottom-right {
+    bottom: 110px;
+    right: 30px;
+}
+
+.mn-wachat-popup.position-bottom-left {
+    bottom: 110px;
+    left: 30px;
+}
+
+/* Popup Header */
+.mn-wachat-popup-header {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #ffffff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mn-wachat-popup-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.mn-wachat-popup-close {
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.mn-wachat-popup-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mn-wachat-popup-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Popup Content */
+.mn-wachat-popup-content {
+    padding: 20px;
+}
+
+.mn-wachat-popup-content .mn-wachat-cs-profile {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.mn-wachat-popup-content .mn-wachat-textarea {
+    margin-bottom: 15px;
+}
+
+/* Floating Mode - Hide Form Mode Styles */
+.mn-wachat-floating-mode .mn-wachat-form-mode {
+    display: none;
+}
+
+/* Mobile Responsive for Floating */
+@media (max-width: 768px) {
+    .mn-wachat-floating-button {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .mn-wachat-floating-button svg {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .mn-wachat-floating-button.position-bottom-right,
+    .mn-wachat-floating-button.position-bottom-left {
+        bottom: 20px;
+    }
+    
+    .mn-wachat-floating-button.position-bottom-right {
+        right: 20px;
+    }
+    
+    .mn-wachat-floating-button.position-bottom-left {
+        left: 20px;
+    }
+    
+    .mn-wachat-popup {
+        width: calc(100vw - 40px);
+        max-height: calc(100vh - 140px);
+        overflow-y: auto;
+    }
+    
+    .mn-wachat-popup.position-bottom-right {
+        bottom: 90px;
+        right: 20px;
+    }
+    
+    .mn-wachat-popup.position-bottom-left {
+        bottom: 90px;
+        left: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mn-wachat-popup {
+        width: calc(100vw - 20px);
+        bottom: 80px !important;
+        left: 10px !important;
+        right: 10px !important;
+    }
+    
+    .mn-wachat-popup-content {
+        padding: 15px;
+    }
+}
+
+/* ========================================
+   QUICK ORDER MODE STYLES
+   ======================================== */
+
+/* Quick Order Wrapper */
+.mn-wachat-quick-order-wrapper {
+    display: block;
+}
+
+/* Quick Order Button */
+.mn-wachat-quick-order-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    padding: 15px 30px;
+    border-radius: 8px;
+    background-color: #25D366;
+    color: #ffffff;
+}
+
+.mn-wachat-quick-order-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    background-color: #128C7E;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.mn-wachat-quick-order-button:active {
+    transform: translateY(0);
+}
+
+.mn-wachat-quick-order-button:focus {
+    outline: 2px solid #25D366;
+    outline-offset: 2px;
+}
+
+/* Full Width Button */
+.mn-wachat-quick-order-button.mn-wachat-qo-full-width {
+    display: flex;
+    width: 100%;
+}
+
+/* Quick Order Icon */
+.mn-wachat-qo-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.mn-wachat-qo-icon svg {
+    fill: currentColor;
+}
+
+.mn-wachat-qo-icon i {
+    line-height: 1;
+}
+
+/* Quick Order Button Text */
+.mn-wachat-qo-button-text {
+    line-height: 1;
+}
+
+/* Responsive Design for Quick Order */
+@media (max-width: 768px) {
+    .mn-wachat-quick-order-button {
+        font-size: 14px;
+        padding: 12px 24px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .mn-wachat-wrapper {
+        display: none;
+    }
+}

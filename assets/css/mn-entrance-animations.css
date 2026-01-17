@@ -1,0 +1,236 @@
+/* MN Elements Entrance Animations CSS */
+
+/* Base styles for entrance animations */
+.mn-entrance-animation {
+    opacity: 0 !important;
+    transition: none !important;
+}
+
+/* Preview animation styles for editor */
+.elementor-editor-preview .mn-preview-animation {
+    opacity: 0 !important;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.elementor-editor-preview .mn-preview-animation.mn-animating {
+    opacity: 1 !important;
+}
+
+/* Force reset on page load */
+.mn-entrance-animation:not(.mn-animated) {
+    opacity: 0 !important;
+}
+
+.mn-entrance-animation.mn-animation-initialized {
+    /* Element is ready for animation */
+    visibility: visible;
+}
+
+.mn-entrance-animation.mn-animating {
+    /* Element is currently animating */
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+.mn-entrance-animation.mn-animated {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Initial states for different animation types */
+.mn-entrance-animation[data-mn-animation="zoom-out"]:not(.mn-animated) {
+    transform: scale(1.08);
+}
+
+.mn-entrance-animation[data-mn-animation="zoom-in"]:not(.mn-animated) {
+    transform: scale(0.8);
+}
+
+.mn-entrance-animation[data-mn-animation="fade-in"]:not(.mn-animated) {
+    /* Only opacity change, handled by base class */
+    transform: none;
+}
+
+.mn-entrance-animation[data-mn-animation="slide-up"]:not(.mn-animated) {
+    transform: translateY(50px);
+}
+
+.mn-entrance-animation[data-mn-animation="slide-down"]:not(.mn-animated) {
+    transform: translateY(-50px);
+}
+
+.mn-entrance-animation[data-mn-animation="slide-left"]:not(.mn-animated) {
+    transform: translateX(50px);
+}
+
+.mn-entrance-animation[data-mn-animation="slide-right"]:not(.mn-animated) {
+    transform: translateX(-50px);
+}
+
+/* Fallback CSS animations for browsers without anime.js */
+@media (prefers-reduced-motion: no-preference) {
+    .mn-entrance-animation.mn-css-fallback {
+        transition: all 0.8s ease-out;
+    }
+    
+    .mn-entrance-animation.mn-css-fallback.mn-animate-zoom-out {
+        animation: mnFadeInZoomOut 0.8s ease-out forwards;
+    }
+    
+    .mn-entrance-animation.mn-css-fallback.mn-animate-zoom-in {
+        animation: mnFadeInZoomIn 0.8s ease-out forwards;
+    }
+    
+    .mn-entrance-animation.mn-css-fallback.mn-animate-fade-in {
+        animation: mnFadeIn 0.8s ease-out forwards;
+    }
+    
+    .mn-entrance-animation.mn-css-fallback.mn-animate-slide-up {
+        animation: mnSlideUp 0.8s ease-out forwards;
+    }
+    
+    .mn-entrance-animation.mn-css-fallback.mn-animate-slide-down {
+        animation: mnSlideDown 0.8s ease-out forwards;
+    }
+
+.mn-entrance-animation.zoom-out {
+    animation: mn-zoom-out 1s ease-out forwards;
+}
+
+/* Zoom In Animation */
+@keyframes mn-zoom-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.mn-entrance-animation.zoom-in {
+    animation: mn-zoom-in 1s ease-out forwards;
+}
+
+/* Fade In Animation */
+@keyframes mn-fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.mn-entrance-animation.fade-in {
+    animation: mn-fade-in 1s ease-out forwards;
+}
+
+/* Slide Up Animation */
+@keyframes mn-slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mn-entrance-animation.slide-up {
+    animation: mn-slide-up 1s ease-out forwards;
+}
+
+/* Slide Down Animation */
+@keyframes mn-slide-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mn-entrance-animation.slide-down {
+    animation: mn-slide-down 1s ease-out forwards;
+}
+
+/* Slide Left Animation */
+@keyframes mn-slide-left {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.mn-entrance-animation.slide-left {
+    animation: mn-slide-left 1s ease-out forwards;
+}
+
+/* Slide Right Animation */
+@keyframes mn-slide-right {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.mn-entrance-animation.slide-right {
+    animation: mn-slide-right 1s ease-out forwards;
+}
+
+/* Compatibility with Elementor's animated class */
+.mn-entrance-animation.animated {
+    opacity: 1;
+}
+
+/* Safety fallback - show elements after 3 seconds if animation fails */
+.mn-entrance-invisible:not(.mn-animated):not(.animated) {
+    animation: mn-fallback-show 0.1s ease-out 3s forwards;
+}
+
+@keyframes mn-fallback-show {
+    to {
+        opacity: 1 !important;
+    }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .mn-entrance-animation {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .mn-entrance-animation:not(.mn-animated) {
+        outline: 1px solid;
+    }
+}
+
+/* Print styles - show all elements */
+@media print {
+    .mn-entrance-animation {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
+}

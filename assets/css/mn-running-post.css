@@ -1,0 +1,188 @@
+/* MN Running Post Widget Styles */
+
+/* Container */
+.mn-running-post-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+/* Wrapper */
+.mn-running-post-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Content */
+.mn-running-post-content {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: mn-running-right-to-left 30s linear infinite;
+    height: 100%;
+}
+
+/* Running Animation - Right to Left */
+@keyframes mn-running-right-to-left {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Post Items */
+.mn-running-post-item {
+    display: inline-block;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.mn-running-post-item:hover {
+    color: #007cba;
+    text-decoration: none;
+}
+
+/* Separator */
+.mn-running-post-separator {
+    display: inline-block;
+    color: #666;
+    font-weight: 400;
+    margin: 0 10px;
+    opacity: 0.7;
+}
+
+/* Pause on Hover */
+.mn-running-post-pause-hover:hover .mn-running-post-content {
+    animation-play-state: paused;
+}
+
+/* No Posts Message */
+.mn-running-post-no-posts {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mn-running-post-container {
+        height: 50px;
+    }
+    
+    .mn-running-post-item {
+        font-size: 14px;
+    }
+    
+    .mn-running-post-separator {
+        margin: 0 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mn-running-post-container {
+        height: 45px;
+    }
+    
+    .mn-running-post-item {
+        font-size: 13px;
+    }
+    
+    .mn-running-post-separator {
+        margin: 0 6px;
+    }
+}
+
+/* Animation Speed Variations */
+.mn-running-post-content.mn-speed-slow {
+    animation-duration: 60s;
+}
+
+.mn-running-post-content.mn-speed-fast {
+    animation-duration: 15s;
+}
+
+/* Custom Background Variants */
+.mn-running-post-container.mn-theme-dark {
+    background: #2c3e50;
+    border-color: #34495e;
+}
+
+.mn-running-post-container.mn-theme-dark .mn-running-post-item {
+    color: #ecf0f1;
+}
+
+.mn-running-post-container.mn-theme-dark .mn-running-post-item:hover {
+    color: #3498db;
+}
+
+.mn-running-post-container.mn-theme-dark .mn-running-post-separator {
+    color: #bdc3c7;
+}
+
+/* Gradient Background Variant */
+.mn-running-post-container.mn-theme-gradient {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+.mn-running-post-container.mn-theme-gradient .mn-running-post-item {
+    color: #ffffff;
+}
+
+.mn-running-post-container.mn-theme-gradient .mn-running-post-item:hover {
+    color: #f1c40f;
+}
+
+.mn-running-post-container.mn-theme-gradient .mn-running-post-separator {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Smooth Transitions */
+.mn-running-post-item,
+.mn-running-post-separator {
+    transition: all 0.3s ease;
+}
+
+/* Focus States for Accessibility */
+.mn-running-post-item:focus {
+    outline: 2px solid #007cba;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Print Styles */
+@media print {
+    .mn-running-post-container {
+        overflow: visible;
+        height: auto;
+    }
+    
+    .mn-running-post-content {
+        animation: none;
+        transform: none;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+    
+    .mn-running-post-item {
+        display: inline;
+        margin-right: 10px;
+    }
+}

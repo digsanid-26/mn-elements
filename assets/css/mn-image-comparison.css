@@ -1,0 +1,676 @@
+/**
+ * MN Image Comparison Widget Styles
+ * 
+ * Before/After image comparison widget with slider functionality
+ * @since 1.2.7
+ */
+
+/* Base Container Styles */
+.mn-image-comparison-wrapper {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mn-image-comparison-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: grab;
+    box-sizing: border-box;
+}
+
+.mn-image-comparison-container:active {
+    cursor: grabbing;
+}
+
+/* Comparison Style Ratios */
+.mn-comparison-style-square .mn-image-comparison-container {
+    aspect-ratio: 1 / 1;
+}
+
+.mn-comparison-style-wide .mn-image-comparison-container {
+    aspect-ratio: 2 / 1;
+}
+
+.mn-comparison-style-tall .mn-image-comparison-container {
+    aspect-ratio: 1 / 2;
+}
+
+/* Image containers */
+.mn-comparison-before,
+.mn-comparison-after {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Before image - positioned at left/top */
+.mn-comparison-before {
+    left: 0;
+    z-index: 1;
+}
+
+/* After image - positioned at right/bottom, initially hidden */
+.mn-comparison-after {
+    left: 0;
+    z-index: 2;
+}
+
+.mn-comparison-before img,
+.mn-comparison-after img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    pointer-events: none;
+}
+
+/* Horizontal Orientation - After image reveals from right side */
+.mn-image-comparison-horizontal .mn-comparison-after {
+    clip-path: inset(0 0 0 50%); /* Initially visible on right side, reveals from right */
+}
+
+/* Vertical Orientation - After image reveals from bottom side */
+.mn-image-comparison-vertical .mn-comparison-after {
+    clip-path: inset(50% 0 0 0); /* Initially visible on bottom side, reveals from bottom */
+}
+
+/* Comparison Divider */
+.mn-comparison-divider {
+    position: absolute;
+    background-color: #ffffff;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease;
+}
+
+/* Horizontal Divider */
+.mn-comparison-divider.horizontal {
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+    cursor: ew-resize;
+}
+
+/* Vertical Divider */
+.mn-comparison-divider.vertical {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+    cursor: ns-resize;
+}
+
+/* Comparison Handle */
+.mn-comparison-handle {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 11;
+}
+
+.mn-comparison-handle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.mn-comparison-handle i {
+    font-size: 16px;
+    color: #333333;
+}
+
+/* Handle positioning for horizontal */
+.mn-comparison-divider.horizontal .mn-comparison-handle {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Handle positioning for vertical */
+.mn-comparison-divider.vertical .mn-comparison-handle {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Labels - Overlay Mode */
+.mn-label-position-overlay .mn-comparison-label {
+    position: absolute;
+    padding: 8px 12px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    z-index: 5;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+/* Horizontal Orientation Labels */
+.mn-label-position-overlay.mn-image-comparison-horizontal .mn-comparison-label-before {
+    top: 20px;
+    left: 20px;
+}
+
+.mn-label-position-overlay.mn-image-comparison-horizontal .mn-comparison-label-after {
+    top: 20px;
+    right: 20px;
+}
+
+/* Vertical Orientation Labels */
+.mn-label-position-overlay.mn-image-comparison-vertical .mn-comparison-label-before {
+    top: 20px;
+    left: 20px;
+}
+
+.mn-label-position-overlay.mn-image-comparison-vertical .mn-comparison-label-after {
+    bottom: 20px;
+    left: 20px;
+}
+
+/* Hide overlay labels when position is not overlay */
+.mn-label-position-below .mn-comparison-label,
+.mn-label-position-none .mn-comparison-label {
+    display: none;
+}
+
+/* Content Below Images */
+.mn-comparison-content {
+    margin-top: 20px;
+    position: relative;
+}
+
+.mn-comparison-content-row {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+/* Dynamic Label Positioning for Below Mode */
+.mn-label-position-below .mn-comparison-content-before,
+.mn-label-position-below .mn-comparison-content-after {
+    position: absolute;
+    width: 50%;
+    text-align: center;
+    padding: 0 15px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center center;
+}
+
+.mn-label-position-below .mn-comparison-content-before {
+    left: 25%; /* Center of left 50% area */
+    transform: translateX(-50%); /* Center the element */
+}
+
+.mn-label-position-below .mn-comparison-content-after {
+    left: 75%; /* Center of right 50% area */
+    transform: translateX(-50%); /* Center the element */
+}
+
+/* Static Layout for Overlay and None modes */
+.mn-label-position-overlay .mn-comparison-content-row,
+.mn-label-position-none .mn-comparison-content-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+    position: static;
+}
+
+.mn-label-position-overlay .mn-comparison-content-before,
+.mn-label-position-overlay .mn-comparison-content-after,
+.mn-label-position-none .mn-comparison-content-before,
+.mn-label-position-none .mn-comparison-content-after {
+    position: static;
+    width: auto;
+    text-align: left;
+    transform: none !important;
+}
+
+/* Vertical Layout - Special handling */
+.mn-image-comparison-vertical.mn-label-position-below .mn-comparison-content-row {
+    flex-direction: column;
+    height: 100px; /* Set minimum height for vertical positioning */
+}
+
+.mn-image-comparison-vertical.mn-label-position-below .mn-comparison-content-before,
+.mn-image-comparison-vertical.mn-label-position-below .mn-comparison-content-after {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    left: 0;
+    right: 0;
+}
+
+.mn-image-comparison-vertical.mn-label-position-below .mn-comparison-content-before {
+    top: 25%; /* Center of top 50% area */
+    transform: translateY(-50%); /* Center the element */
+}
+
+.mn-image-comparison-vertical.mn-label-position-below .mn-comparison-content-after {
+    top: 75%; /* Center of bottom 50% area */
+    transform: translateY(-50%); /* Center the element */
+}
+
+.mn-image-comparison-vertical.mn-label-position-overlay .mn-comparison-content-row,
+.mn-image-comparison-vertical.mn-label-position-none .mn-comparison-content-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.mn-comparison-content-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: inherit;
+}
+
+.mn-comparison-description {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    color: inherit;
+}
+
+/* Hide content section when labels are set to none and no descriptions */
+.mn-label-position-none .mn-comparison-content:empty {
+    display: none;
+}
+
+/* Zoom Icon */
+.mn-comparison-zoom-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 15;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.mn-comparison-zoom-icon:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+}
+
+.mn-comparison-zoom-icon i {
+    pointer-events: none;
+}
+
+/* Zoom Icon Positioning - Avoid Overlay Label Conflicts */
+/* When overlay labels are present, adjust zoom icon position */
+.mn-label-position-overlay .mn-comparison-zoom-icon {
+    top: 15px;
+    right: 70px; /* Move left to avoid label overlap */
+}
+
+/* Horizontal orientation - after label is on top right */
+.mn-label-position-overlay.mn-image-comparison-horizontal .mn-comparison-zoom-icon {
+    top: 70px; /* Move down below the after label */
+    right: 15px;
+}
+
+/* Vertical orientation - after label is on bottom left, so keep zoom icon on top right */
+.mn-label-position-overlay.mn-image-comparison-vertical .mn-comparison-zoom-icon {
+    top: 15px;
+    right: 15px; /* Keep original position as no conflict */
+}
+
+/* Zoom Popup Modal */
+.mn-comparison-zoom-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mn-comparison-zoom-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.mn-comparison-zoom-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: mn-zoom-popup-in 0.3s ease-out;
+}
+
+@keyframes mn-zoom-popup-in {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.mn-comparison-zoom-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 36px;
+    height: 36px;
+    background-color: #ff4757;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.mn-comparison-zoom-close:hover {
+    background-color: #ff3742;
+    transform: scale(1.1);
+}
+
+.mn-comparison-zoom-images {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.mn-comparison-zoom-before,
+.mn-comparison-zoom-after {
+    flex: 1;
+    text-align: center;
+}
+
+.mn-comparison-zoom-before img,
+.mn-comparison-zoom-after img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mn-comparison-zoom-label {
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    display: block;
+}
+
+/* Responsive Design for Popup */
+@media (max-width: 768px) {
+    .mn-comparison-zoom-content {
+        max-width: 95vw;
+        padding: 15px;
+    }
+    
+    .mn-comparison-zoom-images {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .mn-comparison-zoom-before img,
+    .mn-comparison-zoom-after img {
+        max-width: 100%;
+    }
+    
+    .mn-comparison-zoom-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+    
+    /* Responsive adjustments for overlay positioning */
+    .mn-label-position-overlay .mn-comparison-zoom-icon {
+        right: 60px; /* Smaller offset on mobile */
+    }
+    
+    .mn-label-position-overlay.mn-image-comparison-horizontal .mn-comparison-zoom-icon {
+        top: 60px; /* Smaller offset on mobile */
+        right: 15px;
+    }
+}
+
+/* Theme Variations */
+/* Light Theme */
+.mn-image-comparison-theme-light {
+    color: #333333;
+}
+
+.mn-image-comparison-theme-light .mn-comparison-label {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333333;
+}
+
+.mn-image-comparison-theme-light .mn-comparison-handle {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.mn-image-comparison-theme-light .mn-comparison-divider {
+    background-color: #ffffff;
+}
+
+/* Dark Theme */
+.mn-image-comparison-theme-dark {
+    color: #ffffff;
+}
+
+.mn-image-comparison-theme-dark .mn-comparison-label {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+}
+
+.mn-image-comparison-theme-dark .mn-comparison-handle {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+.mn-image-comparison-theme-dark .mn-comparison-divider {
+    background-color: #333333;
+}
+
+.mn-image-comparison-theme-dark .mn-comparison-content-title {
+    color: #ffffff;
+}
+
+.mn-image-comparison-theme-dark .mn-comparison-description {
+    color: #cccccc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mn-comparison-content-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .mn-comparison-label {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    
+    .mn-comparison-label-before,
+    .mn-comparison-label-after {
+        top: 15px;
+    }
+    
+    .mn-comparison-label-before {
+        left: 15px;
+    }
+    
+    .mn-comparison-label-after {
+        right: 15px;
+    }
+    
+    .mn-comparison-handle {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .mn-comparison-handle i {
+        font-size: 14px;
+    }
+    
+    .mn-comparison-content-title {
+        font-size: 16px;
+    }
+    
+    .mn-comparison-description {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mn-comparison-handle {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .mn-comparison-handle i {
+        font-size: 12px;
+    }
+    
+    .mn-comparison-label {
+        font-size: 11px;
+        padding: 5px 8px;
+    }
+    
+    .mn-comparison-content {
+        margin-top: 15px;
+    }
+    
+    .mn-comparison-content-row {
+        gap: 15px;
+    }
+}
+
+/* Animation and Transitions */
+.mn-image-comparison-container * {
+    transition: all 0.1s ease;
+}
+
+.mn-comparison-handle {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mn-comparison-label {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Accessibility */
+.mn-image-comparison-container:focus {
+    outline: 2px solid #007cba;
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .mn-comparison-handle {
+        border: 2px solid #000000;
+    }
+    
+    .mn-comparison-divider {
+        background-color: #000000;
+    }
+    
+    .mn-comparison-label {
+        border: 1px solid #000000;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .mn-image-comparison-container *,
+    .mn-comparison-handle,
+    .mn-comparison-label {
+        transition: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .mn-image-comparison-wrapper {
+        break-inside: avoid;
+    }
+    
+    .mn-comparison-handle,
+    .mn-comparison-divider {
+        display: none;
+    }
+    
+    .mn-comparison-before,
+    .mn-comparison-after {
+        position: static;
+        width: 50%;
+        height: auto;
+        display: inline-block;
+        vertical-align: top;
+    }
+    
+    .mn-comparison-before img,
+    .mn-comparison-after img {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+    
+    .mn-image-comparison-vertical .mn-comparison-after,
+    .mn-image-comparison-horizontal .mn-comparison-after {
+        clip-path: none;
+    }
+}

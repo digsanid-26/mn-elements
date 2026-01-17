@@ -1,0 +1,964 @@
+/* ============================================
+   MN Dynamic Tabs - Enhanced Version 3.0
+   Features: Default & Hero Templates, Tab Positioning, Animations
+   ============================================ */
+
+/* Base Container */
+.mn-dynamic-tabs {
+    width: 100%;
+    font-family: inherit;
+    position: relative;
+}
+
+/* Tab Navigation Base Styles */
+.mn-tabs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Horizontal Scroll Support */
+.mn-tabs-nav.mn-scroll-enabled {
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.mn-tabs-nav.mn-scroll-enabled::-webkit-scrollbar {
+    height: 6px;
+}
+
+.mn-tabs-nav.mn-scroll-enabled::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mn-tabs-nav.mn-scroll-enabled::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.mn-tabs-nav.mn-scroll-enabled::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Tab Item Base */
+.mn-tab-item {
+    flex: 0 0 auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+/* Tab Icon Styling */
+.mn-tab-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.mn-tab-icon svg {
+    transition: all 0.3s ease;
+}
+
+/* Icon Position - Left/Right (Inline) */
+.mn-tab-icon-left {
+    margin-right: 8px;
+}
+
+.mn-tab-icon-right {
+    margin-left: 8px;
+}
+
+/* Icon Position - Top/Bottom (Stack) */
+.mn-tab-icon-position-top .mn-tab-item-content,
+.mn-tab-icon-position-bottom .mn-tab-item-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.mn-tab-icon-top {
+    margin-bottom: 8px;
+}
+
+.mn-tab-icon-bottom {
+    margin-top: 8px;
+}
+
+/* Icon Only Mode (when title is hidden) */
+.mn-tab-item:not(:has(.mn-tab-title)) .mn-tab-icon {
+    margin: 0;
+}
+
+/* Icon with Title - Horizontal Layout */
+.mn-tab-icon-position-left .mn-tab-item-content,
+.mn-tab-icon-position-right .mn-tab-item-content {
+    display: flex;
+    align-items: center;
+}
+
+/* Icon Hover & Active States */
+.mn-tab-item:hover .mn-tab-icon,
+.mn-tab-item.active .mn-tab-icon {
+    transform: scale(1.1);
+}
+
+/* ============================================
+   NAVIGATION MODE: FIXED (Default)
+   ============================================ */
+
+/* Fixed Mode - Navigation outside content (default behavior) */
+.mn-nav-mode-fixed .mn-dynamic-tabs {
+    display: flex;
+    position: relative;
+}
+
+/* Fixed Mode will use the existing position system below */
+
+/* ============================================
+   NAVIGATION MODE: OVERLAY
+   ============================================ */
+
+/* Overlay Mode - Navigation inside content */
+.mn-nav-mode-overlay .mn-dynamic-tabs {
+    position: relative;
+}
+
+.mn-nav-mode-overlay .mn-tabs-nav {
+    position: absolute;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mn-nav-mode-overlay .mn-tabs-content {
+    position: relative;
+    z-index: 1;
+    min-height: 400px;
+}
+
+/* Overlay Position - Top */
+.mn-nav-mode-overlay.mn-tab-position-top-left .mn-tabs-nav {
+    top: 20px;
+    left: 20px;
+}
+
+.mn-nav-mode-overlay.mn-tab-position-top-center .mn-tabs-nav {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mn-nav-mode-overlay.mn-tab-position-top-right .mn-tabs-nav {
+    top: 20px;
+    right: 20px;
+}
+
+/* Overlay Position - Middle */
+.mn-nav-mode-overlay.mn-tab-position-middle-left .mn-tabs-nav {
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+}
+
+.mn-nav-mode-overlay.mn-tab-position-middle-center .mn-tabs-nav {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.mn-nav-mode-overlay.mn-tab-position-middle-right .mn-tabs-nav {
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+/* Overlay Position - Bottom */
+.mn-nav-mode-overlay.mn-tab-position-bottom-left .mn-tabs-nav {
+    bottom: 20px;
+    left: 20px;
+}
+
+.mn-nav-mode-overlay.mn-tab-position-bottom-center .mn-tabs-nav {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mn-nav-mode-overlay.mn-tab-position-bottom-right .mn-tabs-nav {
+    bottom: 20px;
+    right: 20px;
+}
+
+/* ============================================
+   DEFAULT TEMPLATE - 9 POSITION TAB SYSTEM
+   ============================================ */
+
+/* Base container setup for positioning - ONLY for Default Template */
+.mn-template-default .mn-dynamic-tabs,
+.mn-nav-mode-fixed.mn-template-default .mn-dynamic-tabs {
+    display: flex;
+    position: relative;
+    min-height: 400px;
+    padding: 20px 0;
+}
+
+.mn-template-default .mn-tabs-nav,
+.mn-nav-mode-fixed.mn-template-default .mn-tabs-nav {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+.mn-template-default .mn-tabs-content,
+.mn-nav-mode-fixed.mn-template-default .mn-tabs-content {
+    position: relative;
+    z-index: 5;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    background-color: #ffffff;
+    min-height: 300px;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Top Row Positions - Default Template Only */
+.mn-template-default.mn-tab-position-top-left .mn-tabs-nav {
+    top: 0;
+    left: 0;
+    justify-content: flex-start;
+}
+
+.mn-template-default.mn-tab-position-top-left .mn-tabs-content {
+    margin-top: 60px;
+}
+
+.mn-template-default.mn-tab-position-top-center .mn-tabs-nav {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: center;
+}
+
+.mn-template-default.mn-tab-position-top-center .mn-tabs-content {
+    margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+}
+
+.mn-template-default.mn-tab-position-top-right .mn-tabs-nav {
+    top: 0;
+    right: 0;
+    justify-content: flex-end;
+}
+
+.mn-template-default.mn-tab-position-top-right .mn-tabs-content {
+    margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+}
+
+/* Middle Row Positions - Default Template Only */
+.mn-template-default.mn-tab-position-middle-left .mn-dynamic-tabs {
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 400px;
+}
+
+.mn-template-default.mn-tab-position-middle-left .mn-tabs-nav {
+    position: relative;
+    flex-direction: column;
+    flex: 0 0 250px;
+    margin-right: 20px;
+    border-bottom: none;
+    border-right: 1px solid #e0e0e0;
+    padding-right: 20px;
+}
+
+.mn-template-default.mn-tab-position-middle-left .mn-tabs-content {
+    flex: 1;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+.mn-template-default.mn-tab-position-middle-center .mn-dynamic-tabs {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+}
+
+.mn-template-default.mn-tab-position-middle-center .mn-tabs-nav {
+    position: relative;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.mn-template-default.mn-tab-position-middle-center .mn-tabs-content {
+    margin: 0;
+    max-width: 800px;
+    width: 100%;
+}
+
+.mn-template-default.mn-tab-position-middle-right .mn-dynamic-tabs {
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 400px;
+}
+
+.mn-template-default.mn-tab-position-middle-right .mn-tabs-nav {
+    position: relative;
+    flex-direction: column;
+    flex: 0 0 250px;
+    order: 2;
+    margin-left: 20px;
+    border-bottom: none;
+    border-left: 1px solid #e0e0e0;
+    padding-left: 20px;
+}
+
+.mn-template-default.mn-tab-position-middle-right .mn-tabs-content {
+    flex: 1;
+    order: 1;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+/* Bottom Row Positions - Default Template Only */
+.mn-template-default.mn-tab-position-bottom-left .mn-tabs-nav {
+    bottom: 0;
+    left: 0;
+    justify-content: flex-start;
+}
+
+.mn-template-default.mn-tab-position-bottom-left .mn-tabs-content {
+    margin-bottom: 60px;
+}
+
+.mn-template-default.mn-tab-position-bottom-center .mn-tabs-nav {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: center;
+}
+
+.mn-template-default.mn-tab-position-bottom-center .mn-tabs-content {
+    margin-bottom: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+}
+
+.mn-template-default.mn-tab-position-bottom-right .mn-tabs-nav {
+    bottom: 0;
+    right: 0;
+    justify-content: flex-end;
+}
+
+.mn-template-default.mn-tab-position-bottom-right .mn-tabs-content {
+    margin-bottom: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+}
+
+/* Tab item styling for positioned navigation */
+.mn-template-default .mn-tab-item {
+    flex: 0 0 auto;
+    padding: 12px 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    outline: none;
+    user-select: none;
+}
+
+.mn-template-default .mn-tab-item:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.mn-template-default .mn-tab-item:focus {
+    box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.3);
+}
+
+.mn-template-default .mn-tab-item.active {
+    background-color: #ffffff;
+    border-color: #dee2e6;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Special styling for vertical tabs */
+.mn-tab-position-middle-left .mn-tab-item,
+.mn-tab-position-middle-right .mn-tab-item {
+    width: 100%;
+    margin-bottom: 5px;
+    border-radius: 6px;
+}
+
+.mn-tab-position-middle-left .mn-tab-item.active {
+    border-right-color: #007cba;
+    border-right-width: 3px;
+}
+
+.mn-tab-position-middle-right .mn-tab-item.active {
+    border-left-color: #007cba;
+    border-left-width: 3px;
+}
+
+/* ============================================
+   VIDEO CONTENT STYLING
+   ============================================ */
+
+.mn-video-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.mn-video-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 1;
+}
+
+.mn-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+}
+
+.mn-video-overlay h1,
+.mn-video-overlay h2,
+.mn-video-overlay h3,
+.mn-video-overlay h4,
+.mn-video-overlay h5,
+.mn-video-overlay h6 {
+    color: #ffffff;
+}
+
+.mn-video-overlay p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* ============================================
+   TAB TITLE & DESCRIPTION STYLING
+   ============================================ */
+
+.mn-template-default .mn-tab-title {
+    display: block;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #495057;
+}
+
+.mn-template-default .mn-tab-item.active .mn-tab-title {
+    color: #007cba;
+    font-weight: 600;
+}
+
+.mn-template-default .mn-tab-description {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #6c757d;
+    opacity: 0.8;
+}
+
+.mn-template-default .mn-tab-item.active .mn-tab-description {
+    opacity: 1;
+}
+
+/* ============================================
+   TAB CONTENT - DEFAULT TEMPLATE
+   ============================================ */
+
+.mn-template-default .mn-tabs-content {
+    position: relative;
+    border: 1px solid #dee2e6;
+    border-radius: 0 6px 6px 6px;
+    background-color: #ffffff;
+}
+
+.mn-template-default .mn-tab-content {
+    display: none;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.mn-template-default .mn-tab-content.active {
+    display: block;
+}
+
+/* Tab Button */
+.mn-tab-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #007cba;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.mn-tab-button:hover {
+    background-color: #005a87;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================
+   HERO TEMPLATE - 9 POSITION TAB SYSTEM
+   ============================================ */
+
+.mn-template-hero {
+    position: relative;
+    width: 100%;
+    min-height: 600px;
+}
+
+.mn-hero-tabber {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+}
+
+.mn-hero-backgrounds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.mn-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.mn-hero-bg.active {
+    opacity: 1;
+}
+
+.mn-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+.mn-hero-container {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.mn-template-hero .mn-tabs-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 400px;
+    max-width: 100%;
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+/* Hero Tab Position - Top Row */
+.mn-template-hero.mn-tab-position-top-left .mn-hero-container {
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.mn-template-hero.mn-tab-position-top-center .mn-hero-container {
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.mn-template-hero.mn-tab-position-top-right .mn-hero-container {
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+/* Hero Tab Position - Middle Row */
+.mn-template-hero.mn-tab-position-middle-left .mn-hero-container {
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.mn-template-hero.mn-tab-position-middle-center .mn-hero-container {
+    align-items: center;
+    justify-content: center;
+}
+
+.mn-template-hero.mn-tab-position-middle-right .mn-hero-container {
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Hero Tab Position - Bottom Row */
+.mn-template-hero.mn-tab-position-bottom-left .mn-hero-container {
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.mn-template-hero.mn-tab-position-bottom-center .mn-hero-container {
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.mn-template-hero.mn-tab-position-bottom-right .mn-hero-container {
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.mn-template-hero .mn-tab-item {
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    outline: none;
+    user-select: none;
+    overflow: hidden;
+}
+
+.mn-template-hero .mn-tab-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: #007cba;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.mn-template-hero .mn-tab-item:hover,
+.mn-template-hero .mn-tab-item.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateX(10px);
+}
+
+.mn-template-hero .mn-tab-item.active::before {
+    transform: scaleY(1);
+}
+
+.mn-template-hero .mn-tab-item-content {
+    padding: 20px 25px;
+    display: block;
+}
+
+.mn-template-hero .mn-tab-title {
+    display: block;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #ffffff;
+}
+
+/* Add margin only when description exists */
+.mn-template-hero .mn-tab-title:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.mn-template-hero .mn-tab-description {
+    display: none;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Add margin only when button exists */
+.mn-template-hero .mn-tab-description:not(:last-child) {
+    margin-bottom: 12px;
+}
+
+.mn-template-hero .mn-tab-item.active .mn-tab-description {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mn-template-hero .mn-tab-button {
+    display: none;
+    margin: 0;
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.mn-template-hero .mn-tab-item.active .mn-tab-button {
+    display: inline-block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mn-template-hero .mn-tab-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInHero {
+    from {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN FOR 9 POSITION SYSTEM
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    /* Convert all positions to simpler layout */
+    .mn-template-default .mn-dynamic-tabs {
+        flex-direction: column;
+        min-height: auto;
+        padding: 10px 0;
+    }
+    
+    .mn-template-default .mn-tabs-nav {
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        flex-direction: row;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 0;
+        justify-content: flex-start !important;
+    }
+    
+    .mn-template-default .mn-tab-item {
+        border-radius: 6px 6px 0 0;
+        border-bottom: none;
+        margin-bottom: -1px;
+        margin-right: 0;
+        margin-left: 0;
+        width: auto !important;
+    }
+    
+    .mn-template-default .mn-tabs-content {
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        margin: 0 !important;
+        border-radius: 0 6px 6px 6px;
+        width: 100% !important;
+        max-width: none !important;
+    }
+    
+    .mn-hero-container {
+        padding: 30px;
+    }
+    
+    .mn-template-hero .mn-tab-title {
+        font-size: 18px;
+    }
+    
+    /* Hero template responsive */
+    .mn-template-hero .mn-hero-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .mn-template-hero .mn-tabs-nav {
+        margin: 0 auto;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .mn-template-default .mn-tabs-nav {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .mn-template-default .mn-tabs-nav::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .mn-template-default .mn-tab-item {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        min-width: 120px;
+    }
+    
+    /* Video responsive */
+    .mn-video-container {
+        height: 250px;
+    }
+    
+    .mn-video-overlay {
+        padding: 15px;
+    }
+    
+    .mn-video-overlay p {
+        font-size: 14px;
+    }
+    
+    .mn-hero-container {
+        padding: 20px;
+    }
+    
+    .mn-template-hero .mn-tabs-nav {
+        max-width: 100%;
+    }
+    
+    .mn-template-hero .mn-tab-item-content {
+        padding: 15px 20px;
+    }
+    
+    .mn-template-hero .mn-tab-title {
+        font-size: 16px;
+    }
+    
+    .mn-template-hero .mn-tab-description {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mn-template-default .mn-tab-item {
+        min-width: 100px;
+        padding: 8px 12px;
+    }
+    
+    .mn-template-default .mn-tab-title {
+        font-size: 12px;
+    }
+    
+    .mn-template-default .mn-tab-content {
+        padding: 12px;
+    }
+    
+    .mn-template-hero .mn-tab-item {
+        transform: none !important;
+    }
+    
+    .mn-template-hero .mn-tab-item:hover,
+    .mn-template-hero .mn-tab-item.active {
+        transform: none !important;
+    }
+}

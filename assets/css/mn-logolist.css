@@ -1,0 +1,682 @@
+/* MN Logolist Widget Styles */
+
+/* Base Styles */
+.mn-logolist-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.mn-logolist-container {
+    width: 100%;
+}
+
+/* Logo Item Base */
+.mn-logo-item {
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.mn-logo-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+/* Title Position Styles */
+.mn-logo-content.mn-logo-title-top {
+    flex-direction: column;
+}
+
+.mn-logo-content.mn-logo-title-top .mn-logo-title {
+    order: -1;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.mn-logo-content.mn-logo-title-middle {
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.mn-logo-content.mn-logo-title-middle .mn-logo-image {
+    flex: 0 0 auto;
+}
+
+.mn-logo-content.mn-logo-title-middle .mn-title-middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mn-theme-dark .mn-logo-content.mn-logo-title-middle .mn-title-middle {
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+}
+
+.mn-logo-content.mn-logo-title-bottom {
+    flex-direction: column;
+}
+
+.mn-logo-content.mn-logo-title-bottom .mn-logo-title {
+    margin-top: 10px;
+}
+
+/* Logo Image Base */
+.mn-logo-image {
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    /* Default alignment - will be overridden by Elementor controls */
+    align-items: center;
+    justify-content: center;
+}
+
+.mn-logo-image img {
+    max-width: 100%;
+    height: auto;
+    transition: all 0.3s ease;
+    object-fit: contain;
+}
+
+/* When image is aligned left or right, adjust max-width */
+.mn-logo-image.align-left img,
+.mn-logo-image.align-right img {
+    max-width: 90%;
+}
+
+/* When image is vertically aligned, adjust object-fit */
+.mn-logo-image.valign-top img,
+.mn-logo-image.valign-bottom img {
+    object-fit: contain;
+}
+
+/* Background Image Styles */
+.mn-logo-image.mn-logo-background {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+}
+
+.mn-logo-image.mn-logo-background img {
+    display: none;
+}
+
+/* Image Stretch */
+.mn-image-stretch .mn-logo-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mn-image-stretch .mn-logo-image.mn-logo-background {
+    background-size: cover;
+}
+
+/* Custom Resolution Support */
+.mn-logolist-wrapper .mn-logo-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* When custom resolution is used, respect the exact dimensions */
+.mn-logolist-wrapper[data-image-resolution="custom"] .mn-logo-image img {
+    max-width: none;
+}
+
+/* Custom resolution responsive behavior */
+@media (max-width: 768px) {
+    .mn-logolist-wrapper[data-image-resolution="custom"] .mn-logo-image img {
+        max-width: 100%;
+        width: auto !important;
+        height: auto !important;
+    }
+}
+
+.mn-logo-title {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    transition: all 0.3s ease;
+}
+
+.mn-logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+/* Grid Layout */
+.mn-logolist-grid .mn-logolist-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+/* Support for higher column counts on larger screens */
+@media (min-width: 1400px) {
+    .mn-logolist-grid .mn-logolist-container {
+        gap: 20px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .mn-logolist-grid .mn-logolist-container {
+        gap: 15px;
+    }
+}
+
+.mn-logolist-grid .mn-logo-item {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 5px;    
+}
+
+.mn-logolist-grid .mn-logo-content {
+    flex-direction: column;
+}
+
+.mn-logolist-grid .mn-logo-image {    
+    height: 80px;
+}
+
+/* List Layout */
+.mn-logolist-list .mn-logolist-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.mn-logolist-list .mn-logo-item {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.mn-logolist-list .mn-logo-list-layout {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+}
+
+.mn-logolist-list .mn-logo-image {
+    width: 80px;
+    height: 60px;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.mn-logolist-list .mn-logo-title {
+    margin-top: 0;
+    flex: 1;
+}
+
+/* Carousel Layout */
+.mn-logolist-carousel {
+    overflow: hidden;
+    position: relative;
+}
+
+.mn-logolist-carousel .mn-logolist-container {
+    display: flex;
+    animation: mn-carousel-scroll linear infinite;
+    width: max-content;
+    --original-width: 0px;
+}
+
+.mn-logolist-carousel .mn-logo-item {
+    flex: 0 0 auto;
+    margin-right: 30px;
+    background: #ffffff;
+    border-radius: 8px;    
+    width: 200px;
+}
+
+.mn-logolist-carousel .mn-logo-image {
+    height: 80px;
+    margin-bottom: 5px;
+}
+
+/* Carousel Animation - moves exactly the width of original items for seamless loop */
+@keyframes mn-carousel-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-1 * var(--original-width)));
+    }
+}
+
+/* RTL Carousel Animation - moves from right to left */
+@keyframes mn-carousel-scroll-rtl {
+    0% {
+        transform: translateX(calc(-1 * var(--original-width)));
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Pause on Hover */
+.mn-logolist-carousel:hover .mn-logolist-container {
+    animation-play-state: paused;
+}
+
+/* Theme Variations */
+
+/* Light Theme */
+.mn-theme-light .mn-logo-item {
+    background: #ffffff;
+    border-color: #e0e0e0;
+    color: #333333;
+}
+
+.mn-theme-light .mn-logo-item:hover {
+    background: #f8f9fa;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.mn-theme-light .mn-logo-title {
+    color: #333333;
+}
+
+.mn-theme-light .mn-logo-item:hover .mn-logo-title {
+    color: #007cba;
+}
+
+/* Dark Theme */
+.mn-theme-dark .mn-logo-item {
+    background: #2c3e50;
+    border-color: #34495e;
+    color: #ffffff;
+}
+
+.mn-theme-dark .mn-logo-item:hover {
+    background: #34495e;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.mn-theme-dark .mn-logo-title {
+    color: #ffffff;
+}
+
+.mn-theme-dark .mn-logo-item:hover .mn-logo-title {
+    color: #3498db;
+}
+
+/* Hover Effects */
+.mn-logo-item:hover .mn-logo-image img {
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .mn-logolist-grid .mn-logolist-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    
+    .mn-logolist-carousel .mn-logo-item {
+        width: 180px;
+        margin-right: 20px;
+    }
+    
+    /* Responsive title positioning */
+    .mn-logo-content.mn-logo-title-middle .mn-title-middle {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mn-logolist-grid .mn-logolist-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .mn-logolist-list .mn-logo-list-layout {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .mn-logolist-list .mn-logo-image {
+        margin-right: 0;
+        margin-bottom: 10px;
+        width: 60px;
+        height: 45px;
+    }
+    
+    .mn-logolist-carousel .mn-logo-item {
+        width: 150px;
+        padding: 15px;
+    }
+    
+    .mn-logolist-carousel .mn-logo-image {
+        height: 60px;
+    }
+    
+    /* Adjust title styles for mobile */
+    .mn-logo-title {
+        font-size: 12px;
+    }
+    
+    .mn-logo-content.mn-logo-title-middle .mn-title-middle {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+    
+    /* Background image adjustments */
+    .mn-logo-image.mn-logo-background {
+        background-size: contain;
+    }
+}
+
+@media (max-width: 480px) {
+    .mn-logolist-grid .mn-logolist-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    
+    .mn-logolist-list .mn-logo-item {
+        padding: 10px 15px;
+    }
+    
+    .mn-logolist-carousel .mn-logo-item {
+        width: 120px;
+        padding: 10px;
+    }
+    
+    /* Further adjust title for small screens */
+    .mn-logo-title {
+        font-size: 11px;
+    }
+    
+    .mn-logo-content.mn-logo-title-middle .mn-title-middle {
+        font-size: 10px;
+        padding: 2px 5px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .mn-logolist-carousel .mn-logolist-container {
+        animation: none;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        width: 100%;
+    }
+    
+    .mn-logolist-carousel .mn-logo-item {
+        margin-right: 0;
+        width: auto;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .mn-logolist-carousel .mn-logolist-container {
+        animation: none;
+    }
+    
+    .mn-logo-item,
+    .mn-logo-image img {
+        transition: none;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .mn-logo-item {
+        border-width: 2px;
+    }
+    
+    .mn-theme-light .mn-logo-item {
+        border-color: #000000;
+    }
+    
+    .mn-theme-dark .mn-logo-item {
+        border-color: #ffffff;
+    }
+}
+
+/* Focus States for Accessibility */
+.mn-logo-link:focus {
+    outline: 2px solid #007cba;
+    outline-offset: 2px;
+}
+
+.mn-logo-link:focus .mn-logo-item {
+    box-shadow: 0 0 0 3px rgba(0, 124, 186, 0.3);
+}
+
+/* Loading State */
+.mn-logo-item.loading {
+    opacity: 0.6;
+}
+
+@keyframes mn-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Carousel Fade Edges for Smooth Infinite Loop */
+.mn-logolist-carousel::before,
+.mn-logolist-carousel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;    
+}
+
+.mn-logolist-carousel::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0));
+}
+
+.mn-logolist-carousel::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255,255,255,0.8), rgba(255,255,255,0));
+}
+
+.mn-theme-dark .mn-logolist-carousel::before {
+    background: linear-gradient(to right, rgba(44,62,80,0.8), rgba(44,62,80,0));
+}
+
+.mn-theme-dark .mn-logolist-carousel::after {
+    background: linear-gradient(to left, rgba(44,62,80,0.8), rgba(44,62,80,0));
+}
+
+/* Ensure smooth animation performance */
+.mn-logolist-carousel .mn-logolist-container {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Lightbox Modal Styles */
+.mn-logolist-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mn-logolist-lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.mn-logolist-lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.mn-logolist-lightbox.active .mn-logolist-lightbox-content {
+    transform: scale(1);
+}
+
+.mn-logolist-lightbox-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    padding: 15px 20px;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mn-logolist-lightbox-title {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.mn-logolist-lightbox-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    line-height: 1;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.mn-logolist-lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.mn-logolist-lightbox-body {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    min-height: 300px;
+}
+
+.mn-logolist-lightbox-body img {
+    max-width: 100%;
+    max-height: 85vh;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+.mn-logolist-lightbox-body video {
+    max-width: 100%;
+    max-height: 85vh;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+.mn-logolist-lightbox-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.mn-logolist-lightbox-spinner {
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #ffffff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: mn-lightbox-spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes mn-lightbox-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Lightbox Responsive */
+@media (max-width: 768px) {
+    .mn-logolist-lightbox-content {
+        max-width: 95%;
+        max-height: 95%;
+    }
+    
+    .mn-logolist-lightbox-header {
+        padding: 10px 15px;
+    }
+    
+    .mn-logolist-lightbox-title {
+        font-size: 16px;
+    }
+    
+    .mn-logolist-lightbox-close {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+    
+    .mn-logolist-lightbox-body img,
+    .mn-logolist-lightbox-body video {
+        max-height: 80vh;
+    }
+}
+
+/* Lightbox Accessibility */
+.mn-logolist-lightbox-close:focus {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+/* Prevent body scroll when lightbox is open */
+body.mn-lightbox-open {
+    overflow: hidden;
+}

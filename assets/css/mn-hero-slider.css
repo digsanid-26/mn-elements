@@ -1,0 +1,602 @@
+/* MN Hero Slider Styles */
+
+/* Slider Container */
+.mn-hero-slider-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    perspective: 1500px;
+    perspective-origin: center center;
+}
+
+.mn-hero-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Hero Slide - Base (No default transition) */
+.mn-hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transform: translateX(0) scale(1) rotateY(0deg) translateZ(0);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.mn-hero-slide.active {
+    opacity: 1;
+    z-index: 2;
+    pointer-events: auto;
+}
+
+/* Base transitions for each effect type */
+.mn-hero-slide.slide-enter-right,
+.mn-hero-slide.slide-enter-left,
+.mn-hero-slide.slide-exit-right,
+.mn-hero-slide.slide-exit-left {
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.mn-hero-slide.fade-enter,
+.mn-hero-slide.fade-exit {
+    transition: opacity 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.mn-hero-slide.carousel-enter-right,
+.mn-hero-slide.carousel-enter-left,
+.mn-hero-slide.carousel-exit-right,
+.mn-hero-slide.carousel-exit-left {
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.mn-hero-slide.zoom-enter,
+.mn-hero-slide.zoom-exit {
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.mn-hero-slide.flip-enter,
+.mn-hero-slide.flip-exit {
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ========== SLIDE EFFECT ========== */
+/* Slide entering from right (next) */
+.mn-hero-slide.slide-enter-right {
+    opacity: 1;
+    transform: translateX(100%);
+    z-index: 3;
+}
+
+.mn-hero-slide.slide-enter-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Slide entering from left (prev) */
+.mn-hero-slide.slide-enter-left {
+    opacity: 1;
+    transform: translateX(-100%);
+    z-index: 3;
+}
+
+.mn-hero-slide.slide-enter-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Slide exiting to left (when next is clicked) */
+.mn-hero-slide.slide-exit-left {
+    opacity: 1;
+    transform: translateX(-100%);
+    z-index: 1;
+}
+
+/* Slide exiting to right (when prev is clicked) */
+.mn-hero-slide.slide-exit-right {
+    opacity: 1;
+    transform: translateX(100%);
+    z-index: 1;
+}
+
+.mn-hero-slide:first-child {
+    position: relative;
+}
+
+/* Hero Overlay */
+.mn-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Hero Content */
+.mn-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    text-align: center;
+}
+
+.mn-hero-title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0 0 20px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.mn-hero-subtitle {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #ffffff;
+    margin: 0 0 30px;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* Hero Buttons */
+.mn-hero-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.mn-hero-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 35px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.mn-hero-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.mn-hero-button i,
+.mn-hero-button svg {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+/* Button 1 Default Style */
+.mn-hero-button-1 {
+    background-color: #007cba;
+    color: #ffffff;
+}
+
+.mn-hero-button-1:hover {
+    background-color: #005a87;
+}
+
+/* Button 2 Default Style */
+.mn-hero-button-2 {
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.mn-hero-button-2:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Navigation Arrows */
+.mn-hero-navigation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.mn-hero-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.mn-hero-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.mn-hero-arrow-prev {
+    left: 20px;
+}
+
+.mn-hero-arrow-next {
+    right: 20px;
+}
+
+.mn-hero-arrow i {
+    font-size: 24px;
+}
+
+/* Navigation Dots */
+.mn-hero-dots {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 10;
+}
+
+.mn-hero-dots.dots-bottom {
+    bottom: 20px;
+}
+
+.mn-hero-dots.dots-top {
+    top: 20px;
+}
+
+.mn-hero-dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.mn-hero-dot:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.2);
+}
+
+.mn-hero-dot.active {
+    background-color: #ffffff;
+    transform: scale(1.3);
+}
+
+/* ========== FADE EFFECT ========== */
+.mn-hero-slide.fade-enter {
+    opacity: 0;
+    z-index: 3;
+}
+
+.mn-hero-slide.fade-enter.active {
+    opacity: 1;
+}
+
+.mn-hero-slide.fade-exit {
+    opacity: 1;
+    z-index: 1;
+}
+
+.mn-hero-slide.fade-exit:not(.active) {
+    opacity: 0;
+}
+
+/* ========== CAROUSEL EFFECT ========== */
+/* Carousel creates a continuous sliding effect with 3D perspective */
+.mn-hero-slide.carousel-enter-right {
+    opacity: 0.3;
+    transform: translateX(100%) scale(0.85) translateZ(-200px);
+    z-index: 3;
+}
+
+.mn-hero-slide.carousel-enter-right.active {
+    opacity: 1;
+    transform: translateX(0) scale(1) translateZ(0);
+}
+
+.mn-hero-slide.carousel-enter-left {
+    opacity: 0.3;
+    transform: translateX(-100%) scale(0.85) translateZ(-200px);
+    z-index: 3;
+}
+
+.mn-hero-slide.carousel-enter-left.active {
+    opacity: 1;
+    transform: translateX(0) scale(1) translateZ(0);
+}
+
+.mn-hero-slide.carousel-exit-left {
+    opacity: 0.3;
+    transform: translateX(-100%) scale(0.85) translateZ(-200px);
+    z-index: 1;
+}
+
+.mn-hero-slide.carousel-exit-right {
+    opacity: 0.3;
+    transform: translateX(100%) scale(0.85) translateZ(-200px);
+    z-index: 1;
+}
+
+/* Perspective already added to wrapper above */
+
+/* Zoom Effect */
+.mn-hero-slide.zoom-enter {
+    opacity: 0;
+    transform: scale(0.8);
+    z-index: 3;
+}
+
+.mn-hero-slide.zoom-enter.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.mn-hero-slide.zoom-exit {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 1;
+}
+
+.mn-hero-slide.zoom-exit:not(.active) {
+    opacity: 0;
+    transform: scale(1.2);
+}
+
+/* Flip Effect */
+.mn-hero-slide.flip-enter {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(90deg);
+    z-index: 3;
+}
+
+.mn-hero-slide.flip-enter.active {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0deg);
+}
+
+.mn-hero-slide.flip-exit {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0deg);
+    z-index: 1;
+}
+
+.mn-hero-slide.flip-exit:not(.active) {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(-90deg);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .mn-hero-title {
+        font-size: 40px;
+    }
+
+    .mn-hero-subtitle {
+        font-size: 18px;
+    }
+
+    .mn-hero-content {
+        padding: 30px;
+    }
+
+    .mn-hero-arrow {
+        width: 45px;
+        height: 45px;
+    }
+
+    .mn-hero-arrow i {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mn-hero-title {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    .mn-hero-subtitle {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+
+    .mn-hero-content {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .mn-hero-buttons {
+        gap: 10px;
+    }
+
+    .mn-hero-button {
+        padding: 12px 25px;
+        font-size: 14px;
+    }
+
+    .mn-hero-arrow {
+        width: 40px;
+        height: 40px;
+    }
+
+    .mn-hero-arrow-prev {
+        left: 10px;
+    }
+
+    .mn-hero-arrow-next {
+        right: 10px;
+    }
+
+    .mn-hero-arrow i {
+        font-size: 18px;
+    }
+
+    .mn-hero-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .mn-hero-dots {
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mn-hero-title {
+        font-size: 24px;
+    }
+
+    .mn-hero-subtitle {
+        font-size: 14px;
+    }
+
+    .mn-hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .mn-hero-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .mn-hero-arrow {
+        width: 35px;
+        height: 35px;
+    }
+
+    .mn-hero-arrow i {
+        font-size: 16px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .mn-hero-slide,
+    .mn-hero-title,
+    .mn-hero-subtitle,
+    .mn-hero-buttons,
+    .mn-hero-button,
+    .mn-hero-arrow,
+    .mn-hero-dot {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .mn-hero-arrow,
+    .mn-hero-dots {
+        display: none !important;
+    }
+
+    .mn-hero-slide {
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        page-break-after: always;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .mn-hero-overlay {
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    .mn-hero-arrow {
+        background-color: #000000;
+        border: 2px solid #ffffff;
+    }
+
+    .mn-hero-dot {
+        border: 2px solid #ffffff;
+    }
+}
+
+/* RTL Support */
+[dir="rtl"] .mn-hero-arrow-prev {
+    left: auto;
+    right: 20px;
+}
+
+[dir="rtl"] .mn-hero-arrow-next {
+    right: auto;
+    left: 20px;
+}
+
+/* Loading State */
+.mn-hero-slider-wrapper.loading .mn-hero-slide {
+    opacity: 0;
+}
+
+.mn-hero-slider-wrapper.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 100;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

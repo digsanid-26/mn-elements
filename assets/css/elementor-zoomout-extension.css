@@ -1,0 +1,182 @@
+/**
+ * Elementor Motion Effects - Zoom Out Extension
+ * Menambahkan animasi zoomOut ke Motion Effects Elementor
+ * 
+ * @package mn-elements
+ * @version 1.0.7
+ */
+
+/* Zoom Out Animation - Base */
+@keyframes zoomOut {
+    from {
+        opacity: 0;
+        transform: scale3d(1.3, 1.3, 1.3);
+    }
+    50% {
+        opacity: 1;
+    }
+    to {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.zoomOut {
+    animation-name: zoomOut;
+}
+
+/* Zoom Out Down */
+@keyframes zoomOutDown {
+    from {
+        opacity: 0;
+        transform: scale3d(1.3, 1.3, 1.3) translate3d(0, -1000px, 0);
+        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    40% {
+        opacity: 1;
+        transform: scale3d(1.1, 1.1, 1.1) translate3d(0, -60px, 0);
+        animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+    }
+    to {
+        opacity: 1;
+        transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+    }
+}
+
+.zoomOutDown {
+    animation-name: zoomOutDown;
+}
+
+/* Zoom Out Up */
+@keyframes zoomOutUp {
+    from {
+        opacity: 0;
+        transform: scale3d(1.3, 1.3, 1.3) translate3d(0, 1000px, 0);
+        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    40% {
+        opacity: 1;
+        transform: scale3d(1.1, 1.1, 1.1) translate3d(0, 60px, 0);
+        animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+    }
+    to {
+        opacity: 1;
+        transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+    }
+}
+
+.zoomOutUp {
+    animation-name: zoomOutUp;
+}
+
+/* Zoom Out Left */
+@keyframes zoomOutLeft {
+    from {
+        opacity: 0;
+        transform: scale3d(1.3, 1.3, 1.3) translate3d(-1000px, 0, 0);
+        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    40% {
+        opacity: 1;
+        transform: scale3d(1.1, 1.1, 1.1) translate3d(10px, 0, 0);
+        animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+    }
+    to {
+        opacity: 1;
+        transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+    }
+}
+
+.zoomOutLeft {
+    animation-name: zoomOutLeft;
+}
+
+/* Zoom Out Right */
+@keyframes zoomOutRight {
+    from {
+        opacity: 0;
+        transform: scale3d(1.3, 1.3, 1.3) translate3d(1000px, 0, 0);
+        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    40% {
+        opacity: 1;
+        transform: scale3d(1.1, 1.1, 1.1) translate3d(-10px, 0, 0);
+        animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+    }
+    to {
+        opacity: 1;
+        transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+    }
+}
+
+.zoomOutRight {
+    animation-name: zoomOutRight;
+}
+
+/* Compatibility dengan Elementor */
+.animated.zoomOut,
+.animated.zoomOutDown,
+.animated.zoomOutUp,
+.animated.zoomOutLeft,
+.animated.zoomOutRight {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    @keyframes zoomOut {
+        from {
+            transform: scale3d(1.2, 1.2, 1.2);
+        }
+    }
+    
+    @keyframes zoomOutDown {
+        from {
+            transform: scale3d(1.2, 1.2, 1.2) translate3d(0, 0, 0);
+        }
+        40% {
+            transform: scale3d(1.05, 1.05, 1.05) translate3d(0, 0, 0);
+        }
+    }
+    
+    @keyframes zoomOutUp {
+        from {
+            transform: scale3d(1.2, 1.2, 1.2) translate3d(0, 0, 0);
+        }
+        40% {
+            transform: scale3d(1.05, 1.05, 1.05) translate3d(0, 0, 0);
+        }
+    }
+    
+    @keyframes zoomOutLeft {
+        from {
+            transform: scale3d(1.2, 1.2, 1.2) translate3d(0, 0, 0);
+        }
+        40% {
+            transform: scale3d(1.05, 1.05, 1.05) translate3d(0, 0, 0);
+        }
+    }
+    
+    @keyframes zoomOutRight {
+        from {
+            transform: scale3d(1.2, 1.2, 1.2) translate3d(0, 0, 0);
+        }
+        40% {
+            transform: scale3d(1.05, 1.05, 1.05) translate3d(0, 0, 0);
+        }
+    }
+}
+
+/* Accessibility - Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .zoomOut,
+    .zoomOutDown,
+    .zoomOutUp,
+    .zoomOutLeft,
+    .zoomOutRight {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

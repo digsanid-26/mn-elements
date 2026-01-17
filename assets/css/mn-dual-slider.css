@@ -1,0 +1,616 @@
+/* ========================================
+   MN DUAL SLIDER STYLES
+   ======================================== */
+
+/* Wrapper */
+.mn-dual-slider-wrapper {
+    width: 100%;
+    max-width: 1700px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Container */
+.mn-dual-slider-container {
+    display: flex;
+    gap: 15px;
+    position: relative;
+}
+
+/* ========================================
+   MAIN SLIDER
+   ======================================== */
+
+.mn-dual-slider-main {
+    width: 72%;
+    height: 450px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.mn-dual-slider-main .mn-slides-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.mn-dual-slider-main .mn-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.mn-dual-slider-main .mn-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}
+
+/* Slide Media */
+.mn-slide-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mn-slide-youtube,
+.mn-slide-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Slide Overlay */
+.mn-slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(33, 33, 33, 0), rgba(33, 33, 33, 0.59) 54.69%, rgba(33, 33, 33, 0.7));
+    border-radius: 20px;
+    z-index: 1;
+}
+
+/* Slide Caption */
+.mn-dual-slider-main .mn-slide-caption {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    transform: translateY(-50%);
+    padding: 0 3rem;
+    z-index: 2;
+    width: auto;
+    max-width: 80%;
+}
+
+.mn-dual-slider-main .mn-slide-subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    color: #d0d5dd;
+    margin: 0 0 0.5rem 0;
+    opacity: 0.8;
+}
+
+.mn-dual-slider-main .mn-slide-title {
+    font-size: clamp(48px, 5vw, 80px);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.1;
+    min-height: 180px;
+}
+
+/* Audio Toggle Button */
+.mn-audio-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mn-audio-toggle:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* ========================================
+   THUMBNAIL SLIDER
+   ======================================== */
+
+.mn-dual-slider-thumb {
+    width: 28%;
+    height: 450px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.mn-dual-slider-thumb .mn-slides-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.mn-dual-slider-thumb .mn-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.mn-dual-slider-thumb .mn-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}
+
+.mn-dual-slider-thumb .mn-slide-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    z-index: 2;
+    width: 225px;
+    margin-left: 130px;
+}
+
+.mn-dual-slider-thumb .mn-slide-title {
+    font-size: 14px;
+    font-weight: 400;
+    color: #d0d5dd;
+    margin: 0 0 0.25rem 0;
+}
+
+.mn-dual-slider-thumb .mn-slide-category {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+.mn-navigation-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    display: none;
+}
+
+/* Desktop Navigation */
+@media (min-width: 1024px) {
+    .mn-navigation-container {
+        display: block;
+    }
+    
+    .mn-nav-bg-mobile {
+        display: none;
+    }
+    
+    .mn-nav-bg-desktop {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        pointer-events: none;
+    }
+    
+    .mn-nav-bg-desktop img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .mn-nav-buttons {
+        position: absolute;
+        bottom: 20px;
+        right: 50%;
+        transform: translateX(50%);
+        display: flex;
+        gap: 10px;
+        z-index: 1;
+    }
+}
+
+/* Mobile Navigation */
+@media (max-width: 1023px) {
+    .mn-navigation-container {
+        display: block;
+    }
+    
+    .mn-nav-bg-desktop {
+        display: none;
+    }
+    
+    .mn-nav-bg-mobile {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        pointer-events: none;
+    }
+    
+    .mn-nav-bg-mobile img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .mn-nav-buttons {
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+        display: flex;
+        gap: 5px;
+        z-index: 1;
+    }
+}
+
+/* Navigation Buttons */
+.mn-nav-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border: 0.5px solid #d0d5dd;
+    border-radius: 12px;
+    background: transparent;
+    color: #d0d5dd;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.mn-nav-button:hover {
+    background-color: #f9fafb;
+    color: #475467;
+}
+
+.mn-nav-button:active {
+    background-color: #f2f4f7;
+    color: #344054;
+}
+
+.mn-nav-button i {
+    font-size: 20px;
+}
+
+/* ========================================
+   CTA SECTION
+   ======================================== */
+
+.mn-cta-section {
+    width: 100%;
+    position: relative;
+    margin-top: 15px;
+    padding: 2rem 3rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+}
+
+.mn-cta-slides {
+    position: relative;
+    width: 100%;
+}
+
+.mn-cta-slide {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.mn-cta-slide.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+}
+
+.mn-cta-category {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 1rem 0;
+}
+
+.mn-cta-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.mn-cta-description {
+    flex: 1;
+    min-width: 250px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #475467;
+    margin: 0;
+}
+
+.mn-cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 12px 24px;
+    background-color: #007cba;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.mn-cta-button:hover {
+    background-color: #005a87;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 124, 186, 0.3);
+}
+
+.mn-cta-button i {
+    font-size: 16px;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mn-slide-caption {
+    animation: fadeIn 0.5s ease;
+}
+
+.mn-slide-title,
+.mn-slide-subtitle {
+    animation: slideUp 0.5s ease;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 991px) {
+    .mn-dual-slider-main {
+        height: 350px;
+    }
+    
+    .mn-dual-slider-thumb {
+        height: 350px;
+    }
+    
+    .mn-dual-slider-main .mn-slide-caption {
+        padding: 0 2rem;
+    }
+    
+    .mn-dual-slider-main .mn-slide-title {
+        font-size: clamp(36px, 4vw, 60px);
+        min-height: 120px;
+    }
+    
+    .mn-cta-section {
+        padding: 1.5rem 2rem;
+    }
+    
+    .mn-cta-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .mn-dual-slider-container {
+        flex-direction: column;
+    }
+    
+    .mn-dual-slider-main {
+        width: 100%;
+        height: 250px;
+    }
+    
+    .mn-dual-slider-thumb {
+        display: none;
+    }
+    
+    .mn-dual-slider-main .mn-slide-caption {
+        padding: 0 1.5rem;
+        max-width: 90%;
+    }
+    
+    .mn-dual-slider-main .mn-slide-title {
+        font-size: clamp(28px, 5vw, 40px);
+        min-height: auto;
+        line-height: 1.2;
+    }
+    
+    .mn-dual-slider-main .mn-slide-subtitle {
+        font-size: 14px;
+    }
+    
+    .mn-cta-section {
+        padding: 1rem 1.5rem;
+        margin-top: 10px;
+    }
+    
+    .mn-cta-category {
+        font-size: 24px;
+    }
+    
+    .mn-cta-description {
+        font-size: 14px;
+    }
+    
+    .mn-cta-button {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .mn-audio-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+    .mn-dual-slider-main {
+        height: 200px;
+    }
+    
+    .mn-dual-slider-main .mn-slide-title {
+        font-size: 24px;
+    }
+    
+    .mn-cta-category {
+        font-size: 20px;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Focus States */
+.mn-nav-button:focus,
+.mn-cta-button:focus,
+.mn-audio-toggle:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+.mn-nav-button:focus:not(:focus-visible),
+.mn-cta-button:focus:not(:focus-visible),
+.mn-audio-toggle:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .mn-slide,
+    .mn-cta-slide,
+    .mn-slide-caption,
+    .mn-slide-title,
+    .mn-slide-subtitle,
+    .mn-nav-button,
+    .mn-cta-button,
+    .mn-audio-toggle {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .mn-nav-button {
+        border: 2px solid;
+    }
+    
+    .mn-slide-overlay {
+        background: rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .mn-navigation-container,
+    .mn-audio-toggle {
+        display: none !important;
+    }
+    
+    .mn-dual-slider-container {
+        flex-direction: column;
+    }
+    
+    .mn-dual-slider-main,
+    .mn-dual-slider-thumb {
+        width: 100%;
+        height: auto;
+        page-break-inside: avoid;
+    }
+    
+    .mn-slide {
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    .mn-slide:not(.active) {
+        display: none;
+    }
+}
+
+/* ========================================
+   ELEMENTOR EDITOR STYLES
+   ======================================== */
+
+.elementor-editor-active .mn-dual-slider-wrapper {
+    min-height: 400px;
+}
+
+.elementor-editor-active .mn-slide {
+    pointer-events: none;
+}
+
+.elementor-editor-active .mn-nav-button {
+    pointer-events: auto;
+}

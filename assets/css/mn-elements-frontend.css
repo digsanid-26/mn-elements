@@ -1,0 +1,184 @@
+/**
+ * MN Elements Frontend Styles
+ * 
+ * @package mn-elements
+ * @version 1.0.0
+ */
+
+/* Entrance Animation Base Styles */
+.mn-entrance-animation {
+    opacity: 0;
+    transform-origin: center center;
+    will-change: opacity, transform;
+}
+
+/* Fallback - Show content if animation fails to load */
+.mn-entrance-animation:not(.mn-animation-initialized) {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Animation States */
+.mn-entrance-animation.mn-animated {
+    opacity: 1;
+}
+
+/* Zoom Out Animation - Smooth like 1000daysfund.org */
+.mn-entrance-animation[data-mn-animation="zoom-out"] {
+    transform: scale(1.08);
+    opacity: 0;
+    transform-origin: center center;
+}
+
+.mn-entrance-animation[data-mn-animation="zoom-out"].mn-animated {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Zoom In Animation */
+.mn-entrance-animation[data-mn-animation="zoom-in"] {
+    transform: scale(0.8);
+}
+
+.mn-entrance-animation[data-mn-animation="zoom-in"].mn-animated {
+    transform: scale(1);
+}
+
+/* Fade In Animation */
+.mn-entrance-animation[data-mn-animation="fade-in"] {
+    opacity: 0;
+}
+
+.mn-entrance-animation[data-mn-animation="fade-in"].mn-animated {
+    opacity: 1;
+}
+
+/* Slide Up Animation */
+.mn-entrance-animation[data-mn-animation="slide-up"] {
+    transform: translateY(50px);
+}
+
+.mn-entrance-animation[data-mn-animation="slide-up"].mn-animated {
+    transform: translateY(0);
+}
+
+/* Slide Down Animation */
+.mn-entrance-animation[data-mn-animation="slide-down"] {
+    transform: translateY(-50px);
+}
+
+.mn-entrance-animation[data-mn-animation="slide-down"].mn-animated {
+    transform: translateY(0);
+}
+
+/* Slide Left Animation */
+.mn-entrance-animation[data-mn-animation="slide-left"] {
+    transform: translateX(50px);
+}
+
+.mn-entrance-animation[data-mn-animation="slide-left"].mn-animated {
+    transform: translateX(0);
+}
+
+/* Slide Right Animation */
+.mn-entrance-animation[data-mn-animation="slide-right"] {
+    transform: translateX(-50px);
+}
+
+.mn-entrance-animation[data-mn-animation="slide-right"].mn-animated {
+    transform: translateX(0);
+}
+
+/* Editor Mode - Show all animations */
+.elementor-editor-active .mn-entrance-animation {
+    opacity: 1;
+    transform: none !important;
+}
+
+/* Editor Preview Mode - Show animation states */
+.elementor-editor-preview .mn-entrance-animation {
+    opacity: 0;
+}
+
+.elementor-editor-preview .mn-entrance-animation.mn-preview-animation {
+    opacity: 1;
+    transition: all 0.6s ease-out;
+}
+
+/* Preview Animation States */
+.elementor-editor-preview .mn-entrance-animation[data-mn-animation="zoom-out"].mn-preview-animation {
+    transform: scale(1.08);
+    animation: mnPreviewZoomOut 1.5s ease-out infinite;
+}
+
+.elementor-editor-preview .mn-entrance-animation[data-mn-animation="zoom-in"].mn-preview-animation {
+    transform: scale(0.8);
+    animation: mnPreviewZoomIn 1.5s ease-out infinite;
+}
+
+.elementor-editor-preview .mn-entrance-animation[data-mn-animation="fade-in"].mn-preview-animation {
+    animation: mnPreviewFadeIn 1.5s ease-out infinite;
+}
+
+.elementor-editor-preview .mn-entrance-animation[data-mn-animation="slide-up"].mn-preview-animation {
+    transform: translateY(30px);
+    animation: mnPreviewSlideUp 1.5s ease-out infinite;
+}
+
+.elementor-editor-preview .mn-entrance-animation[data-mn-animation="slide-down"].mn-preview-animation {
+    transform: translateY(-30px);
+    animation: mnPreviewSlideDown 1.5s ease-out infinite;
+}
+
+.elementor-editor-preview .mn-entrance-animation[data-mn-animation="slide-left"].mn-preview-animation {
+    transform: translateX(30px);
+    animation: mnPreviewSlideLeft 1.5s ease-out infinite;
+}
+
+.elementor-editor-preview .mn-entrance-animation[data-mn-animation="slide-right"].mn-preview-animation {
+    transform: translateX(-30px);
+    animation: mnPreviewSlideRight 1.5s ease-out infinite;
+}
+
+/* Preview Keyframes */
+@keyframes mnPreviewZoomOut {
+    0% { transform: scale(1.08); opacity: 0; }
+    50% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.08); opacity: 0; }
+}
+
+@keyframes mnPreviewZoomIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0.8); opacity: 0; }
+}
+
+@keyframes mnPreviewFadeIn {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes mnPreviewSlideUp {
+    0% { transform: translateY(30px); opacity: 0; }
+    50% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(30px); opacity: 0; }
+}
+
+@keyframes mnPreviewSlideDown {
+    0% { transform: translateY(-30px); opacity: 0; }
+    50% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-30px); opacity: 0; }
+}
+
+@keyframes mnPreviewSlideLeft {
+    0% { transform: translateX(30px); opacity: 0; }
+    50% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(30px); opacity: 0; }
+}
+
+@keyframes mnPreviewSlideRight {
+    0% { transform: translateX(-30px); opacity: 0; }
+    50% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(-30px); opacity: 0; }
+}

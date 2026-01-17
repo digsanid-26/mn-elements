@@ -1,0 +1,283 @@
+/* MN Postnav Widget Styles */
+
+/* Container */
+.mn-postnav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Post Item */
+.mn-postnav-item {
+    flex: 1;
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.mn-postnav-item:hover {
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Content */
+.mn-postnav-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+/* Previous Item - Left Aligned */
+.mn-postnav-prev .mn-postnav-content {
+    justify-content: flex-start;
+}
+
+/* Next Item - Right Aligned */
+.mn-postnav-next .mn-postnav-content {
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+}
+
+/* Text Container */
+.mn-postnav-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.mn-postnav-prev .mn-postnav-text {
+    text-align: left;
+    align-items: flex-start;
+}
+
+.mn-postnav-next .mn-postnav-text {
+    text-align: right;
+    align-items: flex-end;
+}
+
+/* Arrow */
+.mn-postnav-wrapper .mn-postnav-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #007cba;
+    transition: all 0.3s ease;
+}
+
+.mn-postnav-wrapper .mn-postnav-arrow svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.mn-postnav-wrapper .mn-postnav-item:hover .mn-postnav-arrow {
+    transform: scale(1.2);
+}
+
+/* Label */
+.mn-postnav-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999999;
+    display: block;
+}
+
+/* Title */
+.mn-postnav-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #333333;
+    display: block;
+}
+
+/* Thumbnail - Inline Position */
+.mn-postnav-text .mn-postnav-thumbnail {
+    flex-shrink: 0;
+    margin: 5px 0;
+}
+
+.mn-postnav-content .mn-postnav-thumbnail {
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.mn-postnav-thumbnail img {
+    display: block;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Thumbnail - Center Position */
+.mn-postnav-center {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.mn-postnav-thumbnail-center .mn-postnav-center {
+    position: relative;
+}
+
+.mn-postnav-thumbnail-center .mn-postnav-center .mn-postnav-thumbnail {
+    position: relative;
+    z-index: 2;
+}
+
+.mn-postnav-thumbnail-center .mn-postnav-center .mn-postnav-thumbnail img {
+    border: 3px solid #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Thumbnail Shapes */
+/* Square (Default) */
+.mn-postnav-thumbnail-square .mn-postnav-thumbnail img {
+    border-radius: 4px;
+}
+
+/* Circle */
+.mn-postnav-thumbnail-circle .mn-postnav-thumbnail img {
+    border-radius: 50%;
+}
+
+/* Rounded */
+.mn-postnav-thumbnail-rounded .mn-postnav-thumbnail img {
+    border-radius: 15px;
+}
+
+/* With Borders */
+.mn-postnav-with-borders .mn-postnav-item {
+    border: 2px solid #e0e0e0;
+}
+
+.mn-postnav-with-borders .mn-postnav-item:hover {
+    border-color: #007cba;
+}
+
+/* Center Thumbnail - Overlap Effect */
+.mn-postnav-thumbnail-center .mn-postnav-wrapper {
+    position: relative;
+}
+
+.mn-postnav-thumbnail-center .mn-postnav-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+/* Adjust items when center thumbnail is present */
+.mn-postnav-thumbnail-center .mn-postnav-prev {
+    padding-right: 60px;
+}
+
+.mn-postnav-thumbnail-center .mn-postnav-next {
+    padding-left: 60px;
+}
+
+/* Hover Effects */
+.mn-postnav-thumbnail img {
+    transition: all 0.3s ease;
+}
+
+.mn-postnav-item:hover .mn-postnav-thumbnail img,
+.mn-postnav-center .mn-postnav-thumbnail:hover img {
+    transform: scale(1.05);
+}
+
+/* Empty State - Only One Post */
+.mn-postnav-wrapper:has(.mn-postnav-prev:only-child) {
+    justify-content: flex-start;
+}
+
+.mn-postnav-wrapper:has(.mn-postnav-next:only-child) {
+    justify-content: flex-end;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mn-postnav-wrapper {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .mn-postnav-item {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .mn-postnav-content {
+        gap: 10px;
+    }
+
+    .mn-postnav-wrapper .mn-postnav-arrow {
+        font-size: 20px;
+    }
+
+    .mn-postnav-wrapper .mn-postnav-arrow svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .mn-postnav-title {
+        font-size: 14px;
+    }
+
+    /* Center thumbnail on mobile */
+    .mn-postnav-thumbnail-center .mn-postnav-center {
+        position: static;
+        transform: none;
+        order: 2;
+        margin: 10px 0;
+    }
+
+    .mn-postnav-thumbnail-center .mn-postnav-wrapper {
+        flex-direction: column;
+    }
+
+    .mn-postnav-thumbnail-center .mn-postnav-prev {
+        order: 1;
+        padding-right: 15px;
+    }
+
+    .mn-postnav-thumbnail-center .mn-postnav-next {
+        order: 3;
+        padding-left: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mn-postnav-item {
+        padding: 12px;
+    }
+
+    .mn-postnav-label {
+        font-size: 10px;
+    }
+
+    .mn-postnav-title {
+        font-size: 13px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .mn-postnav-wrapper {
+        display: none;
+    }
+}
