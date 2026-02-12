@@ -142,6 +142,210 @@
 }
 
 /* ==========================================================================
+   Icon Loop Animations
+   ========================================================================== */
+/* Pulse */
+.mn-icon-loop-pulse {
+	animation: mn-icon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes mn-icon-pulse {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.1); }
+}
+
+/* Bounce Up */
+.mn-icon-loop-bounce {
+	animation: mn-icon-bounce 1s ease infinite;
+}
+
+@keyframes mn-icon-bounce {
+	0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+	40% { transform: translateY(-10px); }
+	60% { transform: translateY(-5px); }
+}
+
+/* Bounce Down - Perfect for scroll down arrow indicator */
+.mn-icon-loop-bounce-down {
+	animation: mn-icon-bounce-down 1.5s ease-in-out infinite;
+}
+
+@keyframes mn-icon-bounce-down {
+	0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+	40% { transform: translateY(10px); }
+	60% { transform: translateY(5px); }
+}
+
+/* Shake */
+.mn-icon-loop-shake {
+	animation: mn-icon-shake 0.5s ease-in-out infinite;
+}
+
+@keyframes mn-icon-shake {
+	0%, 100% { transform: translateX(0); }
+	25% { transform: translateX(-5px); }
+	75% { transform: translateX(5px); }
+}
+
+/* Rotate */
+.mn-icon-loop-rotate {
+	animation: mn-icon-rotate 2s linear infinite;
+}
+
+@keyframes mn-icon-rotate {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
+/* Swing */
+.mn-icon-loop-swing {
+	animation: mn-icon-swing 1s ease-in-out infinite;
+	transform-origin: top center;
+}
+
+@keyframes mn-icon-swing {
+	0%, 100% { transform: rotate(0deg); }
+	25% { transform: rotate(15deg); }
+	75% { transform: rotate(-15deg); }
+}
+
+/* Flash */
+.mn-icon-loop-flash {
+	animation: mn-icon-flash 1.5s ease-in-out infinite;
+}
+
+@keyframes mn-icon-flash {
+	0%, 50%, 100% { opacity: 1; }
+	25%, 75% { opacity: 0.3; }
+}
+
+/* Push */
+.mn-icon-loop-push {
+	animation: mn-icon-push 1s ease-in-out infinite;
+}
+
+@keyframes mn-icon-push {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(0.9); }
+}
+
+/* ==========================================================================
+   Icon Hover Animations
+   ========================================================================== */
+/* Grow */
+.mn-icon-hover-grow {
+	transition: transform 0.3s ease;
+}
+
+.mn-icon-hover-grow:hover {
+	transform: scale(1.2);
+}
+
+/* Shrink */
+.mn-icon-hover-shrink {
+	transition: transform 0.3s ease;
+}
+
+.mn-icon-hover-shrink:hover {
+	transform: scale(0.8);
+}
+
+/* Rotate 90 */
+.mn-icon-hover-rotate-90 {
+	transition: transform 0.3s ease;
+}
+
+.mn-icon-hover-rotate-90:hover {
+	transform: rotate(90deg);
+}
+
+/* Rotate 180 */
+.mn-icon-hover-rotate-180 {
+	transition: transform 0.3s ease;
+}
+
+.mn-icon-hover-rotate-180:hover {
+	transform: rotate(180deg);
+}
+
+/* Rotate 360 */
+.mn-icon-hover-rotate-360 {
+	transition: transform 0.5s ease;
+}
+
+.mn-icon-hover-rotate-360:hover {
+	transform: rotate(360deg);
+}
+
+/* Wobble */
+.mn-icon-hover-wobble {
+	transition: transform 0.3s ease;
+}
+
+.mn-icon-hover-wobble:hover {
+	animation: mn-icon-wobble 0.5s ease;
+}
+
+@keyframes mn-icon-wobble {
+	0% { transform: rotate(0deg); }
+	25% { transform: rotate(-15deg); }
+	50% { transform: rotate(10deg); }
+	75% { transform: rotate(-5deg); }
+	100% { transform: rotate(0deg); }
+}
+
+/* Buzz */
+.mn-icon-hover-buzz {
+	transition: transform 0.3s ease;
+}
+
+.mn-icon-hover-buzz:hover {
+	animation: mn-icon-buzz 0.3s linear infinite;
+}
+
+@keyframes mn-icon-buzz {
+	0%, 100% { transform: translateX(0); }
+	25% { transform: translateX(-2px); }
+	75% { transform: translateX(2px); }
+}
+
+/* Slide Up */
+.mn-icon-hover-slide-up {
+	transition: transform 0.3s ease;
+}
+
+.mn-icon-hover-slide-up:hover {
+	transform: translateY(-10px);
+}
+
+/* Slide Down */
+.mn-icon-hover-slide-down {
+	transition: transform 0.3s ease;
+}
+
+.mn-icon-hover-slide-down:hover {
+	transform: translateY(10px);
+}
+
+/* Slide Left */
+.mn-icon-hover-slide-left {
+	transition: transform 0.3s ease;
+}
+
+.mn-icon-hover-slide-left:hover {
+	transform: translateX(-10px);
+}
+
+/* Slide Right */
+.mn-icon-hover-slide-right {
+	transition: transform 0.3s ease;
+}
+
+.mn-icon-hover-slide-right:hover {
+	transform: translateX(10px);
+}
+
+/* ==========================================================================
    Responsive Design
    ========================================================================== */
 @media (max-width: 768px) {

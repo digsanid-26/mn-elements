@@ -204,6 +204,34 @@ class Widgets_Manager {
 				'file' => 'mn-woo-product-gallery.php',
 				'class' => '\MN_Elements\Widgets\MN_Woo_Product_Gallery',
 			],
+			'mn-wooproduct' => [
+				'file' => 'mn-wooproduct.php',
+				'class' => '\MN_Elements\Widgets\MN_WooProduct',
+			],
+			'mn-woofilter' => [
+				'file' => 'mn-woofilter.php',
+				'class' => '\MN_Elements\Widgets\MN_WooFilter',
+			],
+			'mn-woocart-checkout' => [
+				'file' => 'mn-woocart-checkout.php',
+				'class' => '\MN_Elements\Widgets\MN_WooCart_Checkout',
+			],
+			'mn-add-to-cart' => [
+				'file' => 'mn-add-to-cart.php',
+				'class' => '\MN_Elements\Widgets\MN_Add_To_Cart',
+			],
+			'mn-mbmenu' => [
+				'file' => 'mn-mbmenu.php',
+				'class' => '\MN_Elements\Widgets\MN_Mobile_Menu',
+			],
+			'mn-vertical-post' => [
+				'file' => 'mn-vertical-post.php',
+				'class' => '\MN_Elements\Widgets\MN_Vertical_Post',
+			],
+			'mn-videoplayer' => [
+				'file' => 'mn-videoplayer.php',
+				'class' => '\MN_Elements\Widgets\MN_Video_Player',
+			],
 		];
 	}
 

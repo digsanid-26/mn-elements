@@ -104,6 +104,24 @@ class MN_WooCart extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'total_format',
+			[
+				'label' => esc_html__( 'Total Format', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'with_currency',
+				'options' => [
+					'with_currency' => esc_html__( 'With Currency Symbol', 'mn-elements' ),
+					'without_currency' => esc_html__( 'Amount Only', 'mn-elements' ),
+					'currency_code' => esc_html__( 'With Currency Code', 'mn-elements' ),
+				],
+				'condition' => [
+					'display_type' => 'menu',
+					'show_total' => 'yes',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 
 		// Cart Items Settings
@@ -222,12 +240,26 @@ class MN_WooCart extends Widget_Base {
 		);
 
 		$this->add_control(
+			'trigger_icon_color',
+			[
+				'label' => esc_html__( 'Icon Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .mn-woocart-trigger i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .mn-woocart-trigger svg' => 'fill: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
 			'trigger_color',
 			[
-				'label' => esc_html__( 'Color', 'mn-elements' ),
+				'label' => esc_html__( 'Text Color', 'mn-elements' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .mn-woocart-trigger' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .mn-woocart-count' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .mn-woocart-total' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -253,12 +285,26 @@ class MN_WooCart extends Widget_Base {
 		);
 
 		$this->add_control(
+			'trigger_hover_icon_color',
+			[
+				'label' => esc_html__( 'Icon Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .mn-woocart-trigger:hover i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .mn-woocart-trigger:hover svg' => 'fill: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
 			'trigger_hover_color',
 			[
-				'label' => esc_html__( 'Color', 'mn-elements' ),
+				'label' => esc_html__( 'Text Color', 'mn-elements' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .mn-woocart-trigger:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .mn-woocart-trigger:hover .mn-woocart-count' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .mn-woocart-trigger:hover .mn-woocart-total' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -1106,7 +1152,7 @@ class MN_WooCart extends Widget_Base {
 		}
 
 		$cart_count = $cart->get_cart_contents_count();
-		$cart_total = $cart->get_cart_total();
+		$cart_total = $this->get_formatted_cart_total( $cart, $settings );
 
 		?>
 		<div class="mn-woocart-wrapper mn-woocart-<?php echo esc_attr( $settings['display_type'] ); ?>" data-widget-id="<?php echo esc_attr( $widget_id ); ?>">
@@ -1205,5 +1251,27 @@ class MN_WooCart extends Widget_Base {
 			</a>
 		</div>
 		<?php
+	}
+
+	private function get_formatted_cart_total( $cart, $settings ) {
+		$total_format = isset( $settings['total_format'] ) ? $settings['total_format'] : 'with_currency';
+		$cart_total = $cart->get_cart_contents_total() + $cart->get_cart_contents_tax();
+		
+		switch ( $total_format ) {
+			case 'without_currency':
+				// Amount only without currency symbol
+				return number_format( $cart_total, wc_get_price_decimals(), wc_get_price_decimal_separator(), wc_get_price_thousand_separator() );
+				
+			case 'currency_code':
+				// Amount with currency code (e.g., "100 USD")
+				$currency_code = get_woocommerce_currency();
+				$formatted_amount = number_format( $cart_total, wc_get_price_decimals(), wc_get_price_decimal_separator(), wc_get_price_thousand_separator() );
+				return $formatted_amount . ' ' . $currency_code;
+				
+			case 'with_currency':
+			default:
+				// Default WooCommerce format with currency symbol
+				return $cart->get_cart_total();
+		}
 	}
 }

@@ -268,6 +268,118 @@ if ( ! class_exists( 'MN_Elements_Assets' ) ) {
 				array( 'mn-elements-frontend' ),
 				mn_elements()->get_version()
 			);
+
+			// MN WooProduct script and style
+			wp_register_script(
+				'mn-wooproduct-script',
+				mn_elements()->plugin_url( 'assets/js/mn-wooproduct.js' ),
+				array( 'jquery' ),
+				mn_elements()->get_version(),
+				true
+			);
+
+			wp_register_style(
+				'mn-wooproduct-style',
+				mn_elements()->plugin_url( 'assets/css/mn-wooproduct.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
+
+			// MN WooFilter script and style
+			wp_register_script(
+				'mn-woofilter-script',
+				mn_elements()->plugin_url( 'assets/js/mn-woofilter.js' ),
+				array( 'jquery' ),
+				mn_elements()->get_version(),
+				true
+			);
+
+			wp_register_style(
+				'mn-woofilter-style',
+				mn_elements()->plugin_url( 'assets/css/mn-woofilter.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
+
+			// MN WooCart/Checkout script and style
+			wp_register_script(
+				'mn-woocart-checkout-script',
+				mn_elements()->plugin_url( 'assets/js/mn-woocart-checkout.js' ),
+				array( 'jquery' ),
+				mn_elements()->get_version(),
+				true
+			);
+
+			wp_register_style(
+				'mn-woocart-checkout-style',
+				mn_elements()->plugin_url( 'assets/css/mn-woocart-checkout.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
+
+			// MN Add To Cart script and style
+			wp_register_script(
+				'mn-add-to-cart-script',
+				mn_elements()->plugin_url( 'assets/js/mn-add-to-cart.js' ),
+				array( 'jquery' ),
+				mn_elements()->get_version(),
+				true
+			);
+
+			wp_register_style(
+				'mn-add-to-cart-style',
+				mn_elements()->plugin_url( 'assets/css/mn-add-to-cart.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
+
+			// MN Mobile Menu script and style
+			wp_register_script(
+				'mn-mbmenu',
+				mn_elements()->plugin_url( 'assets/js/mn-mbmenu.js' ),
+				array( 'jquery' ),
+				mn_elements()->get_version(),
+				true
+			);
+
+			wp_register_style(
+				'mn-mbmenu',
+				mn_elements()->plugin_url( 'assets/css/mn-mbmenu.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
+
+			// MN Vertical Post script and style
+			wp_register_script(
+				'mn-vertical-post',
+				mn_elements()->plugin_url( 'assets/js/mn-vertical-post.js' ),
+				array( 'jquery' ),
+				mn_elements()->get_version(),
+				true
+			);
+
+			wp_register_style(
+				'mn-vertical-post',
+				mn_elements()->plugin_url( 'assets/css/mn-vertical-post.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
+
+			// MN Video Player script and style
+			wp_register_script(
+				'mn-videoplayer-script',
+				mn_elements()->plugin_url( 'assets/js/mn-videoplayer.js' ),
+				array( 'jquery' ),
+				mn_elements()->get_version(),
+				true
+			);
+
+			wp_register_style(
+				'mn-videoplayer-style',
+				mn_elements()->plugin_url( 'assets/css/mn-videoplayer.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
 		}
 
 		/**
@@ -474,6 +586,41 @@ if ( ! class_exists( 'MN_Elements_Assets' ) ) {
 				array( 'mn-elements-frontend' ),
 				mn_elements()->get_version()
 			);
+
+			wp_enqueue_style(
+				'mn-wooproduct',
+				mn_elements()->plugin_url( 'assets/css/mn-wooproduct.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
+
+			wp_enqueue_style(
+				'mn-woofilter',
+				mn_elements()->plugin_url( 'assets/css/mn-woofilter.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
+
+			wp_enqueue_style(
+				'mn-woocart-checkout',
+				mn_elements()->plugin_url( 'assets/css/mn-woocart-checkout.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
+
+			wp_enqueue_style(
+				'mn-add-to-cart',
+				mn_elements()->plugin_url( 'assets/css/mn-add-to-cart.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
+
+			wp_enqueue_style(
+				'mn-videoplayer',
+				mn_elements()->plugin_url( 'assets/css/mn-videoplayer.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
 		}
 
 		/**
@@ -549,6 +696,65 @@ if ( ! class_exists( 'MN_Elements_Assets' ) ) {
 			)
 		);
 
+		// Enqueue MN WooProduct script
+		wp_enqueue_script( 'mn-wooproduct-script' );
+
+		// Localize MN WooProduct script for AJAX
+		wp_localize_script(
+			'mn-wooproduct-script',
+			'mn_wooproduct_params',
+			array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'mn_wooproduct_nonce' ),
+			)
+		);
+
+		// Enqueue MN WooFilter script
+		wp_enqueue_script( 'mn-woofilter-script' );
+
+		// Localize MN WooFilter script for AJAX
+		wp_localize_script(
+			'mn-woofilter-script',
+			'mn_woofilter_params',
+			array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'mn_woofilter_nonce' ),
+				'no_products_text' => esc_html__( 'No products found matching your criteria.', 'mn-elements' ),
+			)
+		);
+
+		// Enqueue MN WooCart/Checkout script
+		wp_enqueue_script( 'mn-woocart-checkout-script' );
+
+		// Localize MN WooCart/Checkout script for AJAX
+		wp_localize_script(
+			'mn-woocart-checkout-script',
+			'mn_woocart_checkout_params',
+			array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'mn_woocart_checkout_nonce' ),
+				'empty_message' => esc_html__( 'Your cart is empty', 'mn-elements' ),
+			)
+		);
+
+		// Enqueue MN Add To Cart script
+		wp_enqueue_script( 'mn-add-to-cart-script' );
+
+		// Localize MN Add To Cart script for AJAX
+		wp_localize_script(
+			'mn-add-to-cart-script',
+			'mn_add_to_cart_params',
+			array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'mn_add_to_cart_nonce' ),
+				'cart_url' => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : '',
+				'checkout_url' => function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : '',
+			)
+		);
+
+		// Enqueue MN Video Player script
+		wp_enqueue_script( 'mn-videoplayer-script' );
+
 	}
 
 	/**
@@ -561,14 +767,6 @@ if ( ! class_exists( 'MN_Elements_Assets' ) ) {
 		wp_enqueue_style(
 			'mn-elements-editor',
 			mn_elements()->plugin_url( 'assets/css/mn-elements-editor.css' ),
-			array(),
-			mn_elements()->get_version()
-		);
-
-		// Enqueue mn-button styles in editor for live preview
-		wp_enqueue_style(
-			'mn-button-editor',
-			mn_elements()->plugin_url( 'assets/css/mn-button.css' ),
 			array(),
 			mn_elements()->get_version()
 		);

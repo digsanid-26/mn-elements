@@ -426,10 +426,12 @@ class MN_Posts extends Widget_Base {
 					'grid-inline' => esc_html__( 'Grid - Inline (Horizontal)', 'mn-elements' ),
 					'grid-3column' => esc_html__( 'Grid - 3 Column (Image | Title | Content)', 'mn-elements' ),
 					'grid-mixed' => esc_html__( 'Grid - Mixed (2 Row Layout)', 'mn-elements' ),
+					'grid-overlay' => esc_html__( 'Grid - Overlay (Image Background)', 'mn-elements' ),
 					'list-general' => esc_html__( 'List - General (Vertical)', 'mn-elements' ),
 					'list-inline' => esc_html__( 'List - Inline (Horizontal)', 'mn-elements' ),
 					'list-3column' => esc_html__( 'List - 3 Column (Image | Title | Content)', 'mn-elements' ),
 					'list-mixed' => esc_html__( 'List - Mixed (2 Row Layout)', 'mn-elements' ),
+					'list-overlay' => esc_html__( 'List - Overlay (Image Background)', 'mn-elements' ),
 					'custom' => esc_html__( 'Custom Order', 'mn-elements' ),
 				],
 				'description' => esc_html__( 'Grid: Multiple columns. List: Single column stacked. Templates define item structure.', 'mn-elements' ),
@@ -559,6 +561,181 @@ class MN_Posts extends Widget_Base {
 						'grid-inline',
 						'grid-3column',
 						'grid-mixed',
+						'grid-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'responsive_columns_heading',
+			[
+				'label' => esc_html__( 'Responsive Columns', 'mn-elements' ),
+				'type' => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => [
+					'layout_template' => [
+						'grid-general',
+						'grid-inline',
+						'grid-3column',
+						'grid-mixed',
+						'grid-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'columns_desktop',
+			[
+				'label' => esc_html__( 'Desktop (>1200px)', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					'' => esc_html__( 'Default', 'mn-elements' ),
+					'1' => '1',
+					'2' => '2',
+					'3' => '3',
+					'4' => '4',
+					'5' => '5',
+					'6' => '6',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-general',
+						'grid-inline',
+						'grid-3column',
+						'grid-mixed',
+						'grid-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'columns_laptop',
+			[
+				'label' => esc_html__( 'Laptop (1025px - 1200px)', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					'' => esc_html__( 'Default', 'mn-elements' ),
+					'1' => '1',
+					'2' => '2',
+					'3' => '3',
+					'4' => '4',
+					'5' => '5',
+					'6' => '6',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-general',
+						'grid-inline',
+						'grid-3column',
+						'grid-mixed',
+						'grid-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'columns_tablet_landscape',
+			[
+				'label' => esc_html__( 'Tablet Landscape (769px - 1024px)', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					'' => esc_html__( 'Default', 'mn-elements' ),
+					'1' => '1',
+					'2' => '2',
+					'3' => '3',
+					'4' => '4',
+					'5' => '5',
+					'6' => '6',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-general',
+						'grid-inline',
+						'grid-3column',
+						'grid-mixed',
+						'grid-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'columns_tablet_portrait',
+			[
+				'label' => esc_html__( 'Tablet Portrait (481px - 768px)', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					'' => esc_html__( 'Default', 'mn-elements' ),
+					'1' => '1',
+					'2' => '2',
+					'3' => '3',
+					'4' => '4',
+					'5' => '5',
+					'6' => '6',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-general',
+						'grid-inline',
+						'grid-3column',
+						'grid-mixed',
+						'grid-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'columns_mobile_landscape',
+			[
+				'label' => esc_html__( 'Mobile Landscape (376px - 480px)', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					'' => esc_html__( 'Default', 'mn-elements' ),
+					'1' => '1',
+					'2' => '2',
+					'3' => '3',
+					'4' => '4',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-general',
+						'grid-inline',
+						'grid-3column',
+						'grid-mixed',
+						'grid-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'columns_mobile_portrait',
+			[
+				'label' => esc_html__( 'Mobile Portrait (<375px)', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					'' => esc_html__( 'Default', 'mn-elements' ),
+					'1' => '1',
+					'2' => '2',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-general',
+						'grid-inline',
+						'grid-3column',
+						'grid-mixed',
+						'grid-overlay',
 					],
 				],
 			]
@@ -577,6 +754,7 @@ class MN_Posts extends Widget_Base {
 						'grid-inline',
 						'grid-3column',
 						'grid-mixed',
+						'grid-overlay',
 					],
 				],
 			]
@@ -965,6 +1143,20 @@ class MN_Posts extends Widget_Base {
 				'condition' => [
 					'show_meta' => 'yes',
 					'show_custom_meta' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'show_price',
+			[
+				'label' => esc_html__( 'Show Price', 'mn-elements' ),
+				'type' => Controls_Manager::SWITCHER,
+				'default' => 'yes',
+				'separator' => 'before',
+				'description' => esc_html__( 'Display product price (WooCommerce products only)', 'mn-elements' ),
+				'condition' => [
+					'post_type' => 'product',
 				],
 			]
 		);
@@ -1432,7 +1624,10 @@ class MN_Posts extends Widget_Base {
 				'options' => [
 					'default' => esc_html__( 'Default (Permalink)', 'mn-elements' ),
 					'custom' => esc_html__( 'Custom URL', 'mn-elements' ),
+					'custom_meta' => esc_html__( 'Custom Meta Field', 'mn-elements' ),
 					'quickview' => esc_html__( 'Quick View', 'mn-elements' ),
+					'add_to_cart' => esc_html__( 'Add to Cart', 'mn-elements' ),
+					'direct_checkout' => esc_html__( 'Direct Checkout', 'mn-elements' ),
 				],
 			]
 		);
@@ -1446,6 +1641,36 @@ class MN_Posts extends Widget_Base {
 				'description' => esc_html__( 'Enter custom URL for read more button', 'mn-elements' ),
 				'condition' => [
 					'url_option' => 'custom',
+				],
+			]
+		);
+
+		$this->add_control(
+			'url_meta_field',
+			[
+				'label' => esc_html__( 'Meta Field Key', 'mn-elements' ),
+				'type' => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'e.g. external_link', 'mn-elements' ),
+				'description' => esc_html__( 'Enter the custom field key that contains the URL', 'mn-elements' ),
+				'condition' => [
+					'url_option' => 'custom_meta',
+				],
+			]
+		);
+
+		$this->add_control(
+			'url_meta_link_option',
+			[
+				'label' => esc_html__( 'Link Option', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'same_window',
+				'options' => [
+					'same_window' => esc_html__( 'Open in Same Window', 'mn-elements' ),
+					'new_window' => esc_html__( 'Open in New Window', 'mn-elements' ),
+					'youtube_modal' => esc_html__( 'Open YouTube in Modal', 'mn-elements' ),
+				],
+				'condition' => [
+					'url_option' => 'custom_meta',
 				],
 			]
 		);
@@ -2230,6 +2455,247 @@ class MN_Posts extends Widget_Base {
 					'layout_template' => [
 						'grid-mixed',
 						'list-mixed',
+					],
+				],
+			]
+		);
+
+		// Overlay Template Settings
+		$this->add_control(
+			'overlay_heading',
+			[
+				'label' => esc_html__( 'Overlay Layout Settings', 'mn-elements' ),
+				'type' => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'overlay_height',
+			[
+				'label' => esc_html__( 'Card Height', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'vh' ],
+				'range' => [
+					'px' => [
+						'min' => 200,
+						'max' => 800,
+					],
+					'vh' => [
+						'min' => 20,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 400,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-post-overlay-wrapper' => 'min-height: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'overlay_item_bg_color',
+			[
+				'label' => esc_html__( 'Item Background Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#1a1a1a',
+				'selectors' => [
+					'{{WRAPPER}} .mn-post-overlay-wrapper' => 'background-color: {{VALUE}};',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'overlay_border_radius',
+			[
+				'label' => esc_html__( 'Border Radius', 'mn-elements' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em' ],
+				'default' => [
+					'top' => 8,
+					'right' => 8,
+					'bottom' => 8,
+					'left' => 8,
+					'unit' => 'px',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-post-overlay-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .mn-post-overlay-bg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} 0 0;',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'overlay_content_padding',
+			[
+				'label' => esc_html__( 'Content Padding', 'mn-elements' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'default' => [
+					'top' => 30,
+					'right' => 30,
+					'bottom' => 30,
+					'left' => 30,
+					'unit' => 'px',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-post-overlay-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'overlay_title_color',
+			[
+				'label' => esc_html__( 'Title Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#ffffff',
+				'selectors' => [
+					'{{WRAPPER}} .mn-post-overlay-content .mn-post-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .mn-post-overlay-content .mn-post-title a' => 'color: {{VALUE}};',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'overlay_excerpt_color',
+			[
+				'label' => esc_html__( 'Excerpt Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'rgba(255, 255, 255, 0.85)',
+				'selectors' => [
+					'{{WRAPPER}} .mn-post-overlay-content .mn-post-excerpt' => 'color: {{VALUE}};',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'overlay_button_heading',
+			[
+				'label' => esc_html__( 'Read More Button', 'mn-elements' ),
+				'type' => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'overlay_button_color',
+			[
+				'label' => esc_html__( 'Button Text Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#ffffff',
+				'selectors' => [
+					'{{WRAPPER}} .mn-post-overlay-readmore .mn-post-readmore a' => 'color: {{VALUE}};',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'overlay_button_border_color',
+			[
+				'label' => esc_html__( 'Button Border Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#ffffff',
+				'selectors' => [
+					'{{WRAPPER}} .mn-post-overlay-readmore .mn-post-readmore a' => 'border-color: {{VALUE}};',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'overlay_button_hover_bg',
+			[
+				'label' => esc_html__( 'Button Hover Background', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#ffffff',
+				'selectors' => [
+					'{{WRAPPER}} .mn-post-overlay-readmore .mn-post-readmore a:hover' => 'background-color: {{VALUE}};',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'overlay_button_hover_color',
+			[
+				'label' => esc_html__( 'Button Hover Text Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#000000',
+				'selectors' => [
+					'{{WRAPPER}} .mn-post-overlay-readmore .mn-post-readmore a:hover' => 'color: {{VALUE}};',
+				],
+				'condition' => [
+					'layout_template' => [
+						'grid-overlay',
+						'list-overlay',
 					],
 				],
 			]
@@ -4051,7 +4517,13 @@ class MN_Posts extends Widget_Base {
 			$theme_class
 		] );
 
+		// Generate responsive columns CSS
+		$responsive_css = $this->generate_responsive_columns_css( $settings );
+
 		?>
+		<?php if ( ! empty( $responsive_css ) ) : ?>
+		<style type="text/css"><?php echo $responsive_css; ?></style>
+		<?php endif; ?>
 		<div <?php $this->print_render_attribute_string( 'wrapper' ); ?>>
 			<?php if ( ! empty( $settings['section_title'] ) ) : ?>
 				<<?php echo esc_attr( $settings['title_tag'] ); ?> class="mn-posts-section-title">
@@ -4080,6 +4552,9 @@ class MN_Posts extends Widget_Base {
 		
 		// Render quickview modal if needed
 		$this->render_quickview_modal( $settings );
+		
+		// Render YouTube modal if needed
+		$this->render_youtube_modal( $settings );
 	}
 
 	/**
@@ -4114,6 +4589,9 @@ class MN_Posts extends Widget_Base {
 			} elseif ( $template_type === 'mixed' ) {
 				// Mixed layout: 2 rows (Image+Title, then Content)
 				$this->render_mixed_layout( $settings, $filter_class );
+			} elseif ( $template_type === 'overlay' ) {
+				// Overlay layout: Featured image as background with overlay content
+				$this->render_overlay_layout( $settings, $filter_class );
 			} elseif ( $template_type === 'custom' ) {
 				// Custom layout: User-defined element order
 				$this->render_custom_layout( $settings, $filter_class );
@@ -4260,6 +4738,35 @@ class MN_Posts extends Widget_Base {
 	}
 
 	/**
+	 * Render overlay layout: Featured image as background overlay with solid color item background
+	 */
+	private function render_overlay_layout( $settings, $filter_class ) {
+		$image_url = '';
+		if ( has_post_thumbnail() ) {
+			$image_url = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+		}
+		?>
+		<div class="mn-post-overlay-wrapper">
+			<!-- Background overlay with featured image - covers 80% from top, expands to 100% on hover -->
+			<div class="mn-post-overlay-bg" <?php echo $image_url ? 'style="background-image: url(' . esc_url( $image_url ) . ');"' : ''; ?>></div>
+			
+			<!-- Container 1: Title, Category, Excerpt (80% top area) -->
+			<div class="mn-post-overlay-content">
+				<?php $this->render_taxonomy( $settings ); ?>				
+				<?php $this->render_custom_meta( $settings ); ?>
+				<?php $this->render_title( $settings ); ?>
+				<?php $this->render_excerpt( $settings ); ?>				
+			</div>
+			
+			<!-- Container 2: Read More Button (20% bottom area) -->
+			<div class="mn-post-overlay-readmore">
+				<?php $this->render_readmore( $settings ); ?>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
 	 * Render custom layout with user-defined element order
 	 */
 	private function render_custom_layout( $settings, $filter_class ) {
@@ -4335,7 +4842,7 @@ class MN_Posts extends Widget_Base {
 	 * Render title element
 	 */
 	private function render_title( $settings ) {
-		if ( ! $settings['show_title'] ) {
+		if ( ! isset( $settings['show_title'] ) || $settings['show_title'] !== 'yes' ) {
 			return;
 		}
 		?>
@@ -4349,7 +4856,7 @@ class MN_Posts extends Widget_Base {
 	 * Render meta element
 	 */
 	private function render_meta( $settings ) {
-		if ( ! $settings['show_meta'] ) {
+		if ( ! isset( $settings['show_meta'] ) || $settings['show_meta'] !== 'yes' ) {
 			return;
 		}
 
@@ -4475,7 +4982,7 @@ class MN_Posts extends Widget_Base {
 	 * Render excerpt element
 	 */
 	private function render_excerpt( $settings ) {
-		if ( ! $settings['show_excerpt'] ) {
+		if ( ! isset( $settings['show_excerpt'] ) || $settings['show_excerpt'] !== 'yes' ) {
 			return;
 		}
 		?>
@@ -4588,6 +5095,30 @@ class MN_Posts extends Widget_Base {
 				}
 				break;
 			
+			case 'add_to_cart':
+				if ( $this->is_woocommerce_active() && $settings['post_type'] === 'product' ) {
+					$product_id = get_the_ID();
+					$url = '#';
+					$button_class .= ' mn-add-to-cart-button';
+					$attributes .= ' data-product-id="' . esc_attr( $product_id ) . '"';
+					$attributes .= ' data-action="add_to_cart"';
+				} else {
+					$url = get_the_permalink();
+				}
+				break;
+			
+			case 'direct_checkout':
+				if ( $this->is_woocommerce_active() && $settings['post_type'] === 'product' ) {
+					$product_id = get_the_ID();
+					$url = '#';
+					$button_class .= ' mn-direct-checkout-button';
+					$attributes .= ' data-product-id="' . esc_attr( $product_id ) . '"';
+					$attributes .= ' data-action="direct_checkout"';
+				} else {
+					$url = get_the_permalink();
+				}
+				break;
+			
 			case 'quickview':
 				$url = '#';
 				$button_class .= ' mn-quickview-trigger';
@@ -4659,6 +5190,36 @@ class MN_Posts extends Widget_Base {
 				$attributes .= ' data-right-content="' . esc_attr( $right_content ) . '"';
 				$attributes .= ' data-post-title="' . esc_attr( get_the_title( $post_id ) ) . '"';
 				$attributes .= ' data-post-url="' . esc_attr( get_permalink( $post_id ) ) . '"';
+				break;
+			
+			case 'custom_meta':
+				$meta_field_key = isset( $settings['url_meta_field'] ) ? $settings['url_meta_field'] : '';
+				$link_option = isset( $settings['url_meta_link_option'] ) ? $settings['url_meta_link_option'] : 'same_window';
+				
+				if ( ! empty( $meta_field_key ) ) {
+					$meta_url = get_post_meta( get_the_ID(), $meta_field_key, true );
+					if ( ! empty( $meta_url ) ) {
+						$url = esc_url( $meta_url );
+						
+						// Handle link options
+						if ( $link_option === 'new_window' ) {
+							$attributes .= ' target="_blank" rel="noopener noreferrer"';
+						} elseif ( $link_option === 'youtube_modal' ) {
+							// Check if it's a YouTube URL
+							if ( preg_match( '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $meta_url, $matches ) ) {
+								$youtube_id = $matches[1];
+								$url = '#';
+								$button_class .= ' mn-posts-youtube-trigger';
+								$attributes .= ' data-youtube-id="' . esc_attr( $youtube_id ) . '"';
+								$attributes .= ' data-youtube-url="' . esc_attr( $meta_url ) . '"';
+							}
+						}
+					} else {
+						$url = get_the_permalink();
+					}
+				} else {
+					$url = get_the_permalink();
+				}
 				break;
 			
 			case 'default':
@@ -4757,6 +5318,135 @@ class MN_Posts extends Widget_Base {
 			$(document).keyup(function(e) {
 				if (e.keyCode === 27) {
 					$('#mn-quickview-modal').fadeOut(300);
+				}
+			});
+		});
+		</script>
+		<?php
+	}
+
+	/**
+	 * Render YouTube modal
+	 */
+	private function render_youtube_modal( $settings ) {
+		if ( ! isset( $settings['url_option'] ) || $settings['url_option'] !== 'custom_meta' ) {
+			return;
+		}
+		if ( ! isset( $settings['url_meta_link_option'] ) || $settings['url_meta_link_option'] !== 'youtube_modal' ) {
+			return;
+		}
+		?>
+		<div id="mn-youtube-modal" class="mn-youtube-modal" style="display: none;">
+			<div class="mn-youtube-modal-overlay"></div>
+			<div class="mn-youtube-modal-container">
+				<div class="mn-youtube-modal-close">&times;</div>
+				<div class="mn-youtube-modal-content">
+					<div class="mn-youtube-modal-iframe-wrapper">
+						<iframe id="mn-youtube-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		<style>
+		#mn-youtube-modal {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 99999;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: transparent;
+		}
+		#mn-youtube-modal .mn-youtube-modal-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.9);
+		}
+		#mn-youtube-modal .mn-youtube-modal-container {
+			position: relative;
+			width: 90%;
+			max-width: 900px;
+			z-index: 1;
+		}
+		#mn-youtube-modal .mn-youtube-modal-close {
+			position: absolute;
+			top: -40px;
+			right: 0;
+			width: 36px;
+			height: 36px;
+			background: #fff;
+			color: #000;
+			font-size: 24px;
+			line-height: 36px;
+			text-align: center;
+			cursor: pointer;
+			border-radius: 50%;
+			transition: all 0.3s ease;
+		}
+		#mn-youtube-modal .mn-youtube-modal-close:hover {
+			background: #ff0000;
+			color: #fff;
+		}
+		#mn-youtube-modal .mn-youtube-modal-iframe-wrapper {
+			position: relative;
+			padding-bottom: 56.25%;
+			height: 0;
+			overflow: hidden;
+		}
+		#mn-youtube-modal .mn-youtube-modal-iframe-wrapper iframe {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+		</style>
+		<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			console.log('MN Posts YouTube Modal: Script loaded');
+			
+			// Handle YouTube modal trigger
+			$(document).on('click', '.mn-posts-youtube-trigger', function(e) {
+				e.preventDefault();
+				console.log('MN Posts YouTube Modal: Trigger clicked');
+				
+				var youtubeId = $(this).data('youtube-id');
+				console.log('MN Posts YouTube Modal: YouTube ID = ' + youtubeId);
+				
+				if (!youtubeId) {
+					console.error('MN Posts: No YouTube ID found');
+					return;
+				}
+				
+				// Set iframe src with autoplay
+				var embedUrl = 'https://www.youtube.com/embed/' + youtubeId + '?autoplay=1&rel=0';
+				console.log('MN Posts YouTube Modal: Embed URL = ' + embedUrl);
+				$('#mn-youtube-iframe').attr('src', embedUrl);
+				
+				// Show modal
+				$('#mn-youtube-modal').fadeIn(300);
+			});
+			
+			// Close YouTube modal
+			$(document).on('click', '#mn-youtube-modal .mn-youtube-modal-close, #mn-youtube-modal .mn-youtube-modal-overlay', function() {
+				$('#mn-youtube-modal').fadeOut(300, function() {
+					// Stop video by clearing src
+					$('#mn-youtube-iframe').attr('src', '');
+				});
+			});
+			
+			// Close on ESC key
+			$(document).keyup(function(e) {
+				if (e.keyCode === 27 && $('#mn-youtube-modal').is(':visible')) {
+					$('#mn-youtube-modal').fadeOut(300, function() {
+						$('#mn-youtube-iframe').attr('src', '');
+					});
 				}
 			});
 		});
@@ -5006,11 +5696,13 @@ class MN_Posts extends Widget_Base {
 			return;
 		}
 
-		if ( ! isset( $settings['woo_show_price'] ) || $settings['woo_show_price'] !== 'yes' ) {
+		if ( $settings['post_type'] !== 'product' ) {
 			return;
 		}
 
-		if ( $settings['post_type'] !== 'product' ) {
+		// Check both old (woo_show_price) and new (show_price) controls for backward compatibility
+		$show_price = isset( $settings['show_price'] ) ? $settings['show_price'] : ( isset( $settings['woo_show_price'] ) ? $settings['woo_show_price'] : 'yes' );
+		if ( $show_price !== 'yes' ) {
 			return;
 		}
 
@@ -5173,6 +5865,66 @@ class MN_Posts extends Widget_Base {
 		}
 
 		$this->render_woo_add_to_cart( $settings );
+	}
+
+	/**
+	 * Generate responsive columns CSS based on settings
+	 */
+	private function generate_responsive_columns_css( $settings ) {
+		$widget_id = $this->get_id();
+		$css = '';
+		
+		// Check if any responsive column settings are set
+		$columns_desktop = isset( $settings['columns_desktop'] ) && ! empty( $settings['columns_desktop'] ) ? $settings['columns_desktop'] : '';
+		$columns_laptop = isset( $settings['columns_laptop'] ) && ! empty( $settings['columns_laptop'] ) ? $settings['columns_laptop'] : '';
+		$columns_tablet_landscape = isset( $settings['columns_tablet_landscape'] ) && ! empty( $settings['columns_tablet_landscape'] ) ? $settings['columns_tablet_landscape'] : '';
+		$columns_tablet_portrait = isset( $settings['columns_tablet_portrait'] ) && ! empty( $settings['columns_tablet_portrait'] ) ? $settings['columns_tablet_portrait'] : '';
+		$columns_mobile_landscape = isset( $settings['columns_mobile_landscape'] ) && ! empty( $settings['columns_mobile_landscape'] ) ? $settings['columns_mobile_landscape'] : '';
+		$columns_mobile_portrait = isset( $settings['columns_mobile_portrait'] ) && ! empty( $settings['columns_mobile_portrait'] ) ? $settings['columns_mobile_portrait'] : '';
+		
+		// Desktop (>1200px)
+		if ( ! empty( $columns_desktop ) ) {
+			$css .= '@media (min-width: 1201px) { ';
+			$css .= '.elementor-element-' . $widget_id . ' .mn-posts-grid { grid-template-columns: repeat(' . $columns_desktop . ', 1fr); }';
+			$css .= ' } ';
+		}
+		
+		// Laptop (1025px - 1200px)
+		if ( ! empty( $columns_laptop ) ) {
+			$css .= '@media (min-width: 1025px) and (max-width: 1200px) { ';
+			$css .= '.elementor-element-' . $widget_id . ' .mn-posts-grid { grid-template-columns: repeat(' . $columns_laptop . ', 1fr); }';
+			$css .= ' } ';
+		}
+		
+		// Tablet Landscape (769px - 1024px)
+		if ( ! empty( $columns_tablet_landscape ) ) {
+			$css .= '@media (min-width: 769px) and (max-width: 1024px) { ';
+			$css .= '.elementor-element-' . $widget_id . ' .mn-posts-grid { grid-template-columns: repeat(' . $columns_tablet_landscape . ', 1fr); }';
+			$css .= ' } ';
+		}
+		
+		// Tablet Portrait (481px - 768px)
+		if ( ! empty( $columns_tablet_portrait ) ) {
+			$css .= '@media (min-width: 481px) and (max-width: 768px) { ';
+			$css .= '.elementor-element-' . $widget_id . ' .mn-posts-grid { grid-template-columns: repeat(' . $columns_tablet_portrait . ', 1fr); }';
+			$css .= ' } ';
+		}
+		
+		// Mobile Landscape (376px - 480px)
+		if ( ! empty( $columns_mobile_landscape ) ) {
+			$css .= '@media (min-width: 376px) and (max-width: 480px) { ';
+			$css .= '.elementor-element-' . $widget_id . ' .mn-posts-grid { grid-template-columns: repeat(' . $columns_mobile_landscape . ', 1fr); }';
+			$css .= ' } ';
+		}
+		
+		// Mobile Portrait (<375px)
+		if ( ! empty( $columns_mobile_portrait ) ) {
+			$css .= '@media (max-width: 375px) { ';
+			$css .= '.elementor-element-' . $widget_id . ' .mn-posts-grid { grid-template-columns: repeat(' . $columns_mobile_portrait . ', 1fr); }';
+			$css .= ' } ';
+		}
+		
+		return $css;
 	}
 }
 

@@ -9,6 +9,7 @@
     $(document).ready(function() {
         initQuantityControls();
         initAjaxAddToCart();
+        initReadmoreActions();
     });
 
     // Also initialize on Elementor frontend init
@@ -16,6 +17,7 @@
         elementorFrontend.hooks.addAction('frontend/element_ready/mn-posts.default', function($scope) {
             initQuantityControls($scope);
             initAjaxAddToCart($scope);
+            initReadmoreActions($scope);
         });
     });
 
@@ -154,6 +156,129 @@
                     $button.removeClass('added');
                 }, 2000);
             }
+        });
+    }
+
+    /**
+     * Initialize Read More button actions for Add to Cart and Direct Checkout
+     */
+    function initReadmoreActions($scope) {
+        var $container = $scope ? $scope : $(document);
+
+        // Handle Add to Cart button click
+        $container.on('click', '.mn-add-to-cart-button', function(e) {
+            e.preventDefault();
+
+            var $button = $(this);
+            
+            // Prevent double-click
+            if ($button.hasClass('loading')) {
+                return;
+            }
+
+            var productId = $button.data('product-id');
+            var action = $button.data('action');
+
+            if (!productId || action !== 'add_to_cart') {
+                return;
+            }
+
+            // Add loading state
+            $button.addClass('loading');
+            var originalText = $button.find('.mn-readmore-text').text();
+            $button.find('.mn-readmore-text').text('Adding...');
+
+            // AJAX request to add to cart
+            $.ajax({
+                type: 'POST',
+                url: wc_add_to_cart_params ? wc_add_to_cart_params.ajax_url : (typeof mn_posts_params !== 'undefined' ? mn_posts_params.ajax_url : '/wp-admin/admin-ajax.php'),
+                data: {
+                    action: 'woocommerce_ajax_add_to_cart',
+                    product_id: productId,
+                    quantity: 1
+                },
+                success: function(response) {
+                    if (response.error && response.product_url) {
+                        window.location = response.product_url;
+                        return;
+                    }
+
+                    // Trigger WooCommerce events
+                    $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $button]);
+
+                    // Update button state
+                    $button.removeClass('loading').addClass('added');
+                    $button.find('.mn-readmore-text').text('Added!');
+                    
+                    // Reset button after 2 seconds
+                    setTimeout(function() {
+                        $button.removeClass('added');
+                        $button.find('.mn-readmore-text').text(originalText);
+                    }, 2000);
+                },
+                error: function() {
+                    $button.removeClass('loading');
+                    $button.find('.mn-readmore-text').text(originalText);
+                    console.error('MN Posts: Error adding product to cart');
+                }
+            });
+        });
+
+        // Handle Direct Checkout button click
+        $container.on('click', '.mn-direct-checkout-button', function(e) {
+            e.preventDefault();
+
+            var $button = $(this);
+            
+            // Prevent double-click
+            if ($button.hasClass('loading')) {
+                return;
+            }
+
+            var productId = $button.data('product-id');
+            var action = $button.data('action');
+
+            if (!productId || action !== 'direct_checkout') {
+                return;
+            }
+
+            // Add loading state
+            $button.addClass('loading');
+            var originalText = $button.find('.mn-readmore-text').text();
+            $button.find('.mn-readmore-text').text('Processing...');
+
+            // AJAX request to add to cart and redirect to checkout
+            $.ajax({
+                type: 'POST',
+                url: wc_add_to_cart_params ? wc_add_to_cart_params.ajax_url : (typeof mn_posts_params !== 'undefined' ? mn_posts_params.ajax_url : '/wp-admin/admin-ajax.php'),
+                data: {
+                    action: 'woocommerce_ajax_add_to_cart',
+                    product_id: productId,
+                    quantity: 1
+                },
+                success: function(response) {
+                    if (response.error && response.product_url) {
+                        window.location = response.product_url;
+                        return;
+                    }
+
+                    // Trigger WooCommerce events
+                    $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $button]);
+
+                    // Redirect to checkout page
+                    // Use WooCommerce checkout URL if available, otherwise fallback
+                    var checkoutUrl = wc_add_to_cart_params && wc_add_to_cart_params.checkout_url 
+                        ? wc_add_to_cart_params.checkout_url 
+                        : window.location.origin + '/checkout/';
+                    
+                    window.location.href = checkoutUrl;
+                },
+                error: function() {
+                    $button.removeClass('loading');
+                    $button.find('.mn-readmore-text').text(originalText);
+                    console.error('MN Posts: Error processing direct checkout');
+                }
+            });
         });
     }
 

@@ -305,7 +305,7 @@ class MN_SlideSwipe extends Widget_Base {
 				'type' => Controls_Manager::NUMBER,
 				'default' => 3000,
 				'min' => 1000,
-				'max' => 10000,
+				'max' => 30000,
 				'step' => 100,
 				'condition' => [
 					'autoplay' => 'yes',
@@ -356,6 +356,153 @@ class MN_SlideSwipe extends Widget_Base {
 				'label_off' => esc_html__( 'No', 'mn-elements' ),
 				'return_value' => 'yes',
 				'default' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'arrows_position',
+			[
+				'label' => esc_html__( 'Arrows Position', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'middle',
+				'options' => [
+					'top' => esc_html__( 'Top', 'mn-elements' ),
+					'middle' => esc_html__( 'Middle', 'mn-elements' ),
+					'bottom' => esc_html__( 'Bottom', 'mn-elements' ),
+				],
+				'condition' => [
+					'show_arrows' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'arrow_left_position',
+			[
+				'label' => esc_html__( 'Left Arrow Position', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range' => [
+					'px' => [
+						'min' => -200,
+						'max' => 200,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 10,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-slideswipe-wrapper .mn-slideswipe-arrow-prev' => 'left: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'show_arrows' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'arrow_right_position',
+			[
+				'label' => esc_html__( 'Right Arrow Position', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range' => [
+					'px' => [
+						'min' => -200,
+						'max' => 200,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 10,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-slideswipe-wrapper .mn-slideswipe-arrow-next' => 'right: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'show_arrows' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'show_number',
+			[
+				'label' => esc_html__( 'Show Number', 'mn-elements' ),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => esc_html__( 'Yes', 'mn-elements' ),
+				'label_off' => esc_html__( 'No', 'mn-elements' ),
+				'return_value' => 'yes',
+				'default' => '',
+				'separator' => 'before',
+				'description' => esc_html__( 'Display slide number (current/total)', 'mn-elements' ),
+			]
+		);
+
+		$this->add_responsive_control(
+			'number_position_x',
+			[
+				'label' => esc_html__( 'Number Horizontal Position', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range' => [
+					'px' => [
+						'min' => -200,
+						'max' => 200,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'unit' => '%',
+					'size' => 50,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-slideswipe-number' => 'left: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'show_number' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'number_position_y',
+			[
+				'label' => esc_html__( 'Number Vertical Position', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range' => [
+					'px' => [
+						'min' => -200,
+						'max' => 200,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 20,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-slideswipe-number' => 'bottom: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'show_number' => 'yes',
+				],
 			]
 		);
 
@@ -948,58 +1095,6 @@ class MN_SlideSwipe extends Widget_Base {
 			]
 		);
 
-		$this->add_responsive_control(
-			'arrows_position_x',
-			[
-				'label' => esc_html__( 'Position X', 'mn-elements' ),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%' ],
-				'range' => [
-					'px' => [
-						'min' => -200,
-						'max' => 200,
-					],
-					'%' => [
-						'min' => -100,
-						'max' => 100,
-					],
-				],
-				'default' => [
-					'unit' => 'px',
-					'size' => 10,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .mn-slideswipe-arrow-prev' => 'left: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .mn-slideswipe-arrow-next' => 'right: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'arrows_position_y',
-			[
-				'label' => esc_html__( 'Position Y', 'mn-elements' ),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%' ],
-				'range' => [
-					'px' => [
-						'min' => -200,
-						'max' => 200,
-					],
-					'%' => [
-						'min' => -100,
-						'max' => 100,
-					],
-				],
-				'default' => [
-					'unit' => '%',
-					'size' => 50,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .mn-slideswipe-arrow' => 'top: {{SIZE}}{{UNIT}}; transform: translateY(-50%);',
-				],
-			]
-		);
 
 		$this->start_controls_tabs( 'tabs_arrows_style' );
 
@@ -1079,6 +1174,108 @@ class MN_SlideSwipe extends Widget_Base {
 				'size_units' => [ 'px', '%' ],
 				'selectors' => [
 					'{{WRAPPER}} .mn-slideswipe-arrow' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		// Number Style
+		$this->start_controls_section(
+			'section_number_style',
+			[
+				'label' => esc_html__( 'Slide Number', 'mn-elements' ),
+				'tab' => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_number' => 'yes',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'number_typography',
+				'selector' => '{{WRAPPER}} .mn-slideswipe-number',
+			]
+		);
+
+		$this->add_control(
+			'number_active_color',
+			[
+				'label' => esc_html__( 'Active Slide Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#ffffff',
+				'selectors' => [
+					'{{WRAPPER}} .mn-slideswipe-number .mn-number-current' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'number_separator_color',
+			[
+				'label' => esc_html__( 'Separator Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'rgba(255,255,255,0.5)',
+				'selectors' => [
+					'{{WRAPPER}} .mn-slideswipe-number .mn-number-separator' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'number_total_color',
+			[
+				'label' => esc_html__( 'Total Number Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'rgba(255,255,255,0.8)',
+				'selectors' => [
+					'{{WRAPPER}} .mn-slideswipe-number .mn-number-total' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'number_background',
+			[
+				'label' => esc_html__( 'Background', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'rgba(0,0,0,0.5)',
+				'selectors' => [
+					'{{WRAPPER}} .mn-slideswipe-number' => 'background-color: {{VALUE}};',
+				],
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_responsive_control(
+			'number_padding',
+			[
+				'label' => esc_html__( 'Padding', 'mn-elements' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em' ],
+				'default' => [
+					'top' => '5',
+					'right' => '15',
+					'bottom' => '5',
+					'left' => '15',
+					'unit' => 'px',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-slideswipe-number' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'number_border_radius',
+			[
+				'label' => esc_html__( 'Border Radius', 'mn-elements' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors' => [
+					'{{WRAPPER}} .mn-slideswipe-number' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -1427,12 +1624,20 @@ class MN_SlideSwipe extends Widget_Base {
 				</div>
 			</div>
 
-			<?php if ( $settings['show_arrows'] === 'yes' ) : ?>
-				<div class="mn-slideswipe-arrow mn-slideswipe-arrow-prev mn-slideswipe-arrow-prev-<?php echo esc_attr( $widget_id ); ?>">
+			<?php if ( $settings['show_arrows'] === 'yes' ) : 
+				$arrows_position = isset( $settings['arrows_position'] ) ? $settings['arrows_position'] : 'middle';
+			?>
+				<div class="mn-slideswipe-arrow mn-slideswipe-arrow-prev mn-slideswipe-arrow-prev-<?php echo esc_attr( $widget_id ); ?> mn-arrow-pos-<?php echo esc_attr( $arrows_position ); ?>">
 					<i class="eicon-chevron-left" aria-hidden="true"></i>
 				</div>
-				<div class="mn-slideswipe-arrow mn-slideswipe-arrow-next mn-slideswipe-arrow-next-<?php echo esc_attr( $widget_id ); ?>">
+				<div class="mn-slideswipe-arrow mn-slideswipe-arrow-next mn-slideswipe-arrow-next-<?php echo esc_attr( $widget_id ); ?> mn-arrow-pos-<?php echo esc_attr( $arrows_position ); ?>">
 					<i class="eicon-chevron-right" aria-hidden="true"></i>
+				</div>
+			<?php endif; ?>
+
+			<?php if ( $settings['show_number'] === 'yes' ) : ?>
+				<div class="mn-slideswipe-number mn-slideswipe-number-<?php echo esc_attr( $widget_id ); ?>">
+					<span class="mn-number-current">1</span><span class="mn-number-separator">/</span><span class="mn-number-total"><?php echo count( $slides ); ?></span>
 				</div>
 			<?php endif; ?>
 

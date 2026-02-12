@@ -236,9 +236,8 @@ class MN_Gallery extends Widget_Base {
 				'type' => Controls_Manager::SELECT,
 				'default' => 'grid',
 				'options' => [
-					'grid' => esc_html__( 'Standard Grid', 'mn-elements' ),
-					'slideshow' => esc_html__( 'Slideshow', 'mn-elements' ),
-					'mixed' => esc_html__( 'Mixed Layout (1 Big + 4 Grid)', 'mn-elements' ),
+					'grid' => esc_html__( 'Grid', 'mn-elements' ),
+					'justified' => esc_html__( 'Justified', 'mn-elements' ),
 					'masonry' => esc_html__( 'Masonry', 'mn-elements' ),
 				],
 			]
@@ -265,6 +264,68 @@ class MN_Gallery extends Widget_Base {
 				],
 				'selectors' => [
 					'{{WRAPPER}} .mn-gallery-grid' => 'grid-template-columns: repeat({{VALUE}}, 1fr);',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'gallery_width',
+			[
+				'label' => esc_html__( 'Gallery Width', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'vw' ],
+				'range' => [
+					'px' => [
+						'min' => 200,
+						'max' => 2000,
+					],
+					'%' => [
+						'min' => 10,
+						'max' => 100,
+					],
+					'vw' => [
+						'min' => 10,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'unit' => '%',
+					'size' => 100,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-grid' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-gallery-justified' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-gallery-masonry' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'gallery_height',
+			[
+				'label' => esc_html__( 'Gallery Height', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'vh' ],
+				'range' => [
+					'px' => [
+						'min' => 200,
+						'max' => 1000,
+					],
+					'vh' => [
+						'min' => 20,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 400,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-justified' => 'height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-gallery-masonry' => 'max-height: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'layout_type' => ['justified', 'masonry'],
 				],
 			]
 		);
@@ -303,43 +364,37 @@ class MN_Gallery extends Widget_Base {
 			]
 		);
 
-		// Slideshow specific controls
+		// Justified Layout Settings
 		$this->add_control(
-			'slideshow_heading',
+			'justified_heading',
 			[
-				'label' => esc_html__( 'Slideshow Settings', 'mn-elements' ),
+				'label' => esc_html__( 'Justified Layout Settings', 'mn-elements' ),
 				'type' => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => [
-					'layout_type' => 'slideshow',
+					'layout_type' => 'justified',
 				],
 			]
 		);
 
-		$this->add_control(
-			'autoplay',
+		$this->add_responsive_control(
+			'justified_row_height',
 			[
-				'label' => esc_html__( 'Autoplay', 'mn-elements' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'condition' => [
-					'layout_type' => 'slideshow',
+				'label' => esc_html__( 'Row Height', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => 100,
+						'max' => 500,
+					],
 				],
-			]
-		);
-
-		$this->add_control(
-			'autoplay_speed',
-			[
-				'label' => esc_html__( 'Autoplay Speed (ms)', 'mn-elements' ),
-				'type' => Controls_Manager::NUMBER,
-				'default' => 3000,
-				'min' => 1000,
-				'max' => 10000,
-				'step' => 500,
+				'default' => [
+					'unit' => 'px',
+					'size' => 200,
+				],
 				'condition' => [
-					'layout_type' => 'slideshow',
-					'autoplay' => 'yes',
+					'layout_type' => 'justified',
 				],
 			]
 		);
@@ -349,9 +404,9 @@ class MN_Gallery extends Widget_Base {
 			[
 				'label' => esc_html__( 'Show Arrows', 'mn-elements' ),
 				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+				'default' => 'no',
 				'condition' => [
-					'layout_type' => 'slideshow',
+					'layout_type' => ['justified', 'masonry'],
 				],
 			]
 		);
@@ -361,12 +416,354 @@ class MN_Gallery extends Widget_Base {
 			[
 				'label' => esc_html__( 'Show Dots', 'mn-elements' ),
 				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+				'default' => 'no',
 				'condition' => [
-					'layout_type' => 'slideshow',
+					'layout_type' => ['justified', 'masonry'],
 				],
 			]
 		);
+
+		// Navigation Styling Controls
+		$this->add_control(
+			'nav_styling_heading',
+			[
+				'label' => esc_html__( 'Navigation Styling', 'mn-elements' ),
+				'type' => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => [
+					'show_arrows' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nav_arrow_type',
+			[
+				'label' => esc_html__( 'Arrow Type', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'chevron',
+				'options' => [
+					'chevron' => esc_html__( 'Chevron', 'mn-elements' ),
+					'angle' => esc_html__( 'Angle', 'mn-elements' ),
+					'arrow' => esc_html__( 'Arrow', 'mn-elements' ),
+					'caret' => esc_html__( 'Caret', 'mn-elements' ),
+				],
+				'condition' => [
+					'show_arrows' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nav_arrow_icon',
+			[
+				'label' => esc_html__( 'Custom Arrow Icon', 'mn-elements' ),
+				'type' => Controls_Manager::ICONS,
+				'default' => [
+					'value' => '',
+					'library' => '',
+				],
+				'recommended' => [
+					'eicons' => [
+						'eicon-chevron-left',
+						'eicon-angle-left',
+						'eicon-arrow-left',
+						'eicon-caret-left',
+					],
+				],
+				'skin' => 'inline',
+				'label_block' => false,
+				'condition' => [
+					'show_arrows' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nav_dot_position',
+			[
+				'label' => esc_html__( 'Dot Position', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'inside',
+				'options' => [
+					'inside' => esc_html__( 'Inside Gallery', 'mn-elements' ),
+					'outside' => esc_html__( 'Outside Gallery', 'mn-elements' ),
+				],
+				'condition' => [
+					'show_dots' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nav_dot_size',
+			[
+				'label' => esc_html__( 'Dot Size', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => 6,
+						'max' => 20,
+					],
+				],
+				'default' => [
+					'size' => 12,
+					'unit' => 'px',
+				],
+				'condition' => [
+					'show_dots' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nav_dot_shape',
+			[
+				'label' => esc_html__( 'Dot Shape', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'circle',
+				'options' => [
+					'circle' => esc_html__( 'Circle', 'mn-elements' ),
+					'square' => esc_html__( 'Square', 'mn-elements' ),
+					'line' => esc_html__( 'Line', 'mn-elements' ),
+				],
+				'condition' => [
+					'show_dots' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		// Style Section - Navigation
+		$this->start_controls_section(
+			'section_navigation_style',
+			[
+				'label' => esc_html__( 'Navigation', 'mn-elements' ),
+				'tab' => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->start_controls_tabs( 'navigation_tabs' );
+
+		$this->start_controls_tab(
+			'navigation_arrows_tab',
+			[
+				'label' => esc_html__( 'Arrows', 'mn-elements' ),
+				'condition' => [
+					'show_arrows' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'nav_arrow_size',
+			[
+				'label' => esc_html__( 'Arrow Size', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => 20,
+						'max' => 80,
+					],
+				],
+				'default' => [
+					'size' => 50,
+					'unit' => 'px',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-arrow' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nav_arrow_color',
+			[
+				'label' => esc_html__( 'Arrow Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#ffffff',
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-arrow' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .mn-gallery-arrow i' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nav_arrow_bg_color',
+			[
+				'label' => esc_html__( 'Background Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'rgba(0, 0, 0, 0.7)',
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-arrow' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nav_arrow_bg_color_hover',
+			[
+				'label' => esc_html__( 'Background Color (Hover)', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'rgba(0, 0, 0, 0.9)',
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-arrow:hover' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'nav_arrow_border_radius',
+			[
+				'label' => esc_html__( 'Border Radius', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 50,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 50,
+					],
+				],
+				'default' => [
+					'size' => 50,
+					'unit' => '%',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-arrow' => 'border-radius: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'navigation_dots_tab',
+			[
+				'label' => esc_html__( 'Dots', 'mn-elements' ),
+				'condition' => [
+					'show_dots' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nav_dot_color',
+			[
+				'label' => esc_html__( 'Dot Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'rgba(255, 255, 255, 0.5)',
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-dot' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .mn-slideshow-dot' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nav_dot_color_active',
+			[
+				'label' => esc_html__( 'Dot Color (Active)', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#ffffff',
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-dot.active' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .mn-gallery-dot:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .mn-slideshow-dot.active' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .mn-slideshow-dot:hover' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'nav_dot_spacing',
+			[
+				'label' => esc_html__( 'Dot Spacing', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => 4,
+						'max' => 20,
+					],
+				],
+				'default' => [
+					'size' => 10,
+					'unit' => 'px',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-dots' => 'gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-slideshow-dots' => 'gap: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'nav_dot_offset_y',
+			[
+				'label' => esc_html__( 'Dot Offset (Vertical)', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => -50,
+						'max' => 50,
+					],
+				],
+				'default' => [
+					'size' => 0,
+					'unit' => 'px',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-dots.inside' => 'bottom: calc(20px + {{SIZE}}{{UNIT}});',
+					'{{WRAPPER}} .mn-gallery-dots.outside' => 'margin-top: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-slideshow-dots.inside' => 'bottom: calc(20px + {{SIZE}}{{UNIT}});',
+					'{{WRAPPER}} .mn-slideshow-dots.outside' => 'margin-top: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'show_dots' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'nav_dot_offset_x',
+			[
+				'label' => esc_html__( 'Dot Offset (Horizontal)', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range' => [
+					'px' => [
+						'min' => -100,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'size' => 0,
+					'unit' => 'px',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-dots.inside' => 'left: calc(50% + {{SIZE}}{{UNIT}}); transform: translateX(-50%);',
+					'{{WRAPPER}} .mn-gallery-dots.outside' => 'justify-content: flex-start; margin-left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-slideshow-dots.inside' => 'left: calc(50% + {{SIZE}}{{UNIT}}); transform: translateX(-50%);',
+					'{{WRAPPER}} .mn-slideshow-dots.outside' => 'justify-content: flex-start; margin-left: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'show_dots' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 
@@ -427,6 +824,38 @@ class MN_Gallery extends Widget_Base {
 			[
 				'name' => 'image_box_shadow',
 				'selector' => '{{WRAPPER}} .mn-gallery-item img',
+			]
+		);
+
+		$this->add_responsive_control(
+			'gallery_item_max_height',
+			[
+				'label' => esc_html__( 'Maximum Height', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'vh', '%' ],
+				'range' => [
+					'px' => [
+						'min' => 100,
+						'max' => 1000,
+					],
+					'vh' => [
+						'min' => 10,
+						'max' => 100,
+					],
+					'%' => [
+						'min' => 10,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'size' => '',
+					'unit' => 'px',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-gallery-item' => 'max-height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-gallery-item img' => 'max-height: {{SIZE}}{{UNIT}};',
+				],
+				'separator' => 'before',
 			]
 		);
 
@@ -798,11 +1227,8 @@ class MN_Gallery extends Widget_Base {
 		<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
 			<?php
 			switch ( $settings['layout_type'] ) {
-				case 'slideshow':
-					$this->render_slideshow( $images, $settings );
-					break;
-				case 'mixed':
-					$this->render_mixed_layout( $images, $settings );
+				case 'justified':
+					$this->render_justified( $images, $settings );
 					break;
 				case 'masonry':
 					$this->render_masonry( $images, $settings );
@@ -827,6 +1253,25 @@ class MN_Gallery extends Widget_Base {
 	}
 
 	private function render_slideshow( $images, $settings ) {
+		$nav_arrow_icon = isset( $settings['nav_arrow_icon'] ) ? $settings['nav_arrow_icon'] : [ 'value' => 'eicon-chevron-left', 'library' => 'eicons' ];
+		$nav_dot_position = isset( $settings['nav_dot_position'] ) ? $settings['nav_dot_position'] : 'inside';
+		$nav_dot_size = isset( $settings['nav_dot_size']['size'] ) ? $settings['nav_dot_size']['size'] : 12;
+		$nav_dot_shape = isset( $settings['nav_dot_shape'] ) ? $settings['nav_dot_shape'] : 'circle';
+		
+		// Generate opposite arrow for next button
+		$next_arrow_icon = $nav_arrow_icon;
+		if ( $nav_arrow_icon['value'] === 'eicon-chevron-left' ) {
+			$next_arrow_icon['value'] = 'eicon-chevron-right';
+		} elseif ( $nav_arrow_icon['value'] === 'eicon-angle-left' ) {
+			$next_arrow_icon['value'] = 'eicon-angle-right';
+		} elseif ( $nav_arrow_icon['value'] === 'eicon-arrow-left' ) {
+			$next_arrow_icon['value'] = 'eicon-arrow-right';
+		} elseif ( $nav_arrow_icon['value'] === 'eicon-caret-left' ) {
+			$next_arrow_icon['value'] = 'eicon-caret-right';
+		} elseif ( $nav_arrow_icon['value'] === 'eicon-arrow-carrot-left' ) {
+			$next_arrow_icon['value'] = 'eicon-arrow-carrot-right';
+		}
+		
 		?>
 		<div class="mn-gallery-slideshow" 
 			 data-autoplay="<?php echo esc_attr( $settings['autoplay'] ); ?>"
@@ -841,17 +1286,20 @@ class MN_Gallery extends Widget_Base {
 			
 			<?php if ( $settings['show_arrows'] === 'yes' ) : ?>
 				<button class="mn-slideshow-arrow mn-slideshow-prev" aria-label="<?php esc_attr_e( 'Previous', 'mn-elements' ); ?>">
-					<i class="eicon-chevron-left"></i>
+					<?php \Elementor\Icons_Manager::render_icon( $nav_arrow_icon ); ?>
 				</button>
 				<button class="mn-slideshow-arrow mn-slideshow-next" aria-label="<?php esc_attr_e( 'Next', 'mn-elements' ); ?>">
-					<i class="eicon-chevron-right"></i>
+					<?php \Elementor\Icons_Manager::render_icon( $next_arrow_icon ); ?>
 				</button>
 			<?php endif; ?>
 			
 			<?php if ( $settings['show_dots'] === 'yes' ) : ?>
-				<div class="mn-slideshow-dots">
+				<div class="mn-slideshow-dots <?php echo esc_attr( $nav_dot_position ); ?>">
 					<?php foreach ( $images as $index => $image ) : ?>
-						<button class="mn-slideshow-dot <?php echo $index === 0 ? 'active' : ''; ?>" data-slide="<?php echo esc_attr( $index ); ?>"></button>
+						<button class="mn-slideshow-dot <?php echo esc_attr( $nav_dot_shape ); ?> <?php echo $index === 0 ? 'active' : ''; ?>" 
+								data-slide="<?php echo esc_attr( $index ); ?>"
+								style="<?php echo 'line' === $nav_dot_shape ? 'width: 30px; height: 3px;' : "width: {$nav_dot_size}px; height: {$nav_dot_size}px;"; ?>">
+						</button>
 					<?php endforeach; ?>
 				</div>
 			<?php endif; ?>
@@ -881,13 +1329,87 @@ class MN_Gallery extends Widget_Base {
 		<?php
 	}
 
+	private function render_justified( $images, $settings ) {
+		$row_height = isset( $settings['justified_row_height']['size'] ) ? $settings['justified_row_height']['size'] : 200;
+		?>
+		<div class="mn-gallery-justified" data-row-height="<?php echo esc_attr( $row_height ); ?>">
+			<div class="mn-gallery-justified-container">
+				<?php foreach ( $images as $index => $image ) : ?>
+					<?php $this->render_gallery_item( $image, $settings, $index ); ?>
+				<?php endforeach; ?>
+			</div>
+			<?php $this->render_navigation( $images, $settings ); ?>
+		</div>
+		<?php
+	}
+
 	private function render_masonry( $images, $settings ) {
 		?>
 		<div class="mn-gallery-masonry">
-			<?php foreach ( $images as $index => $image ) : ?>
-				<?php $this->render_gallery_item( $image, $settings, $index ); ?>
-			<?php endforeach; ?>
+			<div class="mn-gallery-masonry-container">
+				<?php foreach ( $images as $index => $image ) : ?>
+					<?php $this->render_gallery_item( $image, $settings, $index ); ?>
+				<?php endforeach; ?>
+			</div>
+			<?php $this->render_navigation( $images, $settings ); ?>
 		</div>
+		<?php
+	}
+
+	private function render_navigation( $images, $settings ) {
+		if ( $settings['show_arrows'] !== 'yes' && $settings['show_dots'] !== 'yes' ) {
+			return;
+		}
+
+		$nav_arrow_type = isset( $settings['nav_arrow_type'] ) ? $settings['nav_arrow_type'] : 'chevron';
+		$nav_arrow_icon = isset( $settings['nav_arrow_icon'] ) && ! empty( $settings['nav_arrow_icon']['value'] ) ? $settings['nav_arrow_icon'] : null;
+		$nav_dot_position = isset( $settings['nav_dot_position'] ) ? $settings['nav_dot_position'] : 'inside';
+		$nav_dot_size = isset( $settings['nav_dot_size']['size'] ) ? $settings['nav_dot_size']['size'] : 12;
+		$nav_dot_shape = isset( $settings['nav_dot_shape'] ) ? $settings['nav_dot_shape'] : 'circle';
+
+		// Determine arrow icons based on type or custom icon
+		if ( $nav_arrow_icon ) {
+			$prev_arrow_icon = $nav_arrow_icon;
+			$next_arrow_icon = $nav_arrow_icon;
+			
+			// Generate opposite arrow for next button
+			if ( strpos( $nav_arrow_icon['value'], 'left' ) !== false ) {
+				$next_arrow_icon['value'] = str_replace( 'left', 'right', $nav_arrow_icon['value'] );
+			}
+		} else {
+			// Use arrow type
+			$icon_map = [
+				'chevron' => [ 'prev' => 'eicon-chevron-left', 'next' => 'eicon-chevron-right' ],
+				'angle' => [ 'prev' => 'eicon-angle-left', 'next' => 'eicon-angle-right' ],
+				'arrow' => [ 'prev' => 'eicon-arrow-left', 'next' => 'eicon-arrow-right' ],
+				'caret' => [ 'prev' => 'eicon-caret-left', 'next' => 'eicon-caret-right' ],
+			];
+			
+			$icons = isset( $icon_map[$nav_arrow_type] ) ? $icon_map[$nav_arrow_type] : $icon_map['chevron'];
+			$prev_arrow_icon = [ 'value' => $icons['prev'], 'library' => 'eicons' ];
+			$next_arrow_icon = [ 'value' => $icons['next'], 'library' => 'eicons' ];
+		}
+
+		?>
+		<?php if ( $settings['show_arrows'] === 'yes' ) : ?>
+			<button class="mn-gallery-arrow mn-gallery-prev" aria-label="<?php esc_attr_e( 'Previous', 'mn-elements' ); ?>">
+				<?php \Elementor\Icons_Manager::render_icon( $prev_arrow_icon ); ?>
+			</button>
+			<button class="mn-gallery-arrow mn-gallery-next" aria-label="<?php esc_attr_e( 'Next', 'mn-elements' ); ?>">
+				<?php \Elementor\Icons_Manager::render_icon( $next_arrow_icon ); ?>
+			</button>
+		<?php endif; ?>
+		
+		<?php if ( $settings['show_dots'] === 'yes' ) : ?>
+			<div class="mn-gallery-dots <?php echo esc_attr( $nav_dot_position ); ?>">
+				<?php foreach ( $images as $index => $image ) : ?>
+					<button class="mn-gallery-dot <?php echo esc_attr( $nav_dot_shape ); ?> <?php echo $index === 0 ? 'active' : ''; ?>" 
+							data-slide="<?php echo esc_attr( $index ); ?>"
+							style="<?php echo 'line' === $nav_dot_shape ? 'width: 30px; height: 3px;' : "width: {$nav_dot_size}px; height: {$nav_dot_size}px;"; ?>">
+					</button>
+				<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
 		<?php
 	}
 

@@ -385,8 +385,15 @@
 /* Responsive */
 @media (max-width: 768px) {
     .mn-woocart-dropdown {
-        width: 320px;
-        right: -10px;
+        width: calc(100vw - 30px);
+        max-width: 320px;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    .mn-woocart-wrapper.active .mn-woocart-dropdown {
+        transform: translateX(-50%) translateY(0);
     }
 
     .mn-woocart-item-row {
@@ -409,11 +416,15 @@
 }
 
 @media (max-width: 480px) {
+    /* Keep dropdown near cart icon, just horizontally centered and width constrained */
     .mn-woocart-dropdown {
-        width: calc(100vw - 40px);
-        left: 50%;
-        right: auto;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50% !important;
+        right: auto !important;
         transform: translateX(-50%) translateY(-10px);
+        width: calc(100vw - 20px) !important;
+        max-width: 300px;
     }
 
     .mn-woocart-wrapper.active .mn-woocart-dropdown {

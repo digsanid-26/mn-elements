@@ -76,19 +76,39 @@
 .mn-gallery-layout-grid .mn-gallery-grid {
     display: grid;
     gap: 15px;
+    margin: 0 auto;
 }
 
 .mn-gallery-layout-grid .mn-gallery-item {
     aspect-ratio: 1;
+    width: 100%;
 }
 
-/* ===== SLIDESHOW LAYOUT ===== */
-.mn-gallery-layout-slideshow .mn-gallery-slideshow {
+/* ===== JUSTIFIED LAYOUT ===== */
+.mn-gallery-layout-justified .mn-gallery-justified {
     position: relative;
     width: 100%;
-    height: 400px;
+    margin: 0 auto;
     overflow: hidden;
-    border-radius: 8px;
+}
+
+.mn-gallery-layout-justified .mn-gallery-justified-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: flex-start;
+}
+
+.mn-gallery-layout-justified .mn-gallery-item {
+    flex: 1 1 auto;
+    height: 200px;
+    min-width: 150px;
+}
+
+.mn-gallery-layout-justified .mn-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .mn-slideshow-container {
@@ -120,7 +140,39 @@
     height: 100%;
 }
 
-/* Slideshow Arrows */
+/* Gallery Navigation Arrows */
+.mn-gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: background 0.3s ease;
+    z-index: 10;
+}
+
+.mn-gallery-arrow:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.mn-gallery-prev {
+    left: 20px;
+}
+
+.mn-gallery-next {
+    right: 20px;
+}
+
+/* Slideshow specific arrows (backward compatibility) */
 .mn-slideshow-arrow {
     position: absolute;
     top: 50%;
@@ -152,7 +204,70 @@
     right: 20px;
 }
 
-/* Slideshow Dots */
+/* Gallery Navigation Dots */
+.mn-gallery-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.mn-gallery-dots.inside {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mn-gallery-dots.outside {
+    position: relative;
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+    transform: none;
+    left: auto;
+}
+
+.mn-gallery-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.mn-gallery-dot.circle {
+    border-radius: 50%;
+}
+
+.mn-gallery-dot.square {
+    border-radius: 0;
+}
+
+.mn-gallery-dot.line {
+    width: 30px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+.mn-gallery-dot.active,
+.mn-gallery-dot:hover {
+    background: white;
+    transform: scale(1.2);
+}
+
+.mn-gallery-dot.line.active,
+.mn-gallery-dot.line:hover {
+    transform: scaleX(1.2);
+}
+
+/* Slideshow Dots (backward compatibility) */
 .mn-slideshow-dots {
     position: absolute;
     bottom: 20px;
@@ -163,6 +278,21 @@
     z-index: 10;
 }
 
+.mn-slideshow-dots.inside {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mn-slideshow-dots.outside {
+    position: relative;
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+    transform: none;
+}
+
 .mn-slideshow-dot {
     width: 12px;
     height: 12px;
@@ -170,12 +300,33 @@
     background: rgba(255, 255, 255, 0.5);
     border: none;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.mn-slideshow-dot.circle {
+    border-radius: 50%;
+}
+
+.mn-slideshow-dot.square {
+    border-radius: 0;
+}
+
+.mn-slideshow-dot.line {
+    width: 30px;
+    height: 3px;
+    border-radius: 2px;
 }
 
 .mn-slideshow-dot.active,
 .mn-slideshow-dot:hover {
     background: white;
+    transform: scale(1.2);
+}
+
+.mn-slideshow-dot.line.active,
+.mn-slideshow-dot.line:hover {
+    transform: scaleX(1.2);
 }
 
 /* ===== MIXED LAYOUT (1 Big + 4 Grid) ===== */
@@ -207,6 +358,13 @@
 
 /* ===== MASONRY LAYOUT ===== */
 .mn-gallery-layout-masonry .mn-gallery-masonry {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+.mn-gallery-layout-masonry .mn-gallery-masonry-container {
     columns: 3;
     column-gap: 15px;
 }
@@ -223,7 +381,9 @@
 }
 
 .mn-gallery-layout-masonry .mn-gallery-image img {
+    width: 100%;
     height: auto;
+    object-fit: cover;
 }
 
 /* ===== LIGHTBOX STYLES ===== */
@@ -328,8 +488,13 @@
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 1024px) {
-    .mn-gallery-layout-masonry .mn-gallery-masonry {
+    .mn-gallery-layout-masonry .mn-gallery-masonry-container {
         columns: 2;
+    }
+    
+    .mn-gallery-layout-justified .mn-gallery-item {
+        height: 180px;
+        min-width: 120px;
     }
     
     .mn-slideshow-arrow {
@@ -363,8 +528,13 @@
         height: 200px;
     }
     
-    .mn-gallery-layout-masonry .mn-gallery-masonry {
+    .mn-gallery-layout-masonry .mn-gallery-masonry-container {
         columns: 1;
+    }
+    
+    .mn-gallery-layout-justified .mn-gallery-item {
+        height: 150px;
+        min-width: 100px;
     }
     
     .mn-slideshow-arrow {

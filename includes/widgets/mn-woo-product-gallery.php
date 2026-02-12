@@ -77,6 +77,22 @@ class MN_Woo_Product_Gallery extends Widget_Base {
 		);
 
 		$this->add_control(
+			'thumbnail_position',
+			[
+				'label'   => esc_html__( 'Thumbnail Position', 'mn-elements' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'left',
+				'options' => [
+					'left'   => esc_html__( 'Left', 'mn-elements' ),
+					'right'  => esc_html__( 'Right', 'mn-elements' ),
+					'top'    => esc_html__( 'Top', 'mn-elements' ),
+					'bottom' => esc_html__( 'Bottom', 'mn-elements' ),
+				],
+				'prefix_class' => 'mn-gallery-pos-',
+			]
+		);
+
+		$this->add_control(
 			'visible_thumbnails',
 			[
 				'label'   => esc_html__( 'Visible Thumbnails', 'mn-elements' ),
@@ -120,6 +136,57 @@ class MN_Woo_Product_Gallery extends Widget_Base {
 				'label_off'    => esc_html__( 'No', 'mn-elements' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'show_zoom_icon',
+			[
+				'label'        => esc_html__( 'Show Zoom Icon', 'mn-elements' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'mn-elements' ),
+				'label_off'    => esc_html__( 'No', 'mn-elements' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'description'  => esc_html__( 'Show a zoom/search icon in the center of the main image on hover.', 'mn-elements' ),
+				'condition'    => [
+					'lightbox' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'heading_variation_gallery',
+			[
+				'label'     => esc_html__( 'Variable Product', 'mn-elements' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'variation_images',
+			[
+				'label'        => esc_html__( 'Include Variation Images', 'mn-elements' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'mn-elements' ),
+				'label_off'    => esc_html__( 'No', 'mn-elements' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'description'  => esc_html__( 'Include variation images in the gallery for variable products.', 'mn-elements' ),
+			]
+		);
+
+		$this->add_control(
+			'variation_image_swap',
+			[
+				'label'        => esc_html__( 'Swap Image on Variation Select', 'mn-elements' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'mn-elements' ),
+				'label_off'    => esc_html__( 'No', 'mn-elements' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'description'  => esc_html__( 'Automatically switch gallery to the variation image when a variation is selected in MN Add to Cart widget.', 'mn-elements' ),
 			]
 		);
 
@@ -609,6 +676,10 @@ class MN_Woo_Product_Gallery extends Widget_Base {
 			return;
 		}
 
+		$is_variable        = $product->is_type( 'variable' );
+		$include_var_images  = $is_variable && $settings['variation_images'] === 'yes';
+		$enable_image_swap   = $is_variable && $settings['variation_image_swap'] === 'yes';
+
 		// Get gallery images
 		$gallery_image_ids = $product->get_gallery_image_ids();
 		$featured_image_id = $product->get_image_id();
@@ -621,6 +692,41 @@ class MN_Woo_Product_Gallery extends Widget_Base {
 		if ( ! empty( $gallery_image_ids ) ) {
 			$all_images = array_merge( $all_images, $gallery_image_ids );
 		}
+
+		// Build variation data for variable products
+		$variation_map = []; // variation_id => image index in $all_images
+		if ( $is_variable ) {
+			$available_variations = $product->get_available_variations();
+			
+			foreach ( $available_variations as $variation ) {
+				$var_image_id = ! empty( $variation['image_id'] ) ? intval( $variation['image_id'] ) : 0;
+				
+				if ( ! $var_image_id ) {
+					continue;
+				}
+
+				// Check if this image is already in the gallery
+				$existing_index = array_search( $var_image_id, $all_images );
+				
+				if ( $existing_index !== false ) {
+					// Image already exists in gallery, just map it
+					$variation_map[ $variation['variation_id'] ] = [
+						'index'      => $existing_index,
+						'image_id'   => $var_image_id,
+						'attributes' => $variation['attributes'],
+					];
+				} elseif ( $include_var_images ) {
+					// Add variation image to gallery
+					$all_images[] = $var_image_id;
+					$new_index = count( $all_images ) - 1;
+					$variation_map[ $variation['variation_id'] ] = [
+						'index'      => $new_index,
+						'image_id'   => $var_image_id,
+						'attributes' => $variation['attributes'],
+					];
+				}
+			}
+		}
 		
 		if ( empty( $all_images ) ) {
 			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
@@ -629,18 +735,41 @@ class MN_Woo_Product_Gallery extends Widget_Base {
 			return;
 		}
 
+		// Remove duplicate image IDs while preserving order
+		$all_images = array_values( array_unique( $all_images ) );
+
+		// Rebuild variation_map indices after dedup
+		if ( ! empty( $variation_map ) ) {
+			foreach ( $variation_map as $var_id => &$var_data ) {
+				$new_index = array_search( $var_data['image_id'], $all_images );
+				if ( $new_index !== false ) {
+					$var_data['index'] = $new_index;
+				}
+			}
+			unset( $var_data );
+		}
+
 		$visible_thumbnails = intval( $settings['visible_thumbnails'] );
 		$show_navigation    = $settings['show_navigation'] === 'yes' && count( $all_images ) > $visible_thumbnails;
 		$enable_lightbox    = $settings['lightbox'] === 'yes';
 		$show_sale_badge    = $settings['sale_flash'] === 'yes' && $product->is_on_sale();
+		$show_zoom_icon     = $enable_lightbox && $settings['show_zoom_icon'] === 'yes';
+		$thumb_position     = $settings['thumbnail_position'];
+		
+		// Prepare wrapper data attributes
+		$wrapper_attrs = ' data-visible="' . esc_attr( $visible_thumbnails ) . '"';
+		$wrapper_attrs .= ' data-product-id="' . esc_attr( $product->get_id() ) . '"';
+		$wrapper_attrs .= ' data-position="' . esc_attr( $thumb_position ) . '"';
+		
+		if ( $enable_image_swap && ! empty( $variation_map ) ) {
+			$wrapper_attrs .= ' data-variation-swap="1"';
+			$wrapper_attrs .= " data-variations='" . wp_json_encode( $variation_map ) . "'";
+			$wrapper_attrs .= ' data-featured-index="0"';
+		}
 		
 		$widget_id = $this->get_id();
 		?>
-		<div class="mn-woo-gallery-wrapper" data-visible="<?php echo esc_attr( $visible_thumbnails ); ?>">
-			<?php if ( $show_sale_badge ) : ?>
-			<span class="mn-woo-gallery-sale-badge"><?php echo esc_html__( 'Sale!', 'mn-elements' ); ?></span>
-			<?php endif; ?>
-			
+		<div class="mn-woo-gallery-wrapper"<?php echo $wrapper_attrs; ?>>
 			<div class="mn-woo-gallery-container">
 				<!-- Thumbnails Column -->
 				<div class="mn-woo-gallery-thumbnails-wrapper">
@@ -656,7 +785,7 @@ class MN_Woo_Product_Gallery extends Widget_Base {
 								$thumb_url = wp_get_attachment_image_url( $image_id, 'thumbnail' );
 								$active_class = $index === 0 ? 'active' : '';
 							?>
-							<div class="mn-woo-gallery-thumb <?php echo esc_attr( $active_class ); ?>" data-index="<?php echo esc_attr( $index ); ?>">
+							<div class="mn-woo-gallery-thumb <?php echo esc_attr( $active_class ); ?>" data-index="<?php echo esc_attr( $index ); ?>" data-image-id="<?php echo esc_attr( $image_id ); ?>">
 								<img src="<?php echo esc_url( $thumb_url ); ?>" alt="<?php echo esc_attr( get_post_meta( $image_id, '_wp_attachment_image_alt', true ) ); ?>">
 							</div>
 							<?php endforeach; ?>
@@ -672,15 +801,23 @@ class MN_Woo_Product_Gallery extends Widget_Base {
 				
 				<!-- Main Image -->
 				<div class="mn-woo-gallery-main"<?php echo $enable_lightbox ? ' data-lightbox="true"' : ''; ?>>
+					<?php if ( $show_sale_badge ) : ?>
+					<span class="mn-woo-gallery-sale-badge"><?php echo esc_html__( 'Sale!', 'mn-elements' ); ?></span>
+					<?php endif; ?>
 					<?php foreach ( $all_images as $index => $image_id ) : 
 						$full_url = wp_get_attachment_image_url( $image_id, 'full' );
 						$large_url = wp_get_attachment_image_url( $image_id, 'large' );
 						$active_class = $index === 0 ? 'active' : '';
 					?>
-					<div class="mn-woo-gallery-main-image <?php echo esc_attr( $active_class ); ?>" data-index="<?php echo esc_attr( $index ); ?>" data-full="<?php echo esc_url( $full_url ); ?>">
+					<div class="mn-woo-gallery-main-image <?php echo esc_attr( $active_class ); ?>" data-index="<?php echo esc_attr( $index ); ?>" data-full="<?php echo esc_url( $full_url ); ?>" data-image-id="<?php echo esc_attr( $image_id ); ?>">
 						<img src="<?php echo esc_url( $large_url ); ?>" alt="<?php echo esc_attr( get_post_meta( $image_id, '_wp_attachment_image_alt', true ) ); ?>">
 					</div>
 					<?php endforeach; ?>
+					<?php if ( $show_zoom_icon ) : ?>
+					<div class="mn-woo-gallery-zoom-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+					</div>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>

@@ -214,6 +214,13 @@
             // Custom slide change logic
             var $wrapper = $('.elementor-element-' + widgetId);
             $wrapper.trigger('mn-slideswipe:slideChange', [activeIndex]);
+            
+            // Update slide number display
+            var $numberDisplay = $wrapper.find('.mn-slideswipe-number');
+            if ($numberDisplay.length > 0) {
+                var currentSlide = activeIndex + 1; // Convert to 1-based index
+                $numberDisplay.find('.mn-number-current').text(currentSlide);
+            }
         },
 
         onReachEnd: function(widgetId) {

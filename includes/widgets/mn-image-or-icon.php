@@ -260,6 +260,62 @@ class MN_ImageOrIcon extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		// Icon Animation Section
+		$this->start_controls_section(
+			'section_icon_animation',
+			[
+				'label' => esc_html__( 'Icon Animation', 'mn-elements' ),
+				'condition' => [
+					'source_type' => 'icon',
+				],
+			]
+		);
+
+		$this->add_control(
+			'icon_loop_animation',
+			[
+				'label' => esc_html__( 'Loop Animation', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'none',
+				'options' => [
+					'none' => esc_html__( 'None', 'mn-elements' ),
+					'pulse' => esc_html__( 'Pulse', 'mn-elements' ),
+					'bounce' => esc_html__( 'Bounce Up', 'mn-elements' ),
+					'bounce-down' => esc_html__( 'Bounce Down', 'mn-elements' ),
+					'shake' => esc_html__( 'Shake', 'mn-elements' ),
+					'rotate' => esc_html__( 'Rotate', 'mn-elements' ),
+					'swing' => esc_html__( 'Swing', 'mn-elements' ),
+					'flash' => esc_html__( 'Flash', 'mn-elements' ),
+					'push' => esc_html__( 'Push', 'mn-elements' ),
+				],
+			]
+		);
+
+		$this->add_control(
+			'icon_hover_animation_custom',
+			[
+				'label' => esc_html__( 'Hover Animation', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					'' => esc_html__( 'None', 'mn-elements' ),
+					'grow' => esc_html__( 'Grow', 'mn-elements' ),
+					'shrink' => esc_html__( 'Shrink', 'mn-elements' ),
+					'rotate-90' => esc_html__( 'Rotate 90°', 'mn-elements' ),
+					'rotate-180' => esc_html__( 'Rotate 180°', 'mn-elements' ),
+					'rotate-360' => esc_html__( 'Rotate 360°', 'mn-elements' ),
+					'wobble' => esc_html__( 'Wobble', 'mn-elements' ),
+					'buzz' => esc_html__( 'Buzz', 'mn-elements' ),
+					'slide-up' => esc_html__( 'Slide Up', 'mn-elements' ),
+					'slide-down' => esc_html__( 'Slide Down', 'mn-elements' ),
+					'slide-left' => esc_html__( 'Slide Left', 'mn-elements' ),
+					'slide-right' => esc_html__( 'Slide Right', 'mn-elements' ),
+				],
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	/**
@@ -516,6 +572,10 @@ class MN_ImageOrIcon extends Widget_Base {
 						'max' => 300,
 					],
 				],
+				'default' => [
+					'size' => 50,
+					'unit' => 'px',
+				],
 				'selectors' => [
 					'{{WRAPPER}} .mn-image-or-icon-icon' => 'font-size: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .mn-image-or-icon-icon svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
@@ -528,18 +588,10 @@ class MN_ImageOrIcon extends Widget_Base {
 			'icon_padding',
 			[
 				'label' => esc_html__( 'Padding', 'mn-elements' ),
-				'type' => Controls_Manager::SLIDER,
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
 				'selectors' => [
-					'{{WRAPPER}} .mn-image-or-icon-icon' => 'padding: {{SIZE}}{{UNIT}};',
-				],
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'condition' => [
-					'icon_view!' => 'default',
+					'{{WRAPPER}} .mn-image-or-icon-icon' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -584,15 +636,73 @@ class MN_ImageOrIcon extends Widget_Base {
 		);
 
 		$this->add_control(
+			'icon_border_style',
+			[
+				'label' => esc_html__( 'Border Style', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'options' => [
+					'' => esc_html__( 'None', 'mn-elements' ),
+					'solid' => esc_html__( 'Solid', 'mn-elements' ),
+					'dashed' => esc_html__( 'Dashed', 'mn-elements' ),
+					'dotted' => esc_html__( 'Dotted', 'mn-elements' ),
+					'double' => esc_html__( 'Double', 'mn-elements' ),
+				],
+				'default' => '',
+				'selectors' => [
+					'{{WRAPPER}} .mn-image-or-icon-icon' => 'border-style: {{VALUE}};',
+				],
+				'condition' => [
+					'icon_view' => 'default',
+				],
+			]
+		);
+
+		$this->add_control(
 			'icon_border_width',
 			[
 				'label' => esc_html__( 'Border Width', 'mn-elements' ),
-				'type' => Controls_Manager::DIMENSIONS,
+				'type' => Controls_Manager::SLIDER,
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 20,
+					],
+				],
+				'default' => [
+					'size' => 3,
+					'unit' => 'px',
+				],
 				'selectors' => [
-					'{{WRAPPER}} .mn-image-or-icon-icon' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .mn-image-or-icon-icon' => 'border-width: {{SIZE}}{{UNIT}};',
+				],
+				'conditions' => [
+					'relation' => 'or',
+					'terms' => [
+						[
+							'name' => 'icon_view',
+							'value' => 'framed',
+						],
+						[
+							'name' => 'icon_border_style',
+							'operator' => '!==',
+							'value' => '',
+						],
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'icon_border_color',
+			[
+				'label' => esc_html__( 'Border Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .mn-image-or-icon-icon' => 'border-color: {{VALUE}};',
 				],
 				'condition' => [
-					'icon_view' => 'framed',
+					'icon_view' => 'default',
+					'icon_border_style!' => '',
 				],
 			]
 		);
@@ -605,9 +715,6 @@ class MN_ImageOrIcon extends Widget_Base {
 				'size_units' => [ 'px', '%' ],
 				'selectors' => [
 					'{{WRAPPER}} .mn-image-or-icon-icon' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'condition' => [
-					'icon_view!' => 'default',
 				],
 			]
 		);
@@ -760,7 +867,25 @@ class MN_ImageOrIcon extends Widget_Base {
 			return;
 		}
 
-		$animation_class = ! empty( $settings['icon_hover_animation'] ) ? 'elementor-animation-' . $settings['icon_hover_animation'] : '';
+		// Build animation classes
+		$animation_classes = [];
+		
+		// Elementor hover animation (from Style tab)
+		if ( ! empty( $settings['icon_hover_animation'] ) ) {
+			$animation_classes[] = 'elementor-animation-' . $settings['icon_hover_animation'];
+		}
+		
+		// Loop animation
+		if ( ! empty( $settings['icon_loop_animation'] ) && $settings['icon_loop_animation'] !== 'none' ) {
+			$animation_classes[] = 'mn-icon-loop-' . $settings['icon_loop_animation'];
+		}
+		
+		// Custom hover animation (from Icon Animation section)
+		if ( ! empty( $settings['icon_hover_animation_custom'] ) ) {
+			$animation_classes[] = 'mn-icon-hover-' . $settings['icon_hover_animation_custom'];
+		}
+		
+		$animation_class = implode( ' ', $animation_classes );
 
 		?>
 		<div class="mn-image-or-icon-icon-wrapper">

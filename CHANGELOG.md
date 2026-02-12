@@ -42,6 +42,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Keyboard navigation support (Arrow keys, Home, End, Enter, Space)
   - Focus management and visual focus indicators
   - Mobile touch swipe support for tab navigation
+- **MN Accordion**: Added title icon/image functionality
+  - Title Icon Type selector (None/Icon/Image) for each accordion item
+  - Icon selection using Elementor Icons Manager with full icon library support
+  - Image upload with dynamic content support
+  - Comprehensive styling controls for title icons/images
+  - Icon size control (10-100px) with responsive support
+  - Icon spacing control for distance between icon and title text
+  - Separate color controls for normal and active states
+  - Border radius controls for rounded icon/image corners
+  - RTL (Right-to-Left) language support for proper icon positioning
+  - Icons/images positioned before title text, integrated with existing numbering system
+- **MN Gallery**: Enhanced slideshow navigation styling
+  - Custom arrow icon selection with Elementor Icons Manager
+  - Arrow size control (20-80px) with responsive support
+  - Arrow color and background color customization
+  - Arrow hover state with separate background color
+  - Arrow border radius control for rounded corners
+  - Dot position control (Inside/Outside slideshow)
+  - Dot size control (6-20px) with precise sizing
+  - Dot shape options (Circle, Square, Line)
+  - Dot color customization for normal and active states
+  - Dot spacing control for adjusting gap between dots
+  - Dot vertical offset control for precise positioning
+  - Responsive design support for all navigation controls
 
 ### Fixed
 - **MN SlideSwipe**: Arrow visibility issue with negative positioning values

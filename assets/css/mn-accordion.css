@@ -57,6 +57,32 @@
     flex: 1;
 }
 
+/* Title Icon/Image */
+.mn-accordion-title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: color 0.3s ease;
+}
+
+.mn-accordion-title-icon svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+.mn-accordion-title-icon i {
+    font-size: 1em;
+}
+
+.mn-accordion-title-image {
+    display: block;
+    flex-shrink: 0;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
 /* Icon Alignment */
 .mn-accordion-icon-left .mn-accordion-icon {
     order: -1;
@@ -184,6 +210,16 @@
 [dir="rtl"] .mn-accordion-number {
     margin-right: 0;
     margin-left: 15px;
+}
+
+[dir="rtl"] .mn-accordion-title-icon {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+[dir="rtl"] .mn-accordion-title-image {
+    margin-right: 0;
+    margin-left: 10px;
 }
 
 /* Accessibility */

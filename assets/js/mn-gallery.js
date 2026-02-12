@@ -38,6 +38,8 @@ class MNGalleryWidget {
     initializeLayout() {
         if (this.element.classList.contains('mn-gallery-layout-slideshow')) {
             this.initSlideshow();
+        } else if (this.element.classList.contains('mn-gallery-layout-justified')) {
+            this.initJustified();
         } else if (this.element.classList.contains('mn-gallery-layout-masonry')) {
             this.initMasonry();
         }
@@ -191,6 +193,9 @@ class MNGalleryWidget {
         
         // Initial layout
         setTimeout(() => this.adjustMasonryLayout(container), 100);
+        
+        // Initialize navigation if present
+        this.initGalleryNavigation(container);
     }
     
     adjustMasonryLayout(container) {
@@ -200,6 +205,91 @@ class MNGalleryWidget {
         items.forEach((item, index) => {
             item.style.animationDelay = `${index * 0.1}s`;
         });
+    }
+    
+    initJustified() {
+        const container = this.element.querySelector('.mn-gallery-justified');
+        if (!container) return;
+        
+        const rowHeight = parseInt(container.dataset.rowHeight) || 200;
+        this.adjustJustifiedLayout(container, rowHeight);
+        
+        // Initialize navigation if present
+        this.initGalleryNavigation(container);
+        
+        // Adjust on window resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                this.adjustJustifiedLayout(container, rowHeight);
+            }, 250);
+        });
+    }
+    
+    adjustJustifiedLayout(container, rowHeight) {
+        const items = container.querySelectorAll('.mn-gallery-item');
+        items.forEach(item => {
+            item.style.height = `${rowHeight}px`;
+            const img = item.querySelector('img');
+            if (img && img.naturalWidth && img.naturalHeight) {
+                const aspectRatio = img.naturalWidth / img.naturalHeight;
+                item.style.flexGrow = aspectRatio;
+                item.style.flexBasis = `${rowHeight * aspectRatio}px`;
+            }
+        });
+    }
+    
+    initGalleryNavigation(container) {
+        const prevBtn = container.querySelector('.mn-gallery-prev');
+        const nextBtn = container.querySelector('.mn-gallery-next');
+        const dots = container.querySelectorAll('.mn-gallery-dot');
+        const items = container.querySelectorAll('.mn-gallery-item');
+        
+        if (!items.length) return;
+        
+        let currentIndex = 0;
+        const itemsPerView = this.calculateItemsPerView(container);
+        
+        const scrollToIndex = (index) => {
+            if (index < 0) index = 0;
+            if (index >= items.length) index = items.length - 1;
+            
+            currentIndex = index;
+            items[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        };
+        
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                scrollToIndex(currentIndex - itemsPerView);
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                scrollToIndex(currentIndex + itemsPerView);
+            });
+        }
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                scrollToIndex(index);
+            });
+        });
+    }
+    
+    calculateItemsPerView(container) {
+        const containerWidth = container.offsetWidth;
+        const items = container.querySelectorAll('.mn-gallery-item');
+        if (!items.length) return 1;
+        
+        const itemWidth = items[0].offsetWidth;
+        return Math.max(1, Math.floor(containerWidth / itemWidth));
     }
     
     initLightbox() {

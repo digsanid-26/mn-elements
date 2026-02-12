@@ -140,6 +140,48 @@ class MN_Accordion extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'title_icon_type',
+			[
+				'label' => esc_html__( 'Title Icon Type', 'mn-elements' ),
+				'type' => Controls_Manager::SELECT,
+				'options' => [
+					'none' => esc_html__( 'None', 'mn-elements' ),
+					'icon' => esc_html__( 'Icon', 'mn-elements' ),
+					'image' => esc_html__( 'Image', 'mn-elements' ),
+				],
+				'default' => 'none',
+				'separator' => 'before',
+			]
+		);
+
+		$repeater->add_control(
+			'title_icon',
+			[
+				'label' => esc_html__( 'Title Icon', 'mn-elements' ),
+				'type' => Controls_Manager::ICONS,
+				'condition' => [
+					'title_icon_type' => 'icon',
+				],
+				'skin' => 'inline',
+				'label_block' => false,
+			]
+		);
+
+		$repeater->add_control(
+			'title_image',
+			[
+				'label' => esc_html__( 'Title Image', 'mn-elements' ),
+				'type' => Controls_Manager::MEDIA,
+				'dynamic' => [
+					'active' => true,
+				],
+				'condition' => [
+					'title_icon_type' => 'image',
+				],
+			]
+		);
+
+		$repeater->add_control(
 			'tab_content',
 			[
 				'label' => esc_html__( 'Content', 'mn-elements' ),
@@ -284,7 +326,6 @@ class MN_Accordion extends Widget_Base {
 				'label' => esc_html__( 'Icon', 'mn-elements' ),
 				'type' => Controls_Manager::ICONS,
 				'separator' => 'before',
-				'fa4compatibility' => 'icon',
 				'default' => [
 					'value' => 'fas fa-plus',
 					'library' => 'fa-solid',
@@ -314,7 +355,6 @@ class MN_Accordion extends Widget_Base {
 			[
 				'label' => esc_html__( 'Active Icon', 'mn-elements' ),
 				'type' => Controls_Manager::ICONS,
-				'fa4compatibility' => 'icon_active',
 				'default' => [
 					'value' => 'fas fa-minus',
 					'library' => 'fa-solid',
@@ -847,6 +887,108 @@ class MN_Accordion extends Widget_Base {
 
 		$this->end_controls_section();
 
+		// Style: Title Icon
+		$this->start_controls_section(
+			'section_style_title_icon',
+			[
+				'label' => esc_html__( 'Title Icon', 'mn-elements' ),
+				'tab' => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'title_icon_size',
+			[
+				'label' => esc_html__( 'Icon Size', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range' => [
+					'px' => [
+						'min' => 10,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'size' => 24,
+					'unit' => 'px',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-accordion-title-icon' => 'font-size: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-accordion-title-icon svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-accordion-title-image' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'title_icon_spacing',
+			[
+				'label' => esc_html__( 'Icon Spacing', 'mn-elements' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 50,
+					],
+				],
+				'default' => [
+					'size' => 10,
+					'unit' => 'px',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .mn-accordion-title-icon' => 'margin-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .mn-accordion-title-image' => 'margin-right: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'title_icon_color',
+			[
+				'label' => esc_html__( 'Icon Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .mn-accordion-title-icon i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .mn-accordion-title-icon svg' => 'fill: {{VALUE}};',
+				],
+				'global' => [
+					'default' => Global_Colors::COLOR_PRIMARY,
+				],
+			]
+		);
+
+		$this->add_control(
+			'title_icon_active_color',
+			[
+				'label' => esc_html__( 'Active Icon Color', 'mn-elements' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .mn-accordion-item.mn-active .mn-accordion-title-icon i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .mn-accordion-item.mn-active .mn-accordion-title-icon svg' => 'fill: {{VALUE}};',
+				],
+				'global' => [
+					'default' => Global_Colors::COLOR_ACCENT,
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'title_icon_border_radius',
+			[
+				'label' => esc_html__( 'Border Radius', 'mn-elements' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors' => [
+					'{{WRAPPER}} .mn-accordion-title-icon' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .mn-accordion-title-image' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'separator' => 'before',
+			]
+		);
+
+		$this->end_controls_section();
+
 		// Style: Content
 		$this->start_controls_section(
 			'section_style_content',
@@ -1115,6 +1257,18 @@ class MN_Accordion extends Widget_Base {
 							<span class="mn-accordion-number"><?php echo esc_html( $formatted_number ); ?></span>
 						<?php endif; ?>
 
+						<?php
+						// Title Icon/Image
+						$title_icon_type = isset( $item['title_icon_type'] ) ? $item['title_icon_type'] : 'none';
+						if ( $title_icon_type === 'icon' && ! empty( $item['title_icon']['value'] ) ) :
+							?>
+							<span class="mn-accordion-title-icon" aria-hidden="true">
+								<?php Icons_Manager::render_icon( $item['title_icon'] ); ?>
+							</span>
+						<?php elseif ( $title_icon_type === 'image' && ! empty( $item['title_image']['url'] ) ) : ?>
+							<img class="mn-accordion-title-image" src="<?php echo esc_url( $item['title_image']['url'] ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $item['tab_title'] ) ); ?>">
+						<?php endif; ?>
+
 						<span class="mn-accordion-title-text"><?php $this->print_unescaped_setting( 'tab_title', 'tabs', $index ); ?></span>
 
 						<?php if ( $has_icon && $icon_align === 'right' ) : ?>
@@ -1259,6 +1413,13 @@ class MN_Accordion extends Widget_Base {
 
 					<# if ( showNumbering && numberingPosition === 'before_title' ) { #>
 						<span class="mn-accordion-number">{{{ formattedNumber }}}</span>
+					<# } #>
+
+					<# if ( item.title_icon_type === 'icon' && item.title_icon && item.title_icon.value ) { #>
+						<# var titleIconHTML = elementor.helpers.renderIcon( view, item.title_icon, {}, 'i', 'object' ); #>
+						<span class="mn-accordion-title-icon" aria-hidden="true">{{{ titleIconHTML.value }}}</span>
+					<# } else if ( item.title_icon_type === 'image' && item.title_image && item.title_image.url ) { #>
+						<img class="mn-accordion-title-image" src="{{ item.title_image.url }}" alt="{{ item.tab_title }}">
 					<# } #>
 
 					<span class="mn-accordion-title-text">{{{ item.tab_title }}}</span>

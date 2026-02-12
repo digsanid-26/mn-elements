@@ -3,7 +3,7 @@
  * Plugin Name: MN Elements
  * Plugin URI:  https://github.com/digsanid-26/mn-elements
  * Description: Kumpulan widget dan efek kustom untuk Elementor yang dapat memperkaya halaman web Anda dengan animasi dan kontrol yang menarik.
- * Version:     2.1.0
+ * Version:     3.1.8
  * Author:      DigsanID
  * Author URI:  https://digsan.id
  * Text Domain: mn-elements
@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Define plugin constants
-define( 'MN_ELEMENTS_VERSION', '2.1.0' );
+define( 'MN_ELEMENTS_VERSION', '3.1.8' );
 define( 'MN_ELEMENTS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MN_ELEMENTS_URL', plugin_dir_url( __FILE__ ) );
 
@@ -44,7 +44,7 @@ if ( ! class_exists( 'MN_Elements' ) ) {
 		 *
 		 * @var string
 		 */
-		private $version = '2.1.0';
+		private $version = '3.1.8';
 
 		/**
 		 * Holder for base plugin URL
@@ -168,6 +168,7 @@ if ( ! class_exists( 'MN_Elements' ) ) {
 			require $this->plugin_path( 'includes/container-extension.php' );
 			require $this->plugin_path( 'includes/assets.php' );
 			require $this->plugin_path( 'includes/widgets-manager.php' );
+			require $this->plugin_path( 'includes/ajax-handlers.php' );
 			
 			// Load admin components only in admin
 			if ( is_admin() ) {
@@ -194,6 +195,12 @@ if ( ! class_exists( 'MN_Elements' ) ) {
 			add_action( 'wp_ajax_nopriv_mn_remove_cart_item', array( $this, 'handle_remove_cart_item' ) );
 			add_action( 'wp_ajax_mn_refresh_cart_widget', array( $this, 'handle_refresh_cart_widget' ) );
 			add_action( 'wp_ajax_nopriv_mn_refresh_cart_widget', array( $this, 'handle_refresh_cart_widget' ) );
+
+			// MN Add To Cart AJAX handlers
+			add_action( 'wp_ajax_mn_add_to_cart', array( $this, 'handle_add_to_cart' ) );
+			add_action( 'wp_ajax_nopriv_mn_add_to_cart', array( $this, 'handle_add_to_cart' ) );
+			add_action( 'wp_ajax_mn_get_variation_data', array( $this, 'handle_get_variation_data' ) );
+			add_action( 'wp_ajax_nopriv_mn_get_variation_data', array( $this, 'handle_get_variation_data' ) );
 		}
 
 		/**
@@ -348,6 +355,164 @@ if ( ! class_exists( 'MN_Elements' ) ) {
 		}
 
 		/**
+		 * Handle add to cart AJAX
+		 *
+		 * @since 3.0.5
+		 * @return void
+		 */
+		public function handle_add_to_cart() {
+			if ( ! class_exists( 'WooCommerce' ) ) {
+				wp_send_json_error( array( 'message' => 'WooCommerce not active' ) );
+			}
+
+			// Verify nonce
+			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'mn_add_to_cart_nonce' ) ) {
+				wp_send_json_error( array( 'message' => esc_html__( 'Security check failed', 'mn-elements' ) ) );
+			}
+
+			$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
+			$variation_id = isset( $_POST['variation_id'] ) ? absint( $_POST['variation_id'] ) : 0;
+			$quantity = isset( $_POST['quantity'] ) ? absint( $_POST['quantity'] ) : 1;
+			$variations = isset( $_POST['variations'] ) ? (array) $_POST['variations'] : array();
+
+			if ( ! $product_id ) {
+				wp_send_json_error( array( 'message' => esc_html__( 'Invalid product', 'mn-elements' ) ) );
+			}
+
+			$product = wc_get_product( $product_id );
+			if ( ! $product ) {
+				wp_send_json_error( array( 'message' => esc_html__( 'Product not found', 'mn-elements' ) ) );
+			}
+
+			// Sanitize and format variations - ensure proper format
+			$sanitized_variations = array();
+			foreach ( $variations as $key => $value ) {
+				$key = sanitize_text_field( $key );
+				$value = sanitize_text_field( $value );
+				
+				// Normalize key format - WooCommerce expects lowercase 'attribute_' prefix
+				$key = strtolower( $key );
+				if ( strpos( $key, 'attribute_' ) !== 0 ) {
+					$key = 'attribute_' . $key;
+				}
+				
+				$sanitized_variations[ $key ] = $value;
+			}
+
+			// Add to cart
+			if ( $product->is_type( 'variable' ) ) {
+				// If variation_id not provided, try to find it
+				if ( ! $variation_id && ! empty( $sanitized_variations ) ) {
+					$data_store = \WC_Data_Store::load( 'product' );
+					$variation_id = $data_store->find_matching_product_variation( $product, $sanitized_variations );
+				}
+				
+				if ( $variation_id ) {
+					$added = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $sanitized_variations );
+				} else {
+					wp_send_json_error( array( 
+						'message' => esc_html__( 'Please select product options.', 'mn-elements' ),
+						'debug' => array(
+							'variations_sent' => $variations,
+							'variations_formatted' => $sanitized_variations
+						)
+					) );
+					return;
+				}
+			} else {
+				$added = WC()->cart->add_to_cart( $product_id, $quantity );
+			}
+
+			if ( $added ) {
+				// Get updated fragments
+				ob_start();
+				woocommerce_mini_cart();
+				$mini_cart = ob_get_clean();
+
+				$data = array(
+					'message' => esc_html__( 'Product added to cart!', 'mn-elements' ),
+					'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', array(
+						'div.widget_shopping_cart_content' => '<div class="widget_shopping_cart_content">' . $mini_cart . '</div>',
+					) ),
+					'cart_hash' => WC()->cart->get_cart_hash(),
+					'cart_count' => WC()->cart->get_cart_contents_count(),
+				);
+
+				wp_send_json_success( $data );
+			} else {
+				wp_send_json_error( array( 'message' => esc_html__( 'Could not add to cart. Please try again.', 'mn-elements' ) ) );
+			}
+		}
+
+		/**
+		 * Handle get variation data AJAX
+		 *
+		 * @since 3.0.5
+		 * @return void
+		 */
+		public function handle_get_variation_data() {
+			if ( ! class_exists( 'WooCommerce' ) ) {
+				wp_send_json_error( array( 'message' => 'WooCommerce not active' ) );
+			}
+
+			// Verify nonce
+			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'mn_add_to_cart_nonce' ) ) {
+				wp_send_json_error( array( 'message' => esc_html__( 'Security check failed', 'mn-elements' ) ) );
+			}
+
+			$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
+			$variations = isset( $_POST['variations'] ) ? (array) $_POST['variations'] : array();
+
+			if ( ! $product_id ) {
+				wp_send_json_error( array( 'message' => esc_html__( 'Invalid product', 'mn-elements' ) ) );
+			}
+
+			$product = wc_get_product( $product_id );
+			if ( ! $product || ! $product->is_type( 'variable' ) ) {
+				wp_send_json_error( array( 'message' => esc_html__( 'Invalid variable product', 'mn-elements' ) ) );
+			}
+
+			// Sanitize and format variations - ensure proper format
+			$sanitized_variations = array();
+			foreach ( $variations as $key => $value ) {
+				$key = sanitize_text_field( $key );
+				$value = sanitize_text_field( $value );
+				
+				// Normalize key format - WooCommerce expects lowercase 'attribute_' prefix
+				$key = strtolower( $key );
+				if ( strpos( $key, 'attribute_' ) !== 0 ) {
+					$key = 'attribute_' . $key;
+				}
+				
+				$sanitized_variations[ $key ] = $value;
+			}
+
+			// Find matching variation
+			$data_store = \WC_Data_Store::load( 'product' );
+			$variation_id = $data_store->find_matching_product_variation( $product, $sanitized_variations );
+
+			if ( $variation_id ) {
+				$variation = wc_get_product( $variation_id );
+				
+				wp_send_json_success( array(
+					'variation_id' => $variation_id,
+					'price_html' => $variation->get_price_html(),
+					'is_in_stock' => $variation->is_in_stock(),
+					'stock_quantity' => $variation->get_stock_quantity(),
+				) );
+			} else {
+				wp_send_json_error( array( 
+					'message' => esc_html__( 'No matching variation found', 'mn-elements' ),
+					'debug' => array(
+						'variations_sent' => $variations,
+						'variations_formatted' => $sanitized_variations,
+						'available_attributes' => array_keys( $product->get_variation_attributes() )
+					)
+				) );
+			}
+		}
+
+		/**
 		 * Handle refresh cart widget AJAX
 		 *
 		 * @since 1.7.5
@@ -367,6 +532,38 @@ if ( ! class_exists( 'MN_Elements' ) ) {
 			echo '<div class="mn-woocart-items">';
 			if ( empty( $cart_items ) ) {
 				echo '<div class="mn-woocart-empty">' . esc_html__( 'Your cart is empty.', 'mn-elements' ) . '</div>';
+			} else {
+				foreach ( $cart_items as $cart_item_key => $cart_item ) {
+					$_product = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+					$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
+
+					if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 ) {
+						$product_name = apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key );
+						$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
+						$product_price = apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );
+						?>
+						<div class="mn-woocart-item" data-cart-item-key="<?php echo esc_attr( $cart_item_key ); ?>">
+							<div class="mn-woocart-item-row">
+								<div class="mn-woocart-item-thumbnail">
+									<?php echo wp_kses_post( $thumbnail ); ?>
+								</div>
+								<div class="mn-woocart-item-details">
+									<div class="mn-woocart-item-name"><?php echo wp_kses_post( $product_name ); ?></div>
+									<div class="mn-woocart-item-price"><?php echo wp_kses_post( $product_price ); ?></div>
+									<div class="mn-woocart-item-quantity">
+										<button type="button" class="mn-woocart-qty-btn mn-woocart-qty-minus" data-action="minus">-</button>
+										<input type="number" class="mn-woocart-qty-input" value="<?php echo esc_attr( $cart_item['quantity'] ); ?>" min="0" readonly>
+										<button type="button" class="mn-woocart-qty-btn mn-woocart-qty-plus" data-action="plus">+</button>
+									</div>
+								</div>
+								<button type="button" class="mn-woocart-remove" data-cart-item-key="<?php echo esc_attr( $cart_item_key ); ?>" title="<?php esc_attr_e( 'Remove item', 'mn-elements' ); ?>">
+									<i class="eicon-close"></i>
+								</button>
+							</div>
+						</div>
+						<?php
+					}
+				}
 			}
 			echo '</div>';
 			

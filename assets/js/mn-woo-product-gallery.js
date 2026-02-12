@@ -51,34 +51,49 @@
             var currentIndex = 0;
             var scrollIndex = 0;
             var totalImages = $thumbs.length;
+            var position = $wrapper.data('position') || 'left';
+            var isHorizontal = (position === 'top' || position === 'bottom');
 
-            // Calculate thumbnail height including margin
-            function getThumbHeight() {
+            // Calculate thumbnail size including margin
+            function getThumbSize() {
                 var $firstThumb = $thumbs.first();
+                if (isHorizontal) {
+                    return $firstThumb.outerWidth(true);
+                }
                 return $firstThumb.outerHeight(true);
             }
 
             // Update thumbnails scroll position
             function updateThumbnailsScroll() {
-                var thumbHeight = getThumbHeight();
-                var offset = scrollIndex * thumbHeight;
-                $thumbsInner.css('transform', 'translateY(-' + offset + 'px)');
+                var thumbSize = getThumbSize();
+                var offset = scrollIndex * thumbSize;
+                if (isHorizontal) {
+                    $thumbsInner.css('transform', 'translateX(-' + offset + 'px)');
+                } else {
+                    $thumbsInner.css('transform', 'translateY(-' + offset + 'px)');
+                }
                 
                 // Update nav button states
                 $navUp.prop('disabled', scrollIndex <= 0);
                 $navDown.prop('disabled', scrollIndex >= totalImages - visibleThumbs);
             }
 
-            // Set thumbnails container height
-            function setThumbnailsHeight() {
-                var thumbHeight = getThumbHeight();
-                var containerHeight = thumbHeight * visibleThumbs - parseInt($thumbs.first().css('margin-bottom'));
-                $thumbnails.css('height', containerHeight + 'px');
+            // Set thumbnails container size
+            function setThumbnailsSize() {
+                var thumbSize = getThumbSize();
+                if (isHorizontal) {
+                    var gap = parseInt($thumbsInner.css('gap')) || 10;
+                    var containerWidth = thumbSize * visibleThumbs + gap * (visibleThumbs - 1);
+                    $thumbnails.css({'width': containerWidth + 'px', 'height': 'auto'});
+                } else {
+                    var containerHeight = thumbSize * visibleThumbs - parseInt($thumbs.first().css('margin-bottom'));
+                    $thumbnails.css('height', containerHeight + 'px');
+                }
             }
 
             // Initialize
             setTimeout(function() {
-                setThumbnailsHeight();
+                setThumbnailsSize();
                 updateThumbnailsScroll();
             }, 100);
 
@@ -163,10 +178,96 @@
             // Window resize
             $(window).on('resize', function() {
                 setTimeout(function() {
-                    setThumbnailsHeight();
+                    setThumbnailsSize();
                     updateThumbnailsScroll();
                 }, 100);
             });
+
+            // Variation image swap
+            if ($wrapper.data('variation-swap')) {
+                self.initVariationSwap($wrapper, $thumbs, $mainImages, function(newIndex) {
+                    currentIndex = newIndex;
+                    // Auto-scroll thumbnails to make the active thumb visible
+                    if (newIndex >= scrollIndex + visibleThumbs) {
+                        scrollIndex = newIndex - visibleThumbs + 1;
+                        updateThumbnailsScroll();
+                    } else if (newIndex < scrollIndex) {
+                        scrollIndex = newIndex;
+                        updateThumbnailsScroll();
+                    }
+                });
+            }
+        },
+
+        initVariationSwap: function($wrapper, $thumbs, $mainImages, onSwitch) {
+            var self = this;
+            var variationMap = $wrapper.data('variations');
+            var featuredIndex = parseInt($wrapper.data('featured-index')) || 0;
+            var productId = $wrapper.data('product-id');
+
+            if (!variationMap) return;
+
+            // Listen for variation selected event from MN Add to Cart widget
+            $(document).on('mn_variation_selected', function(e, data) {
+                if (!data) return;
+
+                // Match by variation_id if available
+                if (data.variation_id && variationMap[data.variation_id]) {
+                    var targetIndex = variationMap[data.variation_id].index;
+                    self.switchImage(targetIndex, $thumbs, $mainImages);
+                    if (typeof onSwitch === 'function') onSwitch(targetIndex);
+                    return;
+                }
+
+                // Match by attributes
+                if (data.attributes) {
+                    var matchedIndex = self.findVariationByAttributes(variationMap, data.attributes);
+                    if (matchedIndex !== false) {
+                        self.switchImage(matchedIndex, $thumbs, $mainImages);
+                        if (typeof onSwitch === 'function') onSwitch(matchedIndex);
+                    }
+                }
+            });
+
+            // Listen for variation cleared event - reset to featured image
+            $(document).on('mn_variation_cleared', function(e, data) {
+                self.switchImage(featuredIndex, $thumbs, $mainImages);
+                if (typeof onSwitch === 'function') onSwitch(featuredIndex);
+            });
+        },
+
+        findVariationByAttributes: function(variationMap, selectedAttributes) {
+            for (var varId in variationMap) {
+                if (!variationMap.hasOwnProperty(varId)) continue;
+                
+                var varData = variationMap[varId];
+                var varAttrs = varData.attributes;
+                var isMatch = true;
+
+                for (var attrKey in selectedAttributes) {
+                    if (!selectedAttributes.hasOwnProperty(attrKey)) continue;
+                    
+                    // Normalize attribute key (add attribute_ prefix if missing)
+                    var normalizedKey = attrKey;
+                    if (normalizedKey.indexOf('attribute_') !== 0) {
+                        normalizedKey = 'attribute_' + normalizedKey;
+                    }
+
+                    var selectedVal = selectedAttributes[attrKey].toString().toLowerCase();
+                    var varVal = (varAttrs[normalizedKey] || '').toString().toLowerCase();
+
+                    // Empty varVal means "any" in WooCommerce (catch-all variation)
+                    if (varVal !== '' && varVal !== selectedVal) {
+                        isMatch = false;
+                        break;
+                    }
+                }
+
+                if (isMatch) {
+                    return varData.index;
+                }
+            }
+            return false;
         },
 
         switchImage: function(index, $thumbs, $mainImages) {
