@@ -647,6 +647,7 @@ class MN_WooProduct extends Widget_Base {
 			?>
 			<span class="<?php echo esc_attr( $item_class ); ?>" 
 				style="background-color: <?php echo esc_attr( $color_value ); ?>;"
+				data-value="<?php echo esc_attr( $option ); ?>"
 				title="<?php echo esc_attr( $option ); ?>">
 			</span>
 			<?php
@@ -657,6 +658,7 @@ class MN_WooProduct extends Widget_Base {
 			?>
 			<span class="<?php echo esc_attr( $item_class ); ?>" 
 				style="background-image: url('<?php echo esc_url( $image_url ); ?>');"
+				data-value="<?php echo esc_attr( $option ); ?>"
 				title="<?php echo esc_attr( $option ); ?>">
 			</span>
 			<?php
@@ -665,6 +667,7 @@ class MN_WooProduct extends Widget_Base {
 			$item_class .= ' mn-variation-text';
 			?>
 			<span class="<?php echo esc_attr( $item_class ); ?>" 
+				data-value="<?php echo esc_attr( $option ); ?>"
 				title="<?php echo esc_attr( $option ); ?>">
 				<?php echo esc_html( $option ); ?>
 			</span>

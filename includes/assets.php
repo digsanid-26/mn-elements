@@ -380,6 +380,22 @@ if ( ! class_exists( 'MN_Elements_Assets' ) ) {
 				array( 'mn-elements-frontend' ),
 				mn_elements()->get_version()
 			);
+
+			// MN Desktop Menu script and style
+			wp_register_script(
+				'mn-dsmenu',
+				mn_elements()->plugin_url( 'assets/js/mn-dsmenu.js' ),
+				array( 'jquery' ),
+				mn_elements()->get_version(),
+				true
+			);
+
+			wp_register_style(
+				'mn-dsmenu',
+				mn_elements()->plugin_url( 'assets/css/mn-dsmenu.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
 		}
 
 		/**
@@ -621,6 +637,13 @@ if ( ! class_exists( 'MN_Elements_Assets' ) ) {
 				array( 'mn-elements-frontend' ),
 				mn_elements()->get_version()
 			);
+
+			wp_enqueue_style(
+				'mn-dsmenu',
+				mn_elements()->plugin_url( 'assets/css/mn-dsmenu.css' ),
+				array( 'mn-elements-frontend' ),
+				mn_elements()->get_version()
+			);
 		}
 
 		/**
@@ -754,6 +777,9 @@ if ( ! class_exists( 'MN_Elements_Assets' ) ) {
 
 		// Enqueue MN Video Player script
 		wp_enqueue_script( 'mn-videoplayer-script' );
+
+		// Enqueue MN Desktop Menu script
+		wp_enqueue_script( 'mn-dsmenu' );
 
 	}
 

@@ -3,7 +3,7 @@
  * Plugin Name: MN Elements
  * Plugin URI:  https://github.com/digsanid-26/mn-elements
  * Description: Kumpulan widget dan efek kustom untuk Elementor yang dapat memperkaya halaman web Anda dengan animasi dan kontrol yang menarik.
- * Version:     3.1.8
+ * Version:     3.2.0
  * Author:      DigsanID
  * Author URI:  https://digsan.id
  * Text Domain: mn-elements
@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Define plugin constants
-define( 'MN_ELEMENTS_VERSION', '3.1.8' );
+define( 'MN_ELEMENTS_VERSION', '3.2.0' );
 define( 'MN_ELEMENTS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MN_ELEMENTS_URL', plugin_dir_url( __FILE__ ) );
 
@@ -44,7 +44,7 @@ if ( ! class_exists( 'MN_Elements' ) ) {
 		 *
 		 * @var string
 		 */
-		private $version = '3.1.8';
+		private $version = '3.2.0';
 
 		/**
 		 * Holder for base plugin URL

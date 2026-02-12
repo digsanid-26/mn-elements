@@ -1,0 +1,476 @@
+/**
+ * MN Desktop Menu Styles
+ * Compatible with desktop, laptop, and tablet
+ */
+
+/* ── Nav Container ── */
+.mn-dsmenu-nav {
+    position: relative;
+    width: 100%;
+}
+
+.mn-dsmenu-nav > ul,
+.mn-dsmenu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.mn-dsmenu-list li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+/* Vertical layout */
+.mn-dsmenu-layout-vertical .mn-dsmenu-list {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* ── Menu Item Links ── */
+.mn-dsmenu-nav > ul > li > a {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    position: relative;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+/* ── Submenu Indicator ── */
+.mn-dsmenu-indicator {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 6px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.mn-dsmenu-indicator svg {
+    width: 10px;
+    height: 10px;
+    display: block;
+}
+
+/* Rotate indicator on hover for top-level */
+.mn-dsmenu-nav > ul > li:hover > a > .mn-dsmenu-indicator {
+    transform: rotate(180deg);
+}
+
+/* Sub-menu indicator points right */
+.mn-dsmenu-nav .sub-menu .mn-dsmenu-indicator {
+    margin-left: auto;
+    padding-left: 10px;
+}
+
+.mn-dsmenu-nav .sub-menu .mn-dsmenu-indicator svg {
+    transform: rotate(-90deg);
+}
+
+.mn-dsmenu-nav .sub-menu li:hover > a > .mn-dsmenu-indicator svg {
+    transform: rotate(-90deg) scale(1.1);
+}
+
+/* ═══════════════════════════════════════════
+   POINTER STYLES
+   ═══════════════════════════════════════════ */
+
+/* Base pseudo-elements for pointers */
+.mn-dsmenu-nav > ul > li > a::before,
+.mn-dsmenu-nav > ul > li > a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #557df3;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+}
+
+/* Hide by default */
+.mn-dsmenu-pointer-none .mn-dsmenu-nav > ul > li > a::before,
+.mn-dsmenu-pointer-none .mn-dsmenu-nav > ul > li > a::after {
+    display: none;
+}
+
+/* ── Underline ── */
+.mn-dsmenu-pointer-underline .mn-dsmenu-nav > ul > li > a::before {
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+}
+
+.mn-dsmenu-pointer-underline .mn-dsmenu-nav > ul > li > a::after {
+    display: none;
+}
+
+.mn-dsmenu-pointer-underline .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-pointer-underline .mn-dsmenu-nav > ul > li.current-menu-item > a::before,
+.mn-dsmenu-pointer-underline .mn-dsmenu-nav > ul > li.current-menu-ancestor > a::before {
+    transform: scaleX(1);
+}
+
+/* ── Overline ── */
+.mn-dsmenu-pointer-overline .mn-dsmenu-nav > ul > li > a::before {
+    top: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+}
+
+.mn-dsmenu-pointer-overline .mn-dsmenu-nav > ul > li > a::after {
+    display: none;
+}
+
+.mn-dsmenu-pointer-overline .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-pointer-overline .mn-dsmenu-nav > ul > li.current-menu-item > a::before,
+.mn-dsmenu-pointer-overline .mn-dsmenu-nav > ul > li.current-menu-ancestor > a::before {
+    transform: scaleX(1);
+}
+
+/* ── Double Line ── */
+.mn-dsmenu-pointer-double .mn-dsmenu-nav > ul > li > a::before {
+    top: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+}
+
+.mn-dsmenu-pointer-double .mn-dsmenu-nav > ul > li > a::after {
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+}
+
+.mn-dsmenu-pointer-double .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-pointer-double .mn-dsmenu-nav > ul > li:hover > a::after,
+.mn-dsmenu-pointer-double .mn-dsmenu-nav > ul > li.current-menu-item > a::before,
+.mn-dsmenu-pointer-double .mn-dsmenu-nav > ul > li.current-menu-item > a::after,
+.mn-dsmenu-pointer-double .mn-dsmenu-nav > ul > li.current-menu-ancestor > a::before,
+.mn-dsmenu-pointer-double .mn-dsmenu-nav > ul > li.current-menu-ancestor > a::after {
+    transform: scaleX(1);
+}
+
+/* ── Framed ── */
+.mn-dsmenu-pointer-framed .mn-dsmenu-nav > ul > li > a::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    background: transparent;
+    border: 2px solid #557df3;
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mn-dsmenu-pointer-framed .mn-dsmenu-nav > ul > li > a::after {
+    display: none;
+}
+
+.mn-dsmenu-pointer-framed .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-pointer-framed .mn-dsmenu-nav > ul > li.current-menu-item > a::before,
+.mn-dsmenu-pointer-framed .mn-dsmenu-nav > ul > li.current-menu-ancestor > a::before {
+    opacity: 1;
+}
+
+/* ── Background ── */
+.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li > a::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    background-color: #557df3;
+    opacity: 0;
+    z-index: -1;
+    border-radius: 4px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li > a::after {
+    display: none;
+}
+
+.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li.current-menu-item > a::before,
+.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li.current-menu-ancestor > a::before {
+    opacity: 1;
+}
+
+.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li:hover > a,
+.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li.current-menu-item > a,
+.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li.current-menu-ancestor > a {
+    color: #fff;
+}
+
+/* ═══════════════════════════════════════════
+   POINTER ANIMATIONS
+   ═══════════════════════════════════════════ */
+
+/* Slide animation for line pointers */
+.mn-dsmenu-animation-slide .mn-dsmenu-nav > ul > li > a::before {
+    transform-origin: left center;
+}
+
+.mn-dsmenu-animation-slide .mn-dsmenu-nav > ul > li > a::after {
+    transform-origin: left center;
+}
+
+/* Grow animation */
+.mn-dsmenu-animation-grow .mn-dsmenu-nav > ul > li > a::before,
+.mn-dsmenu-animation-grow .mn-dsmenu-nav > ul > li > a::after {
+    transform-origin: center;
+}
+
+/* Drop-in animation */
+.mn-dsmenu-animation-drop-in .mn-dsmenu-nav > ul > li > a::before {
+    transform: scaleX(0) translateY(-10px);
+    opacity: 0;
+}
+
+.mn-dsmenu-animation-drop-in .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-animation-drop-in .mn-dsmenu-nav > ul > li.current-menu-item > a::before,
+.mn-dsmenu-animation-drop-in .mn-dsmenu-nav > ul > li.current-menu-ancestor > a::before {
+    transform: scaleX(1) translateY(0);
+    opacity: 1;
+}
+
+/* Drop-out animation */
+.mn-dsmenu-animation-drop-out .mn-dsmenu-nav > ul > li > a::before {
+    transform: scaleX(0) translateY(10px);
+    opacity: 0;
+}
+
+.mn-dsmenu-animation-drop-out .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-animation-drop-out .mn-dsmenu-nav > ul > li.current-menu-item > a::before,
+.mn-dsmenu-animation-drop-out .mn-dsmenu-nav > ul > li.current-menu-ancestor > a::before {
+    transform: scaleX(1) translateY(0);
+    opacity: 1;
+}
+
+/* Framed: Grow */
+.mn-dsmenu-animation-grow.mn-dsmenu-pointer-framed .mn-dsmenu-nav > ul > li > a::before {
+    transform: scale(0.85);
+}
+
+.mn-dsmenu-animation-grow.mn-dsmenu-pointer-framed .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-animation-grow.mn-dsmenu-pointer-framed .mn-dsmenu-nav > ul > li.current-menu-item > a::before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Framed: Shrink */
+.mn-dsmenu-animation-shrink.mn-dsmenu-pointer-framed .mn-dsmenu-nav > ul > li > a::before {
+    transform: scale(1.15);
+}
+
+.mn-dsmenu-animation-shrink.mn-dsmenu-pointer-framed .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-animation-shrink.mn-dsmenu-pointer-framed .mn-dsmenu-nav > ul > li.current-menu-item > a::before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Background: Grow */
+.mn-dsmenu-animation-grow.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li > a::before {
+    transform: scale(0.85);
+}
+
+.mn-dsmenu-animation-grow.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-animation-grow.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li.current-menu-item > a::before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Background: Sweep Left */
+.mn-dsmenu-animation-sweep-left.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li > a::before {
+    transform: scaleX(0);
+    transform-origin: right center;
+}
+
+.mn-dsmenu-animation-sweep-left.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-animation-sweep-left.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li.current-menu-item > a::before {
+    transform: scaleX(1);
+    opacity: 1;
+}
+
+/* Background: Sweep Right */
+.mn-dsmenu-animation-sweep-right.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li > a::before {
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+.mn-dsmenu-animation-sweep-right.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li:hover > a::before,
+.mn-dsmenu-animation-sweep-right.mn-dsmenu-pointer-background .mn-dsmenu-nav > ul > li.current-menu-item > a::before {
+    transform: scaleX(1);
+    opacity: 1;
+}
+
+/* ═══════════════════════════════════════════
+   DROPDOWN / SUBMENU
+   ═══════════════════════════════════════════ */
+
+.mn-dsmenu-nav .sub-menu {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+}
+
+/* Nested sub-menus open to the right */
+.mn-dsmenu-nav .sub-menu .sub-menu {
+    top: -8px;
+    left: 100%;
+    margin-top: 0;
+}
+
+/* Show submenu on hover */
+.mn-dsmenu-nav li:hover > .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Submenu link styles */
+.mn-dsmenu-nav .sub-menu a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.mn-dsmenu-nav .sub-menu a:hover {
+    background-color: #f5f5f5;
+}
+
+/* ── Dropdown Animations ── */
+
+/* Fade Up */
+[data-submenu-animation="fade-up"] .sub-menu {
+    transform: translateY(10px);
+}
+
+[data-submenu-animation="fade-up"] li:hover > .sub-menu {
+    transform: translateY(0);
+}
+
+[data-submenu-animation="fade-up"] .sub-menu .sub-menu {
+    transform: translateX(10px);
+}
+
+[data-submenu-animation="fade-up"] .sub-menu li:hover > .sub-menu {
+    transform: translateX(0);
+}
+
+/* Fade Down */
+[data-submenu-animation="fade-down"] .sub-menu {
+    transform: translateY(-10px);
+}
+
+[data-submenu-animation="fade-down"] li:hover > .sub-menu {
+    transform: translateY(0);
+}
+
+/* Fade */
+[data-submenu-animation="fade"] .sub-menu {
+    transform: none;
+}
+
+/* Slide Down */
+[data-submenu-animation="slide"] .sub-menu {
+    transform: scaleY(0);
+    transform-origin: top center;
+}
+
+[data-submenu-animation="slide"] li:hover > .sub-menu {
+    transform: scaleY(1);
+}
+
+/* None */
+[data-submenu-animation="none"] .sub-menu {
+    transition: none;
+    transform: none;
+}
+
+/* ═══════════════════════════════════════════
+   VERTICAL LAYOUT
+   ═══════════════════════════════════════════ */
+
+.mn-dsmenu-layout-vertical .mn-dsmenu-nav > ul > li > a {
+    width: 100%;
+}
+
+.mn-dsmenu-layout-vertical .mn-dsmenu-nav .sub-menu {
+    top: 0;
+    left: 100%;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE - Tablet
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+    .mn-dsmenu-nav > ul {
+        flex-wrap: wrap;
+    }
+
+    .mn-dsmenu-nav > ul > li > a {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    /* Prevent sub-menus from going off-screen */
+    .mn-dsmenu-nav .sub-menu .sub-menu {
+        left: auto;
+        right: 100%;
+    }
+}
+
+/* ═══════════════════════════════════════════
+   ACCESSIBILITY
+   ═══════════════════════════════════════════ */
+
+/* Keyboard focus styles */
+.mn-dsmenu-nav a:focus-visible {
+    outline: 2px solid #557df3;
+    outline-offset: 2px;
+}
+
+/* Show submenu on keyboard focus within */
+.mn-dsmenu-nav li:focus-within > .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) translateX(0) scaleY(1);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .mn-dsmenu-nav > ul > li > a::before,
+    .mn-dsmenu-nav > ul > li > a::after,
+    .mn-dsmenu-nav .sub-menu,
+    .mn-dsmenu-indicator {
+        transition: none !important;
+    }
+}

@@ -26,6 +26,12 @@
             var isAjax = $wrapper.hasClass('mn-atc-ajax');
             var redirect = $wrapper.data('redirect');
 
+            // Store original price HTML for reset
+            var $priceEl = $wrapper.find('.mn-atc-price');
+            if ($priceEl.length) {
+                $wrapper.data('original-price-html', $priceEl.html());
+            }
+
             // Initialize variation selection
             initVariations($wrapper);
 
@@ -198,6 +204,12 @@
         $wrapper.find('.mn-atc-selected-value').text('');
         $wrapper.find('.mn-atc-button').prop('disabled', true);
         $wrapper.find('.mn-atc-buy-now').prop('disabled', true);
+
+        // Restore original price
+        var originalPrice = $wrapper.data('original-price-html');
+        if (originalPrice) {
+            $wrapper.find('.mn-atc-price').html(originalPrice);
+        }
 
         // Trigger variation cleared event
         $(document).trigger('mn_variation_cleared', [{ product_id: $wrapper.data('product-id') }]);

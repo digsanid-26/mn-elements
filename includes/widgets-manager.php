@@ -232,6 +232,10 @@ class Widgets_Manager {
 				'file' => 'mn-videoplayer.php',
 				'class' => '\MN_Elements\Widgets\MN_Video_Player',
 			],
+			'mn-dsmenu' => [
+				'file' => 'mn-dsmenu.php',
+				'class' => '\MN_Elements\Widgets\MN_Desktop_Menu',
+			],
 		];
 	}
 

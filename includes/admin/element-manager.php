@@ -359,6 +359,14 @@ class Element_Manager {
 				'file' => 'mn-videoplayer.php',
 				'class' => '\MN_Elements\Widgets\MN_Video_Player',
 			],
+			'mn-dsmenu' => [
+				'title' => esc_html__( 'MN Desktop Menu', 'mn-elements' ),
+				'description' => esc_html__( 'Desktop and tablet navigation menu with horizontal/vertical layout, pointer animations, dropdown submenus, and keyboard accessibility', 'mn-elements' ),
+				'icon' => 'eicon-nav-menu',
+				'category' => 'general',
+				'file' => 'mn-dsmenu.php',
+				'class' => '\MN_Elements\Widgets\MN_Desktop_Menu',
+			],
 		];
 	}
 

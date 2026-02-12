@@ -484,3 +484,202 @@ function mn_order_details_shortcode( $atts ) {
 	return ob_get_clean();
 }
 add_shortcode( 'mn_order_details', 'mn_order_details_shortcode' );
+
+/**
+ * AJAX handler: Get variation data (price, stock, image) for MN Add To Cart widget
+ */
+function mn_get_variation_data_handler() {
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'mn_add_to_cart_nonce' ) ) {
+		wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
+	}
+
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		wp_send_json_error( array( 'message' => 'WooCommerce is not active' ) );
+	}
+
+	$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
+	$variations = isset( $_POST['variations'] ) ? array_map( 'sanitize_text_field', (array) $_POST['variations'] ) : array();
+
+	$product = wc_get_product( $product_id );
+	if ( ! $product || ! $product->is_type( 'variable' ) ) {
+		wp_send_json_error( array( 'message' => 'Invalid product' ) );
+	}
+
+	// Build matching attributes array for data store lookup
+	$match_attributes = array();
+	foreach ( $variations as $key => $value ) {
+		// Normalize attribute key
+		$attr_key = $key;
+		if ( strpos( $attr_key, 'attribute_' ) !== 0 ) {
+			$attr_key = 'attribute_' . $attr_key;
+		}
+		$match_attributes[ sanitize_title( $attr_key ) ] = $value;
+	}
+
+	// Find matching variation
+	$data_store = \WC_Data_Store::load( 'product' );
+	$variation_id = $data_store->find_matching_product_variation( $product, $match_attributes );
+
+	if ( ! $variation_id ) {
+		wp_send_json_error( array( 'message' => 'Variation not found' ) );
+	}
+
+	$variation = wc_get_product( $variation_id );
+	if ( ! $variation ) {
+		wp_send_json_error( array( 'message' => 'Variation not found' ) );
+	}
+
+	// Build price HTML with regular price strikethrough when on sale
+	$price_html = '';
+	$regular_price = $variation->get_regular_price();
+	$sale_price    = $variation->get_sale_price();
+
+	if ( $sale_price !== '' && $sale_price !== $regular_price ) {
+		$price_html = '<del>' . wc_price( $regular_price ) . '</del> <ins>' . wc_price( $sale_price ) . '</ins>';
+	} else {
+		$price_html = wc_price( $regular_price );
+	}
+
+	// Get variation image
+	$image_id  = $variation->get_image_id();
+	$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'woocommerce_single' ) : '';
+
+	wp_send_json_success( array(
+		'variation_id' => $variation_id,
+		'price_html'   => $price_html,
+		'is_in_stock'  => $variation->is_in_stock(),
+		'stock_status' => $variation->get_stock_status(),
+		'image_url'    => $image_url,
+	) );
+}
+add_action( 'wp_ajax_mn_get_variation_data', 'mn_get_variation_data_handler' );
+add_action( 'wp_ajax_nopriv_mn_get_variation_data', 'mn_get_variation_data_handler' );
+
+/**
+ * AJAX handler: Add to cart for MN Add To Cart widget
+ */
+function mn_add_to_cart_handler() {
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'mn_add_to_cart_nonce' ) ) {
+		wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
+	}
+
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		wp_send_json_error( array( 'message' => 'WooCommerce is not active' ) );
+	}
+
+	$product_id   = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
+	$variation_id = isset( $_POST['variation_id'] ) ? absint( $_POST['variation_id'] ) : 0;
+	$quantity     = isset( $_POST['quantity'] ) ? absint( $_POST['quantity'] ) : 1;
+	$variations   = isset( $_POST['variations'] ) ? array_map( 'sanitize_text_field', (array) $_POST['variations'] ) : array();
+
+	if ( ! $product_id ) {
+		wp_send_json_error( array( 'message' => 'Invalid product' ) );
+	}
+
+	$product = wc_get_product( $product_id );
+	if ( ! $product ) {
+		wp_send_json_error( array( 'message' => 'Product not found' ) );
+	}
+
+	// Variable product
+	if ( $variation_id ) {
+		$variation_attrs = array();
+		foreach ( $variations as $key => $value ) {
+			$attr_key = $key;
+			if ( strpos( $attr_key, 'attribute_' ) !== 0 ) {
+				$attr_key = 'attribute_' . $attr_key;
+			}
+			$variation_attrs[ sanitize_title( $attr_key ) ] = $value;
+		}
+
+		$added = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation_attrs );
+	} else {
+		// Simple product
+		$added = WC()->cart->add_to_cart( $product_id, $quantity );
+	}
+
+	if ( $added ) {
+		// Get updated fragments
+		ob_start();
+		wc_mini_cart();
+		$mini_cart = ob_get_clean();
+
+		$data = array(
+			'message'   => esc_html__( 'Product added to cart!', 'mn-elements' ),
+			'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', array(
+				'div.widget_shopping_cart_content' => '<div class="widget_shopping_cart_content">' . $mini_cart . '</div>',
+			) ),
+			'cart_hash' => WC()->cart->get_cart_hash(),
+		);
+
+		wp_send_json_success( $data );
+	} else {
+		$notices = wc_get_notices( 'error' );
+		wc_clear_notices();
+		$error_msg = ! empty( $notices ) ? wp_strip_all_tags( $notices[0]['notice'] ) : esc_html__( 'Could not add product to cart.', 'mn-elements' );
+		wp_send_json_error( array( 'message' => $error_msg ) );
+	}
+}
+add_action( 'wp_ajax_mn_add_to_cart', 'mn_add_to_cart_handler' );
+add_action( 'wp_ajax_nopriv_mn_add_to_cart', 'mn_add_to_cart_handler' );
+
+/**
+ * AJAX handler: Get variation price for MN WooProduct widget
+ */
+function mn_wooproduct_get_variation_price_handler() {
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'mn_wooproduct_nonce' ) ) {
+		wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
+	}
+
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		wp_send_json_error( array( 'message' => 'WooCommerce is not active' ) );
+	}
+
+	$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
+	$attribute  = isset( $_POST['attribute'] ) ? sanitize_text_field( $_POST['attribute'] ) : '';
+	$value      = isset( $_POST['value'] ) ? sanitize_text_field( $_POST['value'] ) : '';
+
+	$product = wc_get_product( $product_id );
+	if ( ! $product || ! $product->is_type( 'variable' ) ) {
+		wp_send_json_error( array( 'message' => 'Invalid product' ) );
+	}
+
+	// Find a variation that matches this attribute value
+	$match_attributes = array(
+		'attribute_' . sanitize_title( $attribute ) => $value,
+	);
+
+	$data_store   = \WC_Data_Store::load( 'product' );
+	$variation_id = $data_store->find_matching_product_variation( $product, $match_attributes );
+
+	if ( ! $variation_id ) {
+		// Return parent product price as fallback
+		wp_send_json_success( array(
+			'price_html' => $product->get_price_html(),
+		) );
+	}
+
+	$variation = wc_get_product( $variation_id );
+	if ( ! $variation ) {
+		wp_send_json_success( array(
+			'price_html' => $product->get_price_html(),
+		) );
+	}
+
+	// Build price HTML with regular price strikethrough when on sale
+	$regular_price = $variation->get_regular_price();
+	$sale_price    = $variation->get_sale_price();
+
+	if ( $sale_price !== '' && $sale_price !== $regular_price ) {
+		$price_html = '<del>' . wc_price( $regular_price ) . '</del> <ins>' . wc_price( $sale_price ) . '</ins>';
+	} else {
+		$price_html = wc_price( $regular_price );
+	}
+
+	wp_send_json_success( array(
+		'price_html'   => $price_html,
+		'variation_id' => $variation_id,
+	) );
+}
+add_action( 'wp_ajax_mn_wooproduct_get_variation_price', 'mn_wooproduct_get_variation_price_handler' );
+add_action( 'wp_ajax_nopriv_mn_wooproduct_get_variation_price', 'mn_wooproduct_get_variation_price_handler' );

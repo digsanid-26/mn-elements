@@ -8,6 +8,7 @@
     $(document).ready(function() {
         initGalleryNavigation();
         initAjaxAddToCart();
+        initVariationPrice();
     });
 
     // Re-initialize on Elementor frontend init
@@ -15,6 +16,7 @@
         elementorFrontend.hooks.addAction('frontend/element_ready/mn-wooproduct.default', function($scope) {
             initGalleryNavigation($scope);
             initAjaxAddToCart($scope);
+            initVariationPrice($scope);
         });
     });
 
@@ -122,6 +124,72 @@
             if (href && href.indexOf('add-to-cart') !== -1) {
                 return true;
             }
+        });
+    }
+
+    /**
+     * Initialize Variation Price Update
+     */
+    function initVariationPrice($scope) {
+        var $container = $scope ? $scope : $(document);
+
+        $container.find('.mn-wooproduct-item').each(function() {
+            var $item = $(this);
+            var $priceEl = $item.find('.mn-wooproduct-price');
+
+            if (!$priceEl.length) return;
+
+            // Store original price HTML
+            $item.data('original-price-html', $priceEl.html());
+        });
+
+        $container.find('.mn-wooproduct-variation-item').off('click.mnVariationPrice').on('click.mnVariationPrice', function() {
+            var $swatch = $(this);
+            var $item = $swatch.closest('.mn-wooproduct-item');
+            var $priceEl = $item.find('.mn-wooproduct-price');
+            var productId = $item.data('product-id');
+            var value = $swatch.data('value');
+            var attribute = $swatch.closest('.mn-wooproduct-variations').data('attribute');
+
+            if (!$priceEl.length || !productId || !value || !attribute) return;
+
+            // Toggle active state
+            var wasActive = $swatch.hasClass('active');
+            $swatch.closest('.mn-wooproduct-variations').find('.mn-wooproduct-variation-item').removeClass('active');
+
+            if (wasActive) {
+                // Deselect: restore original price
+                var originalPrice = $item.data('original-price-html');
+                if (originalPrice) {
+                    $priceEl.html(originalPrice);
+                }
+                return;
+            }
+
+            $swatch.addClass('active');
+
+            // Fetch variation price via AJAX
+            var ajaxUrl = (typeof mn_wooproduct_params !== 'undefined') ? mn_wooproduct_params.ajax_url : (typeof wc_add_to_cart_params !== 'undefined' ? wc_add_to_cart_params.ajax_url : '');
+            var nonce = (typeof mn_wooproduct_params !== 'undefined') ? mn_wooproduct_params.nonce : '';
+
+            if (!ajaxUrl || !nonce) return;
+
+            $.ajax({
+                type: 'POST',
+                url: ajaxUrl,
+                data: {
+                    action: 'mn_wooproduct_get_variation_price',
+                    product_id: productId,
+                    attribute: attribute,
+                    value: value,
+                    nonce: nonce
+                },
+                success: function(response) {
+                    if (response.success && response.data && response.data.price_html) {
+                        $priceEl.html(response.data.price_html);
+                    }
+                }
+            });
         });
     }
 
